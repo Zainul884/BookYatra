@@ -1,0 +1,5 @@
+
+I spent about 5 hours looking into APIs for our project and found that the Booking.com API by DataCrawler on RapidAPI is the best fit.
+It lets us list hotels, search by location, get hotel details, check out the best prices, and more. 
+It's more comprehensive than others like TripAdvisor and Sky Scrapper.
+Here's the link to it: Booking.com API on RapidAPI: https://rapidapi.com/DataCrawler/api/booking-com15/ 
