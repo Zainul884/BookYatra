@@ -1,0 +1,7 @@
+I searched for flight api's that we can use for our project. This api should be able to display a list of flights, search flight locations, search flights, search flight multi stops, get flight details, get min price, get min price multi stops, and get a seat map. All this information was available in the Booking.com API by DataCrawler found on the RapidAPI website. 
+
+Other API's I found were the TripAdvisor API, Travel Advisor, Sky Scrapper, and more. However these API's did not include all the information that we needed so I decided to go with the Booking.com API. 
+
+I spent 5 hrs researching for this and found good information that we can use to build and refine our app. 
+
+Link: https://rapidapi.com/DataCrawler/api/booking-com15/
