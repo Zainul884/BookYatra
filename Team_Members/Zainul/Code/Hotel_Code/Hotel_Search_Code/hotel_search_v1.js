@@ -1,3 +1,6 @@
+//ChatGPT was used to help solve bugs in this code and provide some design suggestions. 
+//The API code has been taken from the Booking.com API on RapidAPI. 
+//My name is Zainul Malik 
 "use client";
 import React, { useState } from 'react';
 import axios from 'axios';
