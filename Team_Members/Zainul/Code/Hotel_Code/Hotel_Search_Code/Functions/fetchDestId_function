@@ -1,0 +1,32 @@
+//ChatGPT was used to fix some bugs in this code
+//The prompt I entered was "This is my code for fetching destination id's. The Destination ID is not being correctly fetched so please fix that."
+//When I entered this, ChatGPT found my bug which I found out was related to me hitting the max limit usage.
+//This code defines an async function fetchDestId that makes a GET request to a specific API endpoint using Axios, clears previous error and results, and updates state variables with the API response or error information.
+//My name is Zainul Malik
+
+
+const fetchDestId = async () => {
+    setIsLoadingDest(true);
+    setErrorDest('');
+    setDestResults([]);
+
+    const options = {
+      method: 'GET',
+      url: 'https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination',
+      params: { query: query },
+      headers: {
+        'X-RapidAPI-Key': 'ae41750b50msh389a7b6e1203026p127800jsnc1c3b5dbac79',
+        'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com',
+      },
+    };
+
+    try {
+      const response = await axios.request(options);
+      setDestResults(response.data.data);
+    } catch (error) {
+      console.error("Error fetching destination ID:", error);
+      setErrorDest("An error occurred while fetching the destination ID.");
+    } finally {
+      setIsLoadingDest(false);
+    }
+  };
