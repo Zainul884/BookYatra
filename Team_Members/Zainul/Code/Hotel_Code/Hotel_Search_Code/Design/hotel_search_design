@@ -1,0 +1,49 @@
+const styles = {
+  container: {
+    fontFamily: 'Arial, sans-serif',
+    color: '#333',
+    backgroundColor: '#f4f4f4',
+    padding: '20px',
+  },
+  formContainer: {
+    backgroundColor: 'white',
+    padding: '20px',
+    borderRadius: '8px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    marginBottom: '20px',
+  },
+  inputGroup: {
+    marginBottom: '15px',
+  },
+  label: {
+    display: 'block',
+    marginBottom: '5px',
+  },
+  input: {
+    width: '100%',
+    padding: '10px',
+    border: '1px solid #ddd',
+    borderRadius: '4px',
+    marginBottom: '10px',
+  },
+  button: {
+    padding: '10px 20px',
+    border: 'none',
+    borderRadius: '4px',
+    backgroundColor: '#007bff',
+    color: 'white',
+    fontSize: '16px',
+    cursor: 'pointer',
+  },
+  resultsContainer: {
+    padding: '20px',
+    backgroundColor: 'white',
+    borderRadius: '8px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  },
+  resultItem: {
+    borderBottom: '1px solid #ddd',
+    paddingBottom: '10px',
+    marginBottom: '10px',
+  },
+};
