@@ -1,0 +1,27 @@
+//This piece of code is crucial to correctly display the hotels from the API to our website
+//ChatGPT was used to fix some bugs in this code
+//The prompt I entered was "This is my code for fetching hotels from the Booking.com API on RapidAPI. The hotels are not being fetched correctly so fix that.
+//When I entered this, ChatGPT found my bug which was related to incorrect data handling of the information. The way I was handling the data and the way the API was handling the data was different.
+//My name is Zainul Malik
+
+{/* Hotel Results */}
+<div style={styles.resultsContainer}>
+  {isLoadingHotels ? (
+    <p>Loading hotels...</p>
+  ) : errorHotels ? (
+    <p>{errorHotels}</p>
+  ) : hotels.length > 0 ? (
+    <div>
+      <h2>Hotel Results:</h2>
+      {hotels.map((hotel, index) => (
+        <div key={index} style={styles.resultItem}>
+          <h3>{hotel.property.name}</h3>
+          <p>{hotel.accessibilityLabel}</p>
+          {/* Add more details as needed */}
+        </div>
+      ))}
+    </div>
+  ) : (
+    <p>No hotels found.</p>
+  )}
+</div>
