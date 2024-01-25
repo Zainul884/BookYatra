@@ -1,0 +1,76 @@
+"use client";
+
+import React, { useState } from 'react';
+import axios from 'axios';
+
+// This is a React functional component named SearchFlights.
+const SearchFlights = () => {
+  // State variables to store flight data, departure date, loading status, and errors.
+  const [flightData, setFlightData] = useState(null);
+  const [departDate, setDepartDate] = useState(getTomorrowDate());
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Function to calculate tomorrow's date as the default departure date.
+  function getTomorrowDate() {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow.toISOString().split('T')[0];
+  }
+
+  // Async function to fetch flight data from the API.
+  const fetchFlightData = async () => {
+    setIsLoading(true);
+    setError(null);
+
+    // API request configuration.
+    const options = {
+      method: 'GET',
+      url: 'https://booking-com15.p.rapidapi.com/api/v1/flights/searchFlights',
+      params: {
+        fromId: 'BOM.AIRPORT',
+        toId: 'DEL.AIRPORT',
+        departDate: departDate,
+        pageNo: '1',
+        adults: '1',
+        children: '0,17',
+        currency_code: 'AED'
+      },
+      headers: {
+        'X-RapidAPI-Key': 'cd5a13cfe5mshb67c69583c5500dp1d6f95jsnb74aede37ad9',
+        'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com'
+      }
+    };
+
+    try {
+      // Making the API request and setting the flight data.
+      const response = await axios.request(options);
+      setFlightData(response.data);
+    } catch (error) {
+      // Handling errors during the API request.
+      console.error('Error fetching flight data:', error);
+      setError('Failed to load flight data. Please try again later.');
+    } finally {
+      // Resetting loading state after request completion.
+      setIsLoading(false);
+    }
+  };
+
+  // Rendering the component.
+  return (
+    <div>
+      <h1>Search Flights</h1>
+      <input 
+        type="date" 
+        value={departDate} 
+        onChange={e => setDepartDate(e.target.value)} // Updating the departure date.
+      />
+      <button onClick={fetchFlightData} disabled={isLoading}>Load Flights</button>
+      {/* Displaying the loading status, flight data, or error messages */}
+      {isLoading ? <p>Loading...</p> : flightData && <pre>{JSON.stringify(flightData, null, 2)}</pre>}
+      {error && <p>{error}</p>}
+    </div>
+  );
+};
+
+export default SearchFlights;
