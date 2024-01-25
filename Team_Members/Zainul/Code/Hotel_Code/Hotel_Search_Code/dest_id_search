@@ -1,0 +1,139 @@
+//ChatGPT was used to fix some bugs in this code
+//The prompt I entered was "This is my code for a Hotel Search Engine. The Destination ID is not displaying so please fix that."
+//When I entered this, ChatGPT found my bug which was related to incorrect formatting and fixed the bug
+//My name is Zainul Malik
+
+"use client";
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const Header = () => <header>Destination ID Search</header>;
+
+const styles = {
+  container: {
+    fontFamily: 'Arial, sans-serif',
+    color: '#333',
+    backgroundColor: '#f4f4f4',
+    padding: '20px',
+  },
+  formContainer: {
+    backgroundColor: 'white',
+    padding: '20px',
+    borderRadius: '8px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    marginBottom: '20px',
+  },
+  inputGroup: {
+    marginBottom: '15px',
+  },
+  label: {
+    display: 'block',
+    marginBottom: '5px',
+  },
+  input: {
+    width: '100%',
+    padding: '10px',
+    border: '1px solid #ddd',
+    borderRadius: '4px',
+    marginBottom: '10px',
+  },
+  button: {
+    padding: '10px 20px',
+    border: 'none',
+    borderRadius: '4px',
+    backgroundColor: '#007bff',
+    color: 'white',
+    fontSize: '16px',
+    cursor: 'pointer',
+  },
+  resultsContainer: {
+    padding: '20px',
+    backgroundColor: 'white',
+    borderRadius: '8px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  },
+  resultItem: {
+    borderBottom: '1px solid #ddd',
+    paddingBottom: '10px',
+    marginBottom: '10px',
+  },
+};
+
+function DestIdSearch() {
+  const [destResults, setDestResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [query, setQuery] = useState('');
+
+  const fetchDestId = async () => {
+    setIsLoading(true);
+    setError('');
+    setDestResults([]);
+
+    const options = {
+      method: 'GET',
+      url: 'https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination',
+      params: { query: query },
+      headers: {
+        'X-RapidAPI-Key':  'ae41750b50msh389a7b6e1203026p127800jsnc1c3b5dbac79',
+        'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com',
+      },
+    };
+
+    try {
+      const response = await axios.request(options);
+      setDestResults(response.data.data);
+    } catch (error) {
+      console.error("Error fetching destination ID:", error);
+      setError("An error occurred while fetching the destination ID.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div style={styles.container}>
+      <Header />
+      <div style={styles.formContainer}>
+        <div style={styles.inputGroup}>
+          <label style={styles.label}>Search Query (City, District, etc.)</label>
+          <input
+            type="text"
+            style={styles.input}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Enter city or district"
+            required
+          />
+        </div>
+        <button style={styles.button} onClick={fetchDestId}>
+          Search Destination ID
+        </button>
+      </div>
+      <div style={styles.resultsContainer}>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p>{error}</p>
+        ) : destResults.length > 0 ? (
+          <div>
+            <h2>Destination Results:</h2>
+            {destResults.map((dest, index) => (
+              <div key={index} style={styles.resultItem}>
+                <p>Destination ID: {dest.dest_id}</p>
+                <p>City: {dest.city_name}</p>
+                <p>Region: {dest.region}</p>
+                <p>Country: {dest.country}</p>
+                <p>Type: {dest.search_type}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No destination IDs found.</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default DestIdSearch;

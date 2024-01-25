@@ -1,0 +1,258 @@
+//ChatGPT was used to fix some bugs in this code
+//The prompt I entered was "This is my code for fetching hotels from the Booking.com API on RapidAPI. The hotels are being fetched but the results arent being displayed.
+//When I entered this, ChatGPT found my bug which was related to incorrect data handling of the information. The way I was handling the data and the way the API was handling the data was different which is why it wasnt displaying
+//I also used ChatGPT to provide suggestions for my code which I later added such as comments and proper formatting or better code
+//My name is Zainul Malik
+
+"use client";
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const Header = () => <header>Travel Search</header>;
+
+const styles = {
+  container: {
+    fontFamily: 'Arial, sans-serif',
+    color: '#333',
+    backgroundColor: '#f4f4f4',
+    padding: '20px',
+  },
+  formContainer: {
+    backgroundColor: 'white',
+    padding: '20px',
+    borderRadius: '8px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    marginBottom: '20px',
+  },
+  inputGroup: {
+    marginBottom: '15px',
+  },
+  label: {
+    display: 'block',
+    marginBottom: '5px',
+  },
+  input: {
+    width: '100%',
+    padding: '10px',
+    border: '1px solid #ddd',
+    borderRadius: '4px',
+    marginBottom: '10px',
+  },
+  button: {
+    padding: '10px 20px',
+    border: 'none',
+    borderRadius: '4px',
+    backgroundColor: '#007bff',
+    color: 'white',
+    fontSize: '16px',
+    cursor: 'pointer',
+  },
+  resultsContainer: {
+    padding: '20px',
+    backgroundColor: 'white',
+    borderRadius: '8px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  },
+  resultItem: {
+    borderBottom: '1px solid #ddd',
+    paddingBottom: '10px',
+    marginBottom: '10px',
+  },
+};
+
+function DestIdSearch() {
+  const [destResults, setDestResults] = useState([]);
+  const [isLoadingDest, setIsLoadingDest] = useState(false);
+  const [errorDest, setErrorDest] = useState('');
+  const [query, setQuery] = useState('');
+
+  const [hotels, setHotels] = useState([]);
+  const [isLoadingHotels, setIsLoadingHotels] = useState(false);
+  const [errorHotels, setErrorHotels] = useState('');
+  const [destId, setDestId] = useState('');
+  const [arrivalDate, setArrivalDate] = useState('');
+  const [departureDate, setDepartureDate] = useState('');
+  const [adults, setAdults] = useState('1');
+  const [childrenAge, setChildrenAge] = useState('0,17');
+  const [roomQty, setRoomQty] = useState('1');
+
+  const fetchDestId = async () => {
+    setIsLoadingDest(true);
+    setErrorDest('');
+    setDestResults([]);
+
+    const options = {
+      method: 'GET',
+      url: 'https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination',
+      params: { query: query },
+      headers: {
+        'X-RapidAPI-Key': 'ae41750b50msh389a7b6e1203026p127800jsnc1c3b5dbac79',
+        'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com',
+      },
+    };
+
+    try {
+      const response = await axios.request(options);
+      setDestResults(response.data.data);
+    } catch (error) {
+      console.error("Error fetching destination ID:", error);
+      setErrorDest("An error occurred while fetching the destination ID.");
+    } finally {
+      setIsLoadingDest(false);
+    }
+  };
+
+  const fetchHotels = async () => {
+    setIsLoadingHotels(true);
+    setErrorHotels('');
+  
+    const hotelOptions = {
+      method: 'GET',
+      url: 'https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels',
+      params: {
+        dest_id: destId,
+        search_type: 'CITY',
+        arrival_date: arrivalDate,
+        departure_date: departureDate,
+        adults: adults,
+        children_age: childrenAge,
+        room_qty: roomQty,
+        page_number: '1',
+        languagecode: 'en-us',
+        currency_code: 'AED'
+      },
+      headers: {
+        'X-RapidAPI-Key': 'ae41750b50msh389a7b6e1203026p127800jsnc1c3b5dbac79',
+        'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com',
+      },
+    };
+  
+    try {
+      const response = await axios.request(hotelOptions);
+      // Access the hotels array within the data object
+      if (response.data && response.data.data && Array.isArray(response.data.data.hotels)) {
+        setHotels(response.data.data.hotels);
+      } else {
+        setHotels([]); // Set to empty if the path is not as expected
+      }
+    } catch (error) {
+      console.error("Error fetching hotels:", error);
+      setErrorHotels("An error occurred while fetching hotels.");
+    } finally {
+      setIsLoadingHotels(false);
+    }
+  };
+  
+
+  return (
+    <div style={styles.container}>
+      <Header />
+      {/* Destination ID Search Section */}
+      <div style={styles.formContainer}>
+        <h2>Destination ID Search</h2>
+        <div style={styles.inputGroup}>
+          <label style={styles.label}>Search Query (City, District, etc.)</label>
+          <input
+            type="text"
+            style={styles.input}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Enter city or district"
+            required
+          />
+        </div>
+        <button style={styles.button} onClick={fetchDestId}>
+          Search Destination ID
+        </button>
+      </div>
+
+      {/* Destination Results */}
+      <div style={styles.resultsContainer}>
+        {isLoadingDest ? (
+          <p>Loading...</p>
+        ) : errorDest ? (
+          <p>{errorDest}</p>
+        ) : destResults.length > 0 ? (
+          <div>
+            <h2>Destination Results:</h2>
+            {destResults.map((dest, index) => (
+              <div key={index} style={styles.resultItem}>
+                <p>Destination ID: {dest.dest_id}</p>
+                <p>City: {dest.city_name}</p>
+                <p>Region: {dest.region}</p>
+                <p>Country: {dest.country}</p>
+                <p>Type: {dest.search_type}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No destination IDs found.</p>
+        )}
+      </div>
+
+      {/* Hotel Search Section */}
+      <div style={styles.formContainer}>
+        <h2>Hotel Search</h2>
+        <div style={styles.inputGroup}>
+          <label style={styles.label}>Destination ID</label>
+          <input
+            type="text"
+            style={styles.input}
+            value={destId}
+            onChange={(e) => setDestId(e.target.value)}
+            placeholder="Enter destination ID"
+            required
+          />
+        </div>
+        <div style={styles.inputGroup}>
+          <label style={styles.label}>Arrival Date</label>
+          <input
+            type="date"
+            style={styles.input}
+            value={arrivalDate}
+            onChange={(e) => setArrivalDate(e.target.value)}
+            required
+          />
+        </div>
+        <div style={styles.inputGroup}>
+          <label style={styles.label}>Departure Date</label>
+          <input
+            type="date"
+            style={styles.input}
+            value={departureDate}
+            onChange={(e) => setDepartureDate(e.target.value)}
+            required
+          />
+        </div>
+        {/* Additional fields for adults, children, room quantity, etc. can be added here */}
+        <button style={styles.button} onClick={fetchHotels}>
+          Search Hotels
+        </button>
+      </div>
+
+      {/* Hotel Results */}
+<div style={styles.resultsContainer}>
+  {isLoadingHotels ? (
+    <p>Loading hotels...</p>
+  ) : errorHotels ? (
+    <p>{errorHotels}</p>
+  ) : hotels.length > 0 ? (
+    <div>
+      <h2>Hotel Results:</h2>
+      {hotels.map((hotel, index) => (
+        <div key={index} style={styles.resultItem}>
+          <h3>{hotel.property.name}</h3>
+          <p>{hotel.accessibilityLabel}</p>
+          {/* Add more details as needed */}
+        </div>
+      ))}
+    </div>
+  ) : (
+    <p>No hotels found.</p>
+  )}
+</div>
+    </div>
+  );
+}
+
+export default DestIdSearch;

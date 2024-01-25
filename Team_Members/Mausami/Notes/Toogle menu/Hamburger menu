@@ -1,0 +1,20 @@
+I'm currently doing research on how to add a toggle menu to a website and I came across an article by Kevin Huang that really helped me out. Based on his insights, here's what I found out about adding a hamburger menu to a webpage, especially when working with React.
+
+First, the whole idea is to make the web page responsive, particularly for mobile users. The hamburger menu is a neat solution for this. It's a button on websites that opens up a side menu or navigation drawer. It's pretty standard in responsive web design nowadays.
+
+So, here's a simple breakdown of how to add it:
+
+1.Start with the Navigation Component:use NextJs for the framework. It's compatible with React, so it's a good choice. The first step is to create a basic Nav component.  style it using style-jsx to make it easier to read and maintain.
+
+2.Create the Hamburger Component: This part is cool because instead of importing an icon for the hamburger, learn how to use CSS to style the hamburger container. This component is separate from the Nav one.
+
+3.Integrate the Hamburger into Nav: Next, the Hamburger component gets added to the Nav component. This is where it starts to come together.
+
+4.Adjustments for Mobile View: The hamburger shouldn't show up unless it's in mobile view. So, set its display to 'none' initially and used a media query for max-width (like 767px). This means it'll only appear on screens smaller than this size.
+
+5.Hide and Show Navigation Links: This is where React Hooks come into play. Using the useState hook , manage to control the visibility of the navigation links. They stay hidden and only appear when the Hamburger icon is clicked.
+
+6.Adding Animation: Finally, to make it more interactive,use the state from the Nav component in the Hamburger component. So, when the 'hamburgerOpen' state is true, the hamburger icon changes its appearance, like turning into an 'X'.
+
+And that's pretty much it! This guide by Kevin Huang was straightforward and really helpful in breaking d own the steps. The use of React Hooks also adds a nice interactive element to the menu.
+Looking forward to apply this to our app.
