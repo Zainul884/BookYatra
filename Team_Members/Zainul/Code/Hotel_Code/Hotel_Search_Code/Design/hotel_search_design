@@ -1,3 +1,9 @@
+//ChatGPT was used to fix some bugs in this code
+//The prompt I entered was "This is my code for a Hotel Search Engine. Please give me some design ideas."
+//When I entered this, ChatGPT gave me a basic template for the testing design which I later refined.
+//This design is similar to the flights search design as I want consistency while testing
+//My name is Zainul Malik
+
 const styles = {
   container: {
     fontFamily: 'Arial, sans-serif',
