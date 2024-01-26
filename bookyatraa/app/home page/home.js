@@ -7,10 +7,10 @@ function Home() {
     <div className="home">
       <header className="header">
         <div className="header-content">
-          {/* Ensure the image path is correct */}
+         
           <img src="./Images Capstone/LOGO without bg.png" alt="logo" className="logo-image" />
           <nav className="navigation">
-            {/* Update these hrefs to the correct paths */}
+        
             <Link href="/home"className="link">Home</Link>
             <Link href="/hotel" className="link">Hotel</Link>
             <Link href="/flight"className="link">Flight</Link>
@@ -21,7 +21,7 @@ function Home() {
         </div>
       </header>
       <main>
-        {/* Content of the home page goes here */}
+       
         <h1>Welcome to the Home Page</h1>
       </main>
     </div>

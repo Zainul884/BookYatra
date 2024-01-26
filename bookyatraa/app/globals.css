@@ -58,43 +58,43 @@ body {
 @tailwind components;
 @tailwind utilities;
 
-/* Apply a full-screen background image */
+
 .landing-page {
   background: url('/images capstone/Landing Page Image.png') no-repeat center center fixed;
   background-size: cover;
-  height: 100vh; /* Full height of the viewport */
+  height: 100vh; 
   display: flex;
   flex-direction: column;
   text-align: left;
 }
 
-/* Style the header to be transparent and position the navigation to the right */
+
 .landingpage-header {
   background-color: transparent;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem; /* Adjust padding as needed */
+  padding: 1rem 2rem;
   width: 100%;
 }
 
-/* Adjust the logo image */
+
 .logo {
-  width: 150px; /* Adjust the size as needed */
+  width: 150px; 
   height: auto;
 }
 
 /* Navigation links styling */
 .nav-links {
   display: flex;
-  gap: 1rem; /* Adjust space between navigation links */
+  gap: 1rem; 
 }
 
 .nav-links a {
   color: white;
   text-decoration: none;
-  font-weight: 500; /* Adjust weight as needed */
-  font-size: 1rem; /* Adjust font size as needed */
+  font-weight: 500; 
+  font-size: 1rem; 
   transition: color 0.3s ease;
 }
 
@@ -108,19 +108,19 @@ body {
   margin: auto;
   text-align: center;
   position: absolute;
-  top: 50%; /* Center vertically */
+  top: 50%; 
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
 .main-content h1 {
-  font-size: 3rem; /* Adjust font size as needed */
+  font-size: 3rem;
   color: white;
   margin-bottom: 0.5rem;
 }
 
 .main-content p {
-  font-size: 1.5rem; /* Adjust font size as needed */
+  font-size: 1.5rem; 
   color: white;
   margin-bottom: 2rem;
 }
@@ -129,14 +129,14 @@ body {
 .explore-button {
   font-size: 1rem;
   padding: 0.75rem 2rem;
-  background-color: #0056b3; /* Adjust button color as needed */
+  background-color: #0056b3; 
   color: white;
   border: none;
-  border-radius: 0.5rem; /* Adjust border-radius as needed */
+  border-radius: 0.5rem; 
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .explore-button:hover {
-  background-color: #003d82; /* Adjust button hover color as needed */
+  background-color: #003d82; 
 }

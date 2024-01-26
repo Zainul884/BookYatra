@@ -11,13 +11,13 @@ function LandingPage() {
           <Image 
               src="/Images Capstone/Logo For Landing Page.png"
               alt="BookYatra Logo"
-              width={150} // Adjust width as necessary
-              height={50} // Adjust height as necessary
+              width={150}
+              height={50} 
               layout="fixed"
             />
           </div>
           <div className="nav-links">
-            {/* Update these hrefs to the correct paths */}
+         
             <Link href="/home">Home</Link>
             <Link href="/hotels">Hotels</Link>
             <Link href="/flights">Flights</Link>
