@@ -1,18 +1,30 @@
+import React from 'react';
 import Link from 'next/link';
-export default function Home() {
+
+function Home() {
   return (
     <div className="home">
-      <header className=''>
-        <div className="">
-            <img src="../img/homepage/logo.png" alt="logo" className="w-20 h-20" />
-            <button className=''>Home</button>
-            <button className=''>Hotel</button>
-            <Link href="../qualifications" className=''>Flight</Link>
-            <Link href="../projects"className=''>Login</Link>
-            <button className=''>Sign Up</button>
-            <p className='border-b-2 border-black p-1'></p>
+      <header className="header">
+        <div className="header-content">
+          {/* Ensure the image path is correct */}
+          <img src="./Images Capstone/LOGO without bg.png" alt="logo" className="logo-image" />
+          <nav className="navigation">
+            {/* Update these hrefs to the correct paths */}
+            <Link href="/home"className="link">Home</Link>
+            <Link href="/hotel" className="link">Hotel</Link>
+            <Link href="/flight"className="link">Flight</Link>
+            <Link href="/login" className="link">Login</Link>
+            <Link href="/signup" className="link">Sign Up</Link>
+          </nav>
+          <p className="underline"></p>
         </div>
-        </header>
+      </header>
+      <main>
+        {/* Content of the home page goes here */}
+        <h1>Welcome to the Home Page</h1>
+      </main>
     </div>
   );
 }
+
+export default Home;
