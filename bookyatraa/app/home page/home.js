@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 function Home() {
   return (
+
     <div className="home">
       <header className="header">
         <div className="header-content">
