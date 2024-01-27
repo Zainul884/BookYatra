@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0,0, 0;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -16,127 +16,89 @@
   }
 }
 
+/* landing page */
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgba(var(--background-start-rgb), 0),
+      rgba(var(--background-end-rgb), 1)
+    );
 }
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
-.home {
-  background-color: white;
-  color: black;
-  padding-top: 5px;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between; 
-  align-items: center;
-}
-
-.bookyatra {
-  margin-left: 20px;
-}
-
-.left-buttons button{
-  margin-right: 30px;
-}
-
-
-/*Landing page*/
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 
 .landing-page {
-  background: url('/images capstone/Landing Page Image.png') no-repeat center center fixed;
+  height: 100vh;
+  background-image: url('/Images Capstone/Landing Page Image.png'); /* Replace with your background image path */
   background-size: cover;
-  height: 100vh; 
-  display: flex;
-  flex-direction: column;
-  text-align: left;
+  background-position: center;
+  position: relative;
 }
 
-
 .landingpage-header {
-  background-color: transparent;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
+  position: fixed;
   width: 100%;
+  top: 0;
+  z-index: 1000;
 }
 
-
-.logo {
-  width: 150px; 
+.logo img {
   height: auto;
 }
 
-/* Navigation links styling */
-.nav-links {
-  display: flex;
-  gap: 1rem; 
-}
-
 .nav-links a {
-  color: white;
+  color: rgb(247, 247, 249);
   text-decoration: none;
-  font-weight: 500; 
-  font-size: 1rem; 
-  transition: color 0.3s ease;
+  margin: 0 1rem;
+  font-weight: bold;
+  transition: color 0.3s;
 }
 
 .nav-links a:hover {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgb(42, 20, 150);
+  text-decoration: underline ;
 }
 
-/* Main content styling */
 .main-content {
-  max-width: 1200px;
-  margin: auto;
-  text-align: center;
   position: absolute;
-  top: 50%; 
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
+  text-align: right;
+  color: var(--foreground-rgb);
 }
 
-.main-content h1 {
-  font-size: 3rem;
-  color: white;
+.tagline {
+  font-size: 2rem;
+  font-weight: bold;
   margin-bottom: 0.5rem;
 }
 
-.main-content p {
-  font-size: 1.5rem; 
-  color: white;
-  margin-bottom: 2rem;
-}
-
-/* Button styling */
 .explore-button {
   font-size: 1rem;
-  padding: 0.75rem 2rem;
-  background-color: #0056b3; 
-  color: white;
+  padding: 1rem 2rem;
+  background-color: white;
+  color: #226688; 
   border: none;
-  border-radius: 0.5rem; 
+  border-radius: 0.5rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
 }
 
 .explore-button:hover {
-  background-color: #003d82; 
+  background-color: #313696; 
+  color: white;
 }

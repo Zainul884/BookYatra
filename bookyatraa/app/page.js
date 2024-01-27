@@ -6,35 +6,30 @@ function LandingPage() {
   return (
     <div className="landing-page">
       <header className="landingpage-header">
-        <nav className="landingpage-nav">
-          <div className="logo">
+        <div className="logo">
           <Image 
-              src="/Images Capstone/Logo For Landing Page.png"
-              alt="BookYatra Logo"
-              width={150}
-              height={50} 
-              layout="fixed"
-            />
-          </div>
-          <div className="nav-links">
-         
-            <Link href="/home">Home</Link>
-            <Link href="/hotels">Hotels</Link>
-            <Link href="/flights">Flights</Link>
-            <Link href="/login">Login</Link>
-            <Link href="/signup">SignUp</Link>
-          </div>
+            src="/Images Capstone/LOGO without bg.png" 
+            alt="BookYatra Logo"
+            width={150}
+            height={100}
+          />
+        </div>
+        <nav className="nav-links">
+          <Link href="/home">Home</Link>
+          <Link href="/hotels">Hotels</Link>
+          <Link href="/flights">Flights</Link>
+          <Link href="/login">Login</Link>
+          <Link href="/signup">SignUp</Link>
         </nav>
       </header>
-      <main className="landingpage-main">
-        <div className="main-content">
-          <h1>Explore the World in Comfort and Style</h1>
-          <p>BookYatra, Your Travel Companion.</p>
-          <Link href="/home"className="explore-button">Explore Now</Link>
-        </div>
-      </main>
+      <div className="main-content">
+        <p className="tagline">Explore the World in<br></br> Comfort and Style</p>
+        <p className="tagline">BookYatra, Your <br></br>Travel Companion.</p>
+        <button className="explore-button">Explore Now</button>
+      </div>
     </div>
   );
 }
 
 export default LandingPage;
+
