@@ -17,8 +17,6 @@
 }
 
 /* landing page */
-
-
 html, body {
   margin: 0;
   padding: 0;
@@ -47,16 +45,22 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color:transparent;
   backdrop-filter: blur(5px);
   position: fixed;
   width: 100%;
   top: 0;
+  height: 70px;
   z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .logo img {
-  height: auto;
+  flex-shrink: 0; 
+  margin-top: 25px;
+  justify-content: center; 
+  align-items: center;
+  
 }
 
 .nav-links a {
@@ -65,6 +69,7 @@ body {
   margin: 0 1rem;
   font-weight: bold;
   transition: color 0.3s;
+  font-size: large;
 }
 
 .nav-links a:hover {
@@ -78,7 +83,11 @@ body {
   right: 10%;
   transform: translateY(-50%);
   text-align: right;
-  color: var(--foreground-rgb);
+  color: white;
+  display: flex; /* Makes .main-content a flex container */
+  flex-direction: column; /* Stacks children vertically */
+  align-items: center; 
+  
 }
 
 .tagline {

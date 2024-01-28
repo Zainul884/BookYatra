@@ -10,8 +10,9 @@ function LandingPage() {
           <Image 
             src="/Images Capstone/LOGO without bg.png" 
             alt="BookYatra Logo"
-            width={150}
-            height={100}
+            width={250}
+            height={80}
+            layout="intrinsic"
           />
         </div>
         <nav className="nav-links">
