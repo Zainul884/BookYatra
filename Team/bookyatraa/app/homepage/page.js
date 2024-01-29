@@ -2,7 +2,9 @@
 import React from 'react';
 import Link from 'next/link';
 
+
 function Home() {
+
   return (
 
     <div className="homepage">
@@ -23,6 +25,9 @@ function Home() {
         <div className="flight-hotel">
           <div className="flight">
             <img src="./Images Capstone/homePageflight.jpg.jpg" alt='flight' className='flight-pic'/>
+            <div className='flight-content'>
+              <h2 className='flightsHome'>Flights</h2>
+            </div>
           </div>
           <div className="hotel">
             <img src="./Images Capstone/homePagehotel.jpg" alt='hotel' className='hotel-pic'/>
