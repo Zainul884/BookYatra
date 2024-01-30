@@ -23,9 +23,13 @@ html, body {
   height: 100%;
 }
 
+<<<<<<< HEAD
 
 
 .landing-page {
+=======
+.landing-page{
+>>>>>>> 8d05156022d5e07810fa215fe14c3662a238679b
   height: 100vh;
   background-image: url('/Images Capstone/Landing Page Image.png'); 
   background-size: cover;
@@ -113,6 +117,7 @@ html, body {
   background-color: #313696; 
   color: white;
 }
+<<<<<<< HEAD
 /* Add this to your existing CSS file */
 
 .signup-page {
@@ -189,3 +194,75 @@ input {
   text-decoration: underline;
 }
 
+=======
+
+/* Home Page */
+.homepage {
+  background-color: white;
+}
+
+.logo-home{
+  width: 298px;
+  height: 290px;
+  margin-top: -75px;
+  margin-left: -30px;
+  margin-bottom: -110px;
+}
+
+.header-content{
+  display: flex;
+  justify-content: space-between;
+}
+
+.homenavigation{
+  color: black;
+  font-size:x-large;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin-top: 30px;
+  margin-right: 10px;
+}
+
+.link{
+  margin-right: 27px;
+  font-style: italic;
+}
+
+.line{
+  border: 1px solid rgb(255, 255, 255);
+  box-shadow: 3px 3px 3px gray;
+}
+
+.flight-hotel{
+  display: grid;
+  grid-template-columns: 3fr 3fr;
+  grid-gap: 30px;
+  margin-inline: 80px;
+
+}
+
+.flight, .hotel{
+  position: relative;
+  overflow: hidden;
+}
+
+
+.flight-pic, .hotel-pic{
+  object-fit: cover;
+ height: 450px;
+ width: 900px;
+ border-radius: 20px; ;
+ margin-top: 90px;
+}
+
+.flight-content{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content:center;
+  padding: 1em; 
+  box-sizing: border-box;;
+}
+>>>>>>> 8d05156022d5e07810fa215fe14c3662a238679b

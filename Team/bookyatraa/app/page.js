@@ -17,8 +17,13 @@ function LandingPage() {
             layout="intrinsic"
           />
         </div>
+<<<<<<< HEAD
         <nav className='nav-links'>
           <Link href="../homepage">Home</Link>
+=======
+        <nav className="nav-links">
+          <Link href="./homepage">Home</Link>
+>>>>>>> 8d05156022d5e07810fa215fe14c3662a238679b
           <Link href="/hotels">Hotels</Link>
           <Link href="../flights">Flights</Link>
           <Link href="/login">Login</Link>
