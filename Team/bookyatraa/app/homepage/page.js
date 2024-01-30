@@ -12,11 +12,11 @@ function Home() {
         <div className="header-content">
           <img src="./Images Capstone/LOGO without bg.png" alt="logo" className="logo-home" />
           <nav className="homenavigation">
-            <Link href="/home"className="link">Home</Link>
-            <Link href="/hotel" className="link">Hotel</Link>
-            <Link href="/flight"className="link">Flight</Link>
-            <Link href="/login" className="link">Login</Link>
-            <Link href="/signup" className="link">Sign Up</Link>
+            <Link href="./homepage"className="link">Home</Link>
+            <Link href="./hotel" className="link">Hotel</Link>
+            <Link href="./flight"className="link">Flight</Link>
+            <Link href="./login" className="link">Login</Link>
+            <Link href="./signup" className="link">Sign Up</Link>
           </nav>
         </div>
         <hr className="line"></hr>
