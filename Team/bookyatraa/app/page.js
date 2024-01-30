@@ -22,10 +22,10 @@ function LandingPage() {
             layout="intrinsic"
           />
         </div>
-        <nav className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
+        <nav className="nav-links">
           <Link href="/home">Home</Link>
           <Link href="/hotels">Hotels</Link>
-          <Link href="/flights">Flights</Link>
+          <Link href="./flights">Flights</Link>
           <Link href="/login">Login</Link>
           <Link href="/signup">SignUp</Link>
         </nav>

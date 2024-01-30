@@ -1,0 +1,34 @@
+//This is the return style or formatting (as you could call it) for the HRGC
+//ChatGPT was used to provide some design ideas which were later refined and how to properly display an image from an api
+//My name is Zainul Malik
+
+
+return (
+    <div style={styles.container}>
+      <Header />
+      <div style={styles.resultsContainer}>
+        {isLoadingHotels ? (
+          <p>Loading hotels...</p>
+        ) : errorHotels ? (
+          <p>{errorHotels}</p>
+        ) : hotels.length > 0 ? (
+          hotels.map((hotel, index) => (
+            <div key={index} style={styles.resultItem}>
+              <img
+                src={hotel.property.photoUrls[0]} // Access the first photo URL
+                alt={hotel.property.name}
+                style={styles.hotelImage}
+              />
+              <div style={styles.hotelContent}>
+                <h3 style={styles.hotelName}>{hotel.property.name}</h3>
+                <p style={styles.hotelInfo}>{hotel.accessibilityLabel}</p>
+                <button style={styles.button}>View Details</button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No hotels found.</p>
+        )}
+      </div>
+    </div>
+  );

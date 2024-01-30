@@ -1,0 +1,145 @@
+//ChatGPT was used to fix some bugs and write part of this code
+//The prompt I entered was "How can I make my code randomly display hotels from popular destinations when the user visits our website."
+//When I entered this, ChatGPT suggested that I create an array and enter destination ID's (which I got from my dest_id_search). From this the hotels would be randomly generated every time the user refreshed the page."
+//This code has not yet been designed properly this is just to check if my concept actually worked on paper
+//I also used ChatGPT to provide suggestions for my code which I later added such as comments and proper formatting or better code
+//My name is Zainul Malik
+
+"use client";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const Header = () => <header>Travel Search</header>;
+
+const styles = {
+  container: {
+    fontFamily: 'Arial, sans-serif',
+    color: '#333',
+    backgroundColor: '#f4f4f4',
+    padding: '20px',
+  },
+  resultsContainer: {
+    padding: '20px',
+    backgroundColor: 'white',
+    borderRadius: '8px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  },
+  resultItem: {
+    borderBottom: '1px solid #ddd',
+    paddingBottom: '10px',
+    marginBottom: '10px',
+  },
+};
+
+function DestIdSearch() {
+  const [hotels, setHotels] = useState([]);
+  const [isLoadingHotels, setIsLoadingHotels] = useState(false);
+  const [errorHotels, setErrorHotels] = useState('');
+
+  // Arrays of criteria for random selection
+  const destinations = ['-1456928', '-2601889', '-2114049']; //Destination ID's
+  const adultsOptions = ['1', '2', '3'];
+  const roomQtyOptions = ['1', '2'];
+
+  // Function to generate a random future date
+  const getRandomFutureDate = () => {
+    const today = new Date();
+    const futureDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + Math.floor(Math.random() * 30));
+    return futureDate.toISOString().split('T')[0];
+  };
+
+  // Function to select criteria randomly
+  const getRandomCriteria = () => {
+    return {
+      destId: destinations[Math.floor(Math.random() * destinations.length)],
+      arrivalDate: getRandomFutureDate(),
+      departureDate: getRandomFutureDate(),
+      adults: adultsOptions[Math.floor(Math.random() * adultsOptions.length)],
+      roomQty: roomQtyOptions[Math.floor(Math.random() * roomQtyOptions.length)],
+    };
+  };
+
+  // Function to fetch hotels
+  const fetchHotels = async (destId, arrivalDate, departureDate, adults, childrenAge, roomQty) => {
+    setIsLoadingHotels(true);
+    setErrorHotels('');
+
+    const hotelOptions = {
+      method: 'GET',
+      url: 'https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels',
+      params: {
+        dest_id: destId,
+        search_type: 'CITY',
+        arrival_date: arrivalDate,
+        departure_date: departureDate,
+        adults: adults,
+        children_age: childrenAge,
+        room_qty: roomQty,
+        page_number: '1',
+        languagecode: 'en-us',
+        currency_code: 'AED'
+      },
+      headers: {
+        'X-RapidAPI-Key': 'ae41750b50msh389a7b6e1203026p127800jsnc1c3b5dbac79',
+        'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com',
+      },
+    };
+
+    try {
+      const response = await axios.request(hotelOptions);
+      if (response.data && response.data.data && Array.isArray(response.data.data.hotels)) {
+        setHotels(response.data.data.hotels);
+      } else {
+        setHotels([]);
+      }
+    } catch (error) {
+      console.error("Error fetching hotels:", error);
+      setErrorHotels("An error occurred while fetching hotels.");
+    } finally {
+      setIsLoadingHotels(false);
+    }
+  };
+
+  // Fetch recommended hotels
+  const fetchRecommendedHotels = async () => {
+    const { destId, arrivalDate, departureDate, adults, roomQty } = getRandomCriteria();
+    await fetchHotels(destId, arrivalDate, departureDate, adults, '0', roomQty);
+  };
+
+  useEffect(() => {
+    fetchRecommendedHotels(); // Fetch once on mount
+    const interval = setInterval(() => {
+      fetchRecommendedHotels(); // Fetch periodically
+    }, 10000); 
+
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, []);
+
+  return (
+    <div style={styles.container}>
+      <Header />
+      <div style={styles.resultsContainer}>
+        {isLoadingHotels ? (
+          <p>Loading hotels...</p>
+        ) : errorHotels ? (
+          <p>{errorHotels}</p>
+        ) : hotels.length > 0 ? (
+          <div>
+            <h2>Hotel Results:</h2>
+            {hotels.map((hotel, index) => (
+              <div key={index} style={styles.resultItem}>
+                <h3>{hotel.property.name}</h3>
+                <p>{hotel.accessibilityLabel}</p>
+                {/* Add more details as needed */}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No hotels found.</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default DestIdSearch;

@@ -1,0 +1,55 @@
+//ChatGPT was used togive some design ideas for this code
+//The prompt I entered was "This is my code for a Random Hotel Generation Feature. Please give me some design ideas which look attractive to the user."
+//When I entered this, ChatGPT gave me a basic template for the testing design which I later refined.
+//This design is similar to the flights search design as I want consistency while testing
+//My name is Zainul Malik
+
+const styles = {
+    container: {
+      fontFamily: 'Arial, sans-serif',
+      color: '#333',
+      padding: '20px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    resultsContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      flexWrap: 'wrap',
+      gap: '20px',
+    },
+    resultItem: {
+      width: '300px',
+      borderRadius: '8px',
+      overflow: 'hidden',
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    },
+    hotelImage: {
+      width: '100%',
+      height: '200px',
+      objectFit: 'cover',
+    },
+    hotelContent: {
+      padding: '10px',
+    },
+    hotelName: {
+      fontSize: '20px',
+      fontWeight: 'bold',
+      color: '#333',
+    },
+    hotelInfo: {
+      marginBottom: '10px',
+    },
+    button: {
+      display: 'block',
+      width: '100%',
+      padding: '10px',
+      backgroundColor: '#007bff',
+      color: 'white',
+      border: 'none',
+      cursor: 'pointer',
+    },
+  };

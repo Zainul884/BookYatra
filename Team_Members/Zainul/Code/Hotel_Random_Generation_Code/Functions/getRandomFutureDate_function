@@ -1,0 +1,9 @@
+//Used ChatGPT to fix a small bug in which the random date was not being generated properly 
+// Function to generate a random future date
+//My name is Zainul Malik
+
+const getRandomFutureDate = () => {
+    const today = new Date();
+    const futureDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + Math.floor(Math.random() * 30));
+    return futureDate.toISOString().split('T')[0];
+  };
