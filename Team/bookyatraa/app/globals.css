@@ -16,8 +16,8 @@
   }
 }
 
-/* landing page*/
-html, body{
+/* landing page */
+html, body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -25,7 +25,7 @@ html, body{
 
 
 
-.landing-page{
+.landing-page {
   height: 100vh;
   background-image: url('/Images Capstone/Landing Page Image.png'); 
   background-size: cover;
@@ -33,7 +33,7 @@ html, body{
   position: relative;
 }
 
-.landingpage-header{
+.landingpage-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -43,19 +43,29 @@ html, body{
   position: fixed;
   width: 100%;
   top: 0;
-  height: 70px;
+  height: 80px;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+.logo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  
+}
 
-.logo img{
+.logo img {
   flex-shrink: 0; 
   margin-top: 25px;
  
   
 }
+.nav-links{
+  margin-left: auto;
+}
 
-.nav-links a{
+.nav-links a {
   color: rgb(247, 247, 249);
   text-decoration: none;
   margin: 0 1rem;
@@ -64,12 +74,12 @@ html, body{
   font-size: large;
 }
 
-.nav-links a:hover{
+.nav-links a:hover {
   color: rgb(42, 20, 150);
   text-decoration: underline ;
 }
 
-.main-content{
+.main-content {
   position: absolute;
   top: 50%;
   right: 10%;
@@ -82,13 +92,13 @@ html, body{
   
 }
 
-.tagline{
+.tagline {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
 
-.explore-button{
+.explore-button {
   font-size: 1rem;
   padding: 1rem 2rem;
   background-color: white;
@@ -99,7 +109,83 @@ html, body{
   transition: background-color 0.3s;
 }
 
-.explore-button:hover{
+.explore-button:hover {
   background-color: #313696; 
   color: white;
 }
+/* Add this to your existing CSS file */
+
+.signup-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('/Images Capstone/Landing Page Image.png'); /* Use your background image path */
+  background-size: cover;
+  background-position: center;
+}
+
+.signup-container {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px; /* Set a max-width for larger screens */
+}
+
+.signup-logo {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.signup-heading {
+  color: #333;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.signup-button {
+  background-color: #226688; /* Your brand color */
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  margin-top: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.signup-button:hover {
+  background-color: #1e5a78; /* A darker shade of your brand color */
+}
+
+.terms-text {
+  font-size: 0.75rem;
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.terms-text a {
+  color: #226688; /* Your brand color */
+  text-decoration: none;
+}
+
+.terms-text a:hover {
+  text-decoration: underline;
+}
+
