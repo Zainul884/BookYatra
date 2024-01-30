@@ -23,7 +23,7 @@ function LandingPage() {
           />
         </div>
         <nav className="nav-links">
-          <Link href="/home">Home</Link>
+          <Link href="./homepage">Home</Link>
           <Link href="/hotels">Hotels</Link>
           <Link href="./flights">Flights</Link>
           <Link href="/login">Login</Link>

@@ -23,8 +23,6 @@ html, body{
   height: 100%;
 }
 
-
-
 .landing-page{
   height: 100vh;
   background-image: url('/Images Capstone/Landing Page Image.png'); 
@@ -102,4 +100,55 @@ html, body{
 .explore-button:hover{
   background-color: #313696; 
   color: white;
+}
+
+/* home */
+.homepage {
+  background-color: white;
+}
+
+.logo-home{
+  width: 298px;
+  height: 290px;
+  margin-top: -75px;
+  margin-left: -30px;
+  margin-bottom: -110px;
+}
+
+.header-content{
+  display: flex;
+  justify-content: space-between;
+}
+
+.homenavigation{
+  color: black;
+  font-size:x-large;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin-top: 30px;
+  margin-right: 10px;
+}
+
+.link{
+  margin-right: 27px;
+  font-style: italic;
+}
+
+.line{
+  border: 1px solid rgb(255, 255, 255);
+  box-shadow: 3px 3px 3px gray;
+}
+
+.flight-hotel{
+  display: grid;
+  grid-template-columns: 3fr 3fr;
+  grid-gap: 30px;
+  margin-inline: 80px;
+}
+
+
+.flight-pic, .hotel-pic{
+ height: 450px;
+ width: 900px;
+ border-radius: 20px; ;
+ margin-top: 90px;
 }
