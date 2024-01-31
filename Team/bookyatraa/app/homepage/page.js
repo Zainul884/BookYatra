@@ -45,6 +45,18 @@ function Home() {
             </div>
           </div>
         </div>
+        <h1 className='popularFlights'>Popular Flights</h1>
+        <div className='popularFlightsGrid'>
+          <div className='flight1'>
+            <img src="./Images Capstone/Paris Image Home Page.jpg" alt='flight1' className='flightp-pic'/>
+          </div>
+          <div className='flight2'>
+            <img src="./Images Capstone/Las Vegas Image.jpg" alt='flight2' className='flightp-pic'/>
+          </div>
+          <div className='flight3'>
+            <img src="./Images Capstone/Toranto Image.jpg" alt='flight3' className='flightp-pic'/>
+          </div>
+        </div>
       </main>
     </div>
   );
