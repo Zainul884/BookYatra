@@ -17,19 +17,16 @@
 }
 
 /* landing page */
+
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
 }
 
-<<<<<<< HEAD
 
 
 .landing-page {
-=======
-.landing-page{
->>>>>>> 8d05156022d5e07810fa215fe14c3662a238679b
   height: 100vh;
   background-image: url('/Images Capstone/Landing Page Image.png'); 
   background-size: cover;
@@ -73,13 +70,12 @@ html, body {
   color: rgb(247, 247, 249);
   text-decoration: none;
   margin: 0 1rem;
-  font-weight: bold;
   transition: color 0.3s;
-  font-size: large;
+  font: x-large bold;
 }
 
 .nav-links a:hover {
-  color: rgb(42, 20, 150);
+  color: #1e5a78; 
   text-decoration: underline ;
 }
 
@@ -89,7 +85,7 @@ html, body {
   right: 10%;
   transform: translateY(-50%);
   text-align: right;
-  color: white;
+  color: #f4f6f7; 
   display: flex; 
   flex-direction: column; 
   align-items: center; 
@@ -97,14 +93,14 @@ html, body {
 }
 
 .tagline {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+ font :xx-large bolder;
+ margin-bottom: 0.5rem;
+
 }
 
 .explore-button {
   font-size: 1rem;
-  padding: 1rem 2rem;
+  padding: 0.8rem 1.5rem;
   background-color: white;
   color: #226688; 
   border: none;
@@ -114,40 +110,45 @@ html, body {
 }
 
 .explore-button:hover {
-  background-color: #313696; 
+  background-color:  #1e5a78; 
   color: white;
 }
-<<<<<<< HEAD
-/* Add this to your existing CSS file */
 
-.signup-page {
+/*login page */
+.login-page {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url('/Images Capstone/Landing Page Image.png'); /* Use your background image path */
+  background-image: url('/Images Capstone/Sign In Page.jpg'); 
   background-size: cover;
   background-position: center;
 }
 
-.signup-container {
+.login-container {
   background-color: #ffffff;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 400px; /* Set a max-width for larger screens */
+  max-width: 400px;
+  position: absolute;
+  left: 20%; /* Move the sign-up box to the right by 20% of the screen width */
+  top: 55%;
+  transform: translateY(-50%);
 }
-
-.signup-logo {
+.login-logo {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-top: -70px;
+  margin-left: -40px;
 }
 
-.signup-heading {
+.login-heading {
   color: #333;
   text-align: center;
   margin-bottom: 2rem;
+  margin-top: -30px;
+  font: x-large bold;
 }
 
 .form-label {
@@ -163,8 +164,8 @@ input {
   border-radius: 4px;
 }
 
-.signup-button {
-  background-color: #226688; /* Your brand color */
+.login-button {
+  background-color: #226688;
   color: #ffffff;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -175,8 +176,8 @@ input {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.signup-button:hover {
-  background-color: #1e5a78; /* A darker shade of your brand color */
+.login-button:hover {
+  background-color: hwb(200 1% 65%); 
 }
 
 .terms-text {
@@ -186,83 +187,108 @@ input {
 }
 
 .terms-text a {
-  color: #226688; /* Your brand color */
+  color: #226688; 
   text-decoration: none;
 }
 
 .terms-text a:hover {
   text-decoration: underline;
 }
-
-=======
-
-/* Home Page */
-.homepage {
-  background-color: white;
-}
-
-.logo-home{
-  width: 298px;
-  height: 290px;
-  margin-top: -75px;
-  margin-left: -30px;
-  margin-bottom: -110px;
-}
-
-.header-content{
+/*sign up*/
+.signup-page {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('/Images Capstone/Sign In Page.jpg'); 
+  background-size: cover;
+  background-position: center;
 }
 
-.homenavigation{
-  color: black;
-  font-size:x-large;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  margin-top: 30px;
-  margin-right: 10px;
-}
-
-.link{
-  margin-right: 27px;
-  font-style: italic;
-}
-
-.line{
-  border: 1px solid rgb(255, 255, 255);
-  box-shadow: 3px 3px 3px gray;
-}
-
-.flight-hotel{
-  display: grid;
-  grid-template-columns: 3fr 3fr;
-  grid-gap: 30px;
-  margin-inline: 80px;
-
-}
-
-.flight, .hotel{
-  position: relative;
-  overflow: hidden;
-}
-
-
-.flight-pic, .hotel-pic{
-  object-fit: cover;
- height: 450px;
- width: 900px;
- border-radius: 20px; ;
- margin-top: 90px;
-}
-
-.flight-content{
-  position: absolute;
-  top: 0;
-  left: 0;
+/* Signup container styling */
+.signup-container {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content:center;
-  padding: 1em; 
-  box-sizing: border-box;;
+  max-width: 400px;
+  position: absolute;
+  left: 20%; /* Move the sign-up box to the right by 20% of the screen width */
+  top: 55%;
+  transform: translateY(-50%);
 }
->>>>>>> 8d05156022d5e07810fa215fe14c3662a238679b
+.signup-logo {
+  text-align: center;
+  margin-top: -70px;
+  margin-left: -40px;
+}
+
+/* Slogan styles */
+.slogan p {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 10px;
+  font: x-large bold;
+  margin-top: -50px;
+  text-align: center;
+}
+
+/* Form field styles */
+.signup-container input,
+.signup-container select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Name fields side by side */
+.name-fields {
+  display: flex;
+  gap: 10px; /* Space between fields */
+}
+
+.name-fields input {
+  flex: 1; /* Equal width */
+}
+
+/* Submit button styles */
+.signup-container button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 1rem;
+  background-color:#226688; /* Blue color for the button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.signup-container button:hover {
+  background-color:#1e5a78; /* Darker blue on hover */
+}
+
+/* Privacy policy and sign-in link styles */
+.privacy-policy,
+.signin-link {
+  font-size: 0.875rem;
+  color: #666;
+  margin-top: 1rem;
+}
+
+.signin-link a {
+  color: #226688;
+  text-decoration: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .name-fields {
+    flex-direction: column;
+  }
+}
