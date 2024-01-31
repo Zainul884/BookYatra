@@ -4,8 +4,31 @@ import Link from 'next/link';
 
 
 function Home() {
-  return (
+  const flights = [
+    {
+      id: 1,
+      title: 'Paris',
+      image: './Images Capstone/Paris Image Home Page.jpg',
+      description: '"Where love and art collide, there lies Paris, timeless and unforgettable."',
+      price: '$450',
+    },
+    {
+      id: 2,
+      title: 'Las Vegas',
+      image: './Images Capstone/Las Vegas Image.jpg',
+      description: '"A city that never sleeps, where every hotel tells a story and every casino echoes with the thrill of chance."',
+      price: '$380',
+    },
+    {
+      id: 3,
+      title: 'Toronto',
+      image: './Images Capstone/Toranto Image.jpg',
+      description: '"A hub of arts, fashion, and business, Toronto pulses with creativity and entrepreneurial spirit."',
+      price: '$250',
+    },
+  ];
 
+  return (
     <div className="homepage">
       <header className="header">
         <div className="header-content">
@@ -47,14 +70,17 @@ function Home() {
         </div>
         <h1 className='popularFlights'>Popular Flights</h1>
         <div className='popularFlightsGrid'>
-          <div className='flight1'>
-            <img src="./Images Capstone/Paris Image Home Page.jpg" alt='flight1' className='flightp-pic'/>
-          </div>
-          <div className='flight2'>
-            <img src="./Images Capstone/Las Vegas Image.jpg" alt='flight2' className='flightp-pic'/>
-          </div>
-          <div className='flight3'>
-            <img src="./Images Capstone/Toranto Image.jpg" alt='flight3' className='flightp-pic'/>
+          <div className='popularflights'>
+            {flights.map((flight) => (
+              <div key={flight.id} className='flightcard'>
+                <img src={flight.image} alt={flight.title} className='flightp-pic'/>
+                <div className='flightp-content'>
+                  <h2 className='flightp-title'>{flight.title}</h2>
+                  <p className='flightp-words'>{flight.description}</p>
+                  <p className='flightp-price'>{flight.price}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </main>
