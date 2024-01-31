@@ -292,3 +292,159 @@ input {
     flex-direction: column;
   }
 }
+
+/* Home Page */
+.homepage {
+  background-color: white;
+}
+
+.logo-home{
+  width: 298px;
+  height: 290px;
+  margin-top: -75px;
+  margin-left: -30px;
+  margin-bottom: -110px;
+}
+
+.header-content{
+  display: flex;
+  justify-content: space-between;
+}
+
+.homenavigation{
+  color: black;
+  font-size: 20px;
+  font-family:'Inter', sans-serif;
+  margin-top: 38px;
+  margin-right: 8px;
+}
+
+.link{
+  margin-right: 27px;
+  font-style: italic;
+}
+
+.line{
+  border: 1px solid rgb(255, 255, 255);
+  box-shadow: 3px 3px 3px gray;
+}
+
+.flight-hotel{
+  display: grid;
+  grid-template-columns: 3fr 3fr;
+  grid-gap: 30px;
+  margin-inline: 80px;
+
+}
+
+.flight, .hotel{
+  position: relative;
+  overflow: hidden;
+}
+
+
+.flight-pic, .hotel-pic{
+  object-fit: cover;
+ height: 450px;
+ width: 900px;
+ border-radius: 20px; ;
+ margin-top: 90px;
+}
+
+.flight-content, .hotel-content{
+  position: absolute;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content:flex-end;
+  align-items: center;
+  padding: 1em; 
+  box-sizing: border-box;
+}
+
+.flightsHome, .hotelsHome{
+  font-size: 2.3rem;
+  font-weight: bold;
+  color: white;
+}
+
+.flightWords, .hotelWords{
+  font-size: medium;
+  color: white;
+  margin-bottom: 0.5rem;
+  margin-inline: 50px;
+  text-align: center;
+}
+
+.flightlink, .hotellink { 
+  text-decoration: black;
+  font-size: small;
+}
+
+.flightSearchBox , .hotelSearchBox{
+  border: 1px solid white;
+  border-radius: 4px;
+  background-color: white;
+  padding: 10px;
+  margin-bottom: 1px;
+  padding-inline: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.vector-pic{
+  width: 13px;
+  height: 13px;
+  margin-right: 4px;
+  margin-top: 3px;
+}
+
+.popularFlights{
+  font-size: 3.2rem;
+  font-style: italic;
+  margin: 50px 0 30px 80px;
+}
+
+.popularflights{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 40px;
+  margin-inline: 80px;
+}
+
+.flightcard{
+  position: relative;
+
+}
+.popularFlightsGrid{
+  
+  position: relative;
+  overflow: hidden;
+}
+
+.flightp-pic{
+  width: 400px;
+  height: 485px;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.flightp-content{
+  position: absolute;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content:flex-end;
+  align-items: center;
+  padding: 1em; 
+  box-sizing: border-box;
+  
+}
