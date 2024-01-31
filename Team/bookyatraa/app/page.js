@@ -1,15 +1,10 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 function LandingPage() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-  const handleHamburgerClick = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
+  
   return (
     <div className="landing-page">
       <header className="landingpage-header">
@@ -22,18 +17,19 @@ function LandingPage() {
             layout="intrinsic"
           />
         </div>
+<<<<<<< HEAD
+        <nav className='nav-links'>
+          <Link href="../homepage">Home</Link>
+=======
         <nav className="nav-links">
           <Link href="./homepage">Home</Link>
+>>>>>>> 8d05156022d5e07810fa215fe14c3662a238679b
           <Link href="/hotels">Hotels</Link>
-          <Link href="./flights">Flights</Link>
+          <Link href="../flights">Flights</Link>
           <Link href="/login">Login</Link>
-          <Link href="/signup">SignUp</Link>
+          <Link href="../signup">SignUp</Link>
         </nav>
-        <div className="hamburger" onClick={handleHamburgerClick}>
-          <span className={`bar ${isMenuOpen ? 'open' : ''}`}></span>
-          <span className={`bar ${isMenuOpen ? 'open' : ''}`}></span>
-          <span className={`bar ${isMenuOpen ? 'open' : ''}`}></span>
-        </div>
+        
       </header>
       <div className="main-content">
         <p className="tagline">Explore the World in<br></br> Comfort and Style</p>
