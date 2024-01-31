@@ -181,8 +181,33 @@ html, body{
 }
 
 .flightWords, .hotelWords{
+  font-size: medium;
   color: white;
-  margin-bottom: 1rem;
-  margin-inline: 30px;
+  margin-bottom: 0.5rem;
+  margin-inline: 50px;
   text-align: center;
+}
+
+.flightlink, .hotellink { 
+  text-decoration: black;
+  font-size: small;
+}
+
+.flightSearchBox , .hotelSearchBox{
+  border: 1px solid white;
+  border-radius: 4px;
+  background-color: white;
+  padding: 10px;
+  margin-bottom: 1px;
+  padding-inline: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.vector-pic{
+  width: 13px;
+  height: 13px;
+  margin-right: 4px;
+  margin-top: 3px;
 }

@@ -27,7 +27,10 @@ function Home() {
             <div className='flight-content'>
               <h2 className='flightsHome'>Flights</h2>
               <p className='flightWords'>Search Flights & Places Hire to our most popular destinations</p>
-              <Link href="./flight" className="flightlink">Show flights</Link>
+              <div className='flightSearchBox'>
+                <img src="./Images Capstone/Vector.png" alt='vector' className='vector-pic'/>
+                <Link href="./flight" className="flightlink">Show flights</Link>
+              </div>
             </div>
           </div>
           <div className="hotel">
@@ -35,7 +38,10 @@ function Home() {
             <div className='hotel-content'>
               <h2 className='hotelsHome'>Hotels</h2>
               <p className='hotelWords'>Search hotels & Places Hire to our most popular destinations</p>
-              <Link href="./flight" className="hotellink">Show hotels</Link>
+              <div className='hotelSearchBox'>
+                <img src="./Images Capstone/Vector.png" alt='vector' className='vector-pic'/>
+                <Link href="./hotel" className="hotellink">Show flights</Link>
+              </div>
             </div>
           </div>
         </div>
