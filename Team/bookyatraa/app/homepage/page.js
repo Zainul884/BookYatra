@@ -4,7 +4,6 @@ import Link from 'next/link';
 
 
 function Home() {
-
   return (
 
     <div className="homepage">
@@ -27,10 +26,17 @@ function Home() {
             <img src="./Images Capstone/homePageflight.jpg.jpg" alt='flight' className='flight-pic'/>
             <div className='flight-content'>
               <h2 className='flightsHome'>Flights</h2>
+              <p className='flightWords'>Search Flights & Places Hire to our most popular destinations</p>
+              <Link href="./flight" className="flightlink">Show flights</Link>
             </div>
           </div>
           <div className="hotel">
             <img src="./Images Capstone/homePagehotel.jpg" alt='hotel' className='hotel-pic'/>
+            <div className='hotel-content'>
+              <h2 className='hotelsHome'>Hotels</h2>
+              <p className='hotelWords'>Search hotels & Places Hire to our most popular destinations</p>
+              <Link href="./flight" className="hotellink">Show hotels</Link>
+            </div>
           </div>
         </div>
       </main>

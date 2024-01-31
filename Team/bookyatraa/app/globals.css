@@ -122,10 +122,10 @@ html, body{
 
 .homenavigation{
   color: black;
-  font-size:x-large;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  margin-top: 30px;
-  margin-right: 10px;
+  font-size: 20px;
+  font-family:'Inter', sans-serif;
+  margin-top: 38px;
+  margin-right: 8px;
 }
 
 .link{
@@ -160,14 +160,29 @@ html, body{
  margin-top: 90px;
 }
 
-.flight-content{
+.flight-content, .hotel-content{
   position: absolute;
+  flex-direction: column;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content:center;
+  justify-content:flex-end;
+  align-items: center;
   padding: 1em; 
-  box-sizing: border-box;;
+  box-sizing: border-box;
+}
+
+.flightsHome, .hotelsHome{
+  font-size: 2.3rem;
+  font-weight: bold;
+  color: white;
+}
+
+.flightWords, .hotelWords{
+  color: white;
+  margin-bottom: 1rem;
+  margin-inline: 30px;
+  text-align: center;
 }
