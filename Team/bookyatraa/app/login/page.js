@@ -3,6 +3,7 @@ import React ,{useState}from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+
 function LogInPage(){
 
   const [email, setEmail] = useState('')
@@ -46,7 +47,7 @@ function LogInPage(){
               alt="BookYatra Logo"
               width={200} 
               height={40} 
-             
+              
               
             />
           </div>
@@ -58,6 +59,7 @@ function LogInPage(){
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="@ Enter your Email"
               required
             />
 
@@ -67,11 +69,30 @@ function LogInPage(){
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="🔒 Enter your Password"
               required
             />
 
             <button type="submit" className="login-button">Sign-In</button>
           </form>
+          <div className="social-login">
+              <button className="google-button">
+                <Image
+                    src="/Images Capstone/Google.png" 
+                    alt="BookYatra Logo"
+                    width={20} 
+                    height={5} 
+                />
+              </button>
+              <button className="apple-button">
+              <Image
+                    src="/Images Capstone/apple.png" 
+                    alt="BookYatra Logo"
+                    width={20} 
+                    height={10} 
+              />
+              </button>
+        </div>  
           
           <p className="terms-text">
             By proceeding, you agree to our <Link href="/terms">Terms of Use</Link>

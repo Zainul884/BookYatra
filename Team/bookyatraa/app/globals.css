@@ -44,7 +44,7 @@ html, body {
   position: fixed;
   width: 100%;
   top: 0;
-  height: 80px;
+  height: 70px;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -71,7 +71,7 @@ html, body {
   text-decoration: none;
   margin: 0 1rem;
   transition: color 0.3s;
-  font: x-large bold;
+  font: large bold;
 }
 
 .nav-links a:hover {
@@ -147,7 +147,7 @@ html, body {
   color: #333;
   text-align: center;
   margin-bottom: 2rem;
-  margin-top: -30px;
+  margin-top: -55px;
   font: x-large bold;
 }
 
@@ -216,11 +216,12 @@ input {
   position: absolute;
   left: 20%; /* Move the sign-up box to the right by 20% of the screen width */
   top: 55%;
+  
   transform: translateY(-50%);
 }
 .signup-logo {
   text-align: center;
-  margin-top: -70px;
+  margin-top: -90px;
   margin-left: -40px;
 }
 
@@ -231,7 +232,7 @@ input {
   color: #333;
   margin-bottom: 10px;
   font: x-large bold;
-  margin-top: -50px;
+  margin-top: -70px;
   text-align: center;
 }
 
@@ -279,6 +280,7 @@ input {
   font-size: 0.875rem;
   color: #666;
   margin-top: 1rem;
+  text-align: center;
 }
 
 .signin-link a {
@@ -291,6 +293,39 @@ input {
   .name-fields {
     flex-direction: column;
   }
+}
+/*Social login*/
+.social-login {
+  display: flex;
+  flex-direction: raw;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.google-button,
+.apple-button {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  
+}
+
+.google-button:hover,
+.apple-button:hover {
+  border-color: #888;
+}
+
+.social-icon {
+  margin-right: 8px;
 }
 
 /* Home Page */
