@@ -9,7 +9,7 @@ function Home() {
       id: 1,
       title: 'Paris',
       image: './Images Capstone/Paris Image Home Page.jpg',
-      description: '"Where love and art collide, there lies Paris, timeless and unforgettable."',
+      description: '"Where love and art collide, there lies Paris, beautiful, adorable, timeless and unforgettable."',
       price: '$450',
     },
     {
@@ -74,10 +74,35 @@ function Home() {
             {flights.map((flight) => (
               <div key={flight.id} className='flightcard'>
                 <img src={flight.image} alt={flight.title} className='flightp-pic'/>
+                <div className='flight-content'>
+                </div>
                 <div className='flightp-content'>
                   <h2 className='flightp-title'>{flight.title}</h2>
                   <p className='flightp-words'>{flight.description}</p>
-                  <p className='flightp-price'>{flight.price}</p>
+                  <div className='price'>
+                    <p className='strating'>Starting From</p>
+                    <p className='flightp-price'>{flight.price}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <h1 className='popularHotels'>Popular Hotels</h1>
+        <div className='popularFlightsGrid'>
+          <div className='popularflights'>
+            {flights.map((flight) => (
+              <div key={flight.id} className='flightcard'>
+                <img src={flight.image} alt={flight.title} className='flightp-pic'/>
+                <div className='flight-content'>
+                </div>
+                <div className='flightp-content'>
+                  <h2 className='flightp-title'>{flight.title}</h2>
+                  <p className='flightp-words'>{flight.description}</p>
+                  <div className='price'>
+                    <p className='strating'>Starting From</p>
+                    <p className='flightp-price'>{flight.price}</p>
+                  </div>
                 </div>
               </div>
             ))}
