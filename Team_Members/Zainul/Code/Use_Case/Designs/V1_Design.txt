@@ -1,6 +1,6 @@
 //v1 design
 //ChatGPT was used to suggest some design ideas for this code 
-//The prompt I entered was "This is my code for a Flight Search Engine. Please give me some design ideas."
+//The prompt I entered was "This is my code for a Hotel Search page. Please give me some design ideas."
 //When I entered this, ChatGPT gave me a basic template for the testing design which I later refined.
 //This design has been used as a template for the hotel search temporarily for the testing phase.
 //My name is Zainul Malik
