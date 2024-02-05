@@ -1,0 +1,108 @@
+//ChatGPT was used to suggest some design ideas for this code 
+//The prompt I entered was "This is my code for a Sign in and Sign up page for my booking website. Please give me some design ideas."
+//When I entered this, ChatGPT gave me a basic template for the testing design which I later refined.
+//My name is Zainul Malik
+
+const styles = {
+  container: {
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    color: '#333',
+    backgroundColor: '#f9f9f9',
+    padding: '20px',
+    maxWidth: '800px',
+    margin: 'auto',
+  },
+  formContainer: {
+    backgroundColor: 'white',
+    padding: '20px 30px',
+    borderRadius: '10px',
+    boxShadow: '0 6px 12px rgba(0, 0, 0, 0.15)',
+    marginBottom: '30px',
+  },
+  inputGroup: {
+    marginBottom: '20px',
+  },
+  label: {
+    display: 'block',
+    marginBottom: '10px',
+    fontWeight: '600',
+    color: '#555',
+  },
+  input: {
+    width: '100%',
+    padding: '12px 15px',
+    border: '1px solid #ccc',
+    borderRadius: '6px',
+    marginBottom: '15px',
+    fontSize: '14px',
+  },
+  button: {
+    padding: '12px 25px',
+    border: 'none',
+    borderRadius: '6px',
+    backgroundColor: '#0056b3',
+    color: 'white',
+    fontSize: '16px',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+    ':hover': {
+      backgroundColor: '#004494'
+    }
+  },
+  resultItem: {
+    borderBottom: '1px solid #eee',
+    paddingBottom: '15px',
+    marginBottom: '15px',
+    lastChild: {
+      borderBottom: 'none',
+    }
+  },
+  flexContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '20px',
+    marginRight: '100px',
+  },
+  halfWidthContainer: {
+    flex: '1 1 50%',
+    maxWidth: '48%',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '10px',
+    padding: '20px',
+    border: '1px solid #ccc',
+    borderRadius: '8px',
+    backgroundColor: '#f8f8f8',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+    width: '100%', // Adjusting width for responsiveness
+    maxWidth: '400px', // Setting max width for larger screens
+    margin: '20px auto', // Centering the form
+  },
+  authInput: { // New style for the authentication input fields
+    width: '100%',
+    padding: '10px',
+    margin: '5px 0',
+    borderRadius: '4px',
+    border: '1px solid #ddd',
+    fontSize: '16px',
+    backgroundColor: '#fff', // Ensuring the background is white for visibility
+  },
+  authButton: { // New style for the authentication buttons
+    width: '100%',
+    padding: '10px',
+    border: 'none',
+    borderRadius: '4px',
+    backgroundColor: '#4CAF50', // Changing button color for distinction
+    color: 'white',
+    fontSize: '16px',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+    ':hover': {
+      backgroundColor: '#45a049', // Darker shade on hover
+    },
+  }
+};
+
