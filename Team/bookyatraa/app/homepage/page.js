@@ -47,7 +47,7 @@ function Home() {
         <div className="flight-hotel">
           <div className="flight">
             <img src="./Images Capstone/homePageflight.jpg.jpg" alt='flight' className='flight-pic'/>
-            <div className='flight-content'>
+            <div className='flights-content'>
               <h2 className='flightsHome'>Flights</h2>
               <p className='flightWords'>Search Flights & Places Hire to our most popular destinations</p>
               <div className='flightSearchBox'>

@@ -386,7 +386,7 @@ input {
  margin-top: 90px;
 }
 
-.flight-content, .hotel-content{
+.flights-content, .hotel-content{
   position: absolute;
   flex-direction: column;
   top: 0;
