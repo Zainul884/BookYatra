@@ -12,7 +12,7 @@ import axios from 'axios';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
 import { getDatabase, ref, set } from 'firebase/database';
 
-// Assuming firebaseConfig.js initializes Firebase, you don't need to import 'database' here
+
 import './firebaseConfig'; // Make sure this initializes Firebase correctly
 
 
