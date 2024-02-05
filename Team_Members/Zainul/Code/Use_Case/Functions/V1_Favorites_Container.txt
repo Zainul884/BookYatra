@@ -1,0 +1,26 @@
+//V1_Favorites_Container
+//Used ChatGPT to fix small syntax error related to semicolon
+
+{/* Container for Favorites */}
+ <div style={{ ...styles.resultsContainer, ...styles.halfWidthContainer }}>
+          <h2>Favorites:</h2>
+          {favorites.length > 0 ? (
+            <div>
+              {favorites.map((fav) => (
+                <div key={fav.hotel_id} style={styles.resultItem}>
+                  <h3>{fav.property.name}</h3>
+                  <p>Price: {fav.property.priceBreakdown.grossPrice.value} AED</p>
+                </div>
+              ))}
+              <div>
+                <strong>Total Price: {calculateTotalPrice()} AED</strong>
+              </div>
+            </div>
+          ) : (
+            <p>No favorites added.</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
