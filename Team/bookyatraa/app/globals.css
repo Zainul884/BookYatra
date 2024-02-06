@@ -127,13 +127,13 @@ html, body {
 
 .login-container {
   background-color: #ffffff;
-  padding: 2rem;
+  padding: 1.2rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
   position: absolute;
-  left: 20%; /* Move the sign-up box to the right by 20% of the screen width */
+  left: 25%; /* Move the sign-up box to the right by 20% of the screen width */
   top: 55%;
   transform: translateY(-50%);
 }
@@ -179,6 +179,10 @@ input {
 .login-button:hover {
   background-color: hwb(200 1% 65%); 
 }
+.login-error {
+  color: red;
+  margin-top: 1rem;
+}
 
 .terms-text {
   font-size: 0.75rem;
@@ -208,7 +212,7 @@ input {
 /* Signup container styling */
 .signup-container {
   background-color: #ffffff;
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -221,17 +225,16 @@ input {
 }
 .signup-logo {
   text-align: center;
-  margin-top: -90px;
+  margin-top: -70px;
   margin-left: -40px;
 }
 
 /* Slogan styles */
 .slogan p {
   margin: 0;
-  font-size: 1rem;
   color: #333;
   margin-bottom: 10px;
-  font: x-large bold;
+  font:large bold;
   margin-top: -70px;
   text-align: center;
 }

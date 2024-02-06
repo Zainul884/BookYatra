@@ -3,15 +3,28 @@ import React ,{useState}from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-
+const authenticate = (email, password) => {
+  // Simulate checking credentials (replace with actual validation logic)
+  const isValidUser = (email === "valid@example.com" && password === "password123");
+  return isValidUser;
+};
 function LogInPage(){
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState(''); // Error state to display message
 
  
   const handleSubmit = (event) => {
     event.preventDefault();
+    const isValidUser = authenticate(email, password);
+    if (isValidUser) {
+      // Redirect to homepage after successful login
+      window.location.href = '../homepage';
+    } else {
+      // Display error message and stay on login page for invalid credentials
+      setError('Invalid credentials. Please try again.');
+    }
     
   };
 
@@ -75,6 +88,7 @@ function LogInPage(){
 
             <button type="submit" className="login-button">Sign-In</button>
           </form>
+          {error && <p className="login-error">{error}</p>}
           <div className="social-login">
               <button className="google-button">
                 <Image
