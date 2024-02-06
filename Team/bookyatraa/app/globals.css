@@ -79,6 +79,7 @@ html, body {
   text-decoration: underline ;
 }
 
+
 .main-content {
   position: absolute;
   top: 50%;
@@ -113,7 +114,60 @@ html, body {
   background-color:  #1e5a78; 
   color: white;
 }
+/* Hamburger menu styles */
+.hamburger {
+  background: none;
+  border: none;
+  display: none; /* hidden by default */
+  cursor: pointer;
+  font-size: 35px; /* Icon size */
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  z-index: 1001; /* Ensures the hamburger is above other content */
+  color: #fff;
+}
 
+/* Responsive nav styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block; /* show hamburger in mobile view */
+  }
+
+  .nav-links {
+    display: none; /* hide links initially in mobile view */
+    flex-direction: column;
+    position: absolute;
+    top: 70px; /* height of the header */
+    right: 0;
+    left: 0; /* Take full width */
+    background-color: rgba(234, 249, 252, 0.9); /* Slightly transparent background */
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    align-items: center; /* Center the navigation links */
+    z-index: 1000; /* Make sure nav is above other content */
+    max-width: fit-content; 
+    padding-inline: 3px;
+  }
+
+  .nav-links.nav-expanded {
+    display: flex; /* show links when nav is expanded */
+  }
+
+  .nav-links a {
+    display: block;
+    color:#1e5a78;
+    padding: 10px;
+    
+    text-align: center;
+    /* Full width of each link */
+    transition: background-color 0.3s;
+  }
+
+  .nav-links a:hover {
+    
+  }
+}
 /*login page */
 .login-page {
   display: flex;

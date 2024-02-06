@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const Signup = () => {
+  const [isNavExpanded, setIsNavExpanded] = useState(false);
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
@@ -35,7 +36,13 @@ const Signup = () => {
             />
         </div>
         </Link>
-        <nav className='nav-links'>
+        <button
+          className="hamburger"
+          onClick={() => setIsNavExpanded(!isNavExpanded)}
+        >
+          {isNavExpanded ? '✖' : '☰'}
+        </button>
+        <nav className={`nav-links ${isNavExpanded ? 'nav-expanded' : ''}`}>
           <Link href="../homepage">Home</Link>
           <Link href="/hotels">Hotels</Link>
           <Link href="../flights">Flights</Link>

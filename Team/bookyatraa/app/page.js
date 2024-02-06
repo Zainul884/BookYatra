@@ -1,10 +1,11 @@
 "use client";
 import React, { useState } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 
 function LandingPage() {
-  
+  const [isNavExpanded, setIsNavExpanded] = useState(false);
+
   return (
     <div className="landing-page">
       <header className="landingpage-header">
@@ -17,18 +18,24 @@ function LandingPage() {
             layout="intrinsic"
           />
         </div>
-        <nav className='nav-links'>
-          <Link href="../homepage">Home</Link>
+        <button
+          className="hamburger"
+          onClick={() => setIsNavExpanded(!isNavExpanded)}
+        >
+          {/* Hamburger Icon */}
+          {isNavExpanded ? '✖' : '☰'}
+        </button>
+        <nav className={`nav-links ${isNavExpanded ? 'nav-expanded' : ''}`}>
+          <Link href="/homepage">Home</Link>
           <Link href="/hotels">Hotels</Link>
-          <Link href="../flights">Flights</Link>
-          <Link href="../login">Login</Link>
+          <Link href="/flights">Flights</Link>
+          <Link href="/login">Login</Link>
           <Link href="/signup">SignUp</Link>
         </nav>
-        
       </header>
       <div className="main-content">
-        <p className="tagline">Explore the World in<br></br> Comfort and Style</p>
-        <p className="tagline">BookYatra, Your <br></br>Travel Companion.</p>
+        <p className="tagline">Explore the World in Comfort and Style</p><br></br>
+        <p className="tagline">BookYatra, Your Travel Companion.</p>
         <button className="explore-button">Explore Now</button>
       </div>
     </div>

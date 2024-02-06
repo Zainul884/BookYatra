@@ -10,6 +10,7 @@ const authenticate = (email, password) => {
 };
 function LogInPage(){
 
+  const [isNavExpanded, setIsNavExpanded] = useState(false);
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(''); // Error state to display message
@@ -25,7 +26,6 @@ function LogInPage(){
       // Display error message and stay on login page for invalid credentials
       setError('Invalid credentials. Please try again.');
     }
-    
   };
 
   return (
@@ -40,18 +40,23 @@ function LogInPage(){
               height={80}
               layout="intrinsic"
             />
+            
           </div>
         </Link>
-        <nav className='nav-links'>
+          <button
+          className="hamburger"
+          onClick={() => setIsNavExpanded(!isNavExpanded)}
+        >
+          {isNavExpanded ? '✖' : '☰'}
+        </button>
+        <nav className={`nav-links ${isNavExpanded ? 'nav-expanded' : ''}`}>
           <Link href="../homepage">Home</Link>
           <Link href="/hotels">Hotels</Link>
           <Link href="../flights">Flights</Link>
           <Link href="../login">Login</Link>
           <Link href="/signup">SignUp</Link>
         </nav>
-        
       </header>
-  
       <div className="login-page">
         <div className="login-container">
           <div className="login-logo">
@@ -59,9 +64,7 @@ function LogInPage(){
               src="/Images Capstone/LOGO without bg.png" 
               alt="BookYatra Logo"
               width={200} 
-              height={40} 
-              
-              
+              height={40}  
             />
           </div>
           <h1 className="login-heading">Back Again? We're Thrilled – Welcome Aboard!</h1>
