@@ -494,79 +494,76 @@ input {
   margin-top: 3px;
 }
 
-.popularFlights, .popularHotels{
+.popularFlights, .popularHotels {
   font-size: 3.2rem;
   font-style: italic;
   margin: 50px 0 30px 80px;
 }
 
-.popularflights{
+.popularflights {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 40px;
-  margin-inline: 80px;
+  grid-template-columns: repeat(3, 1fr); /* Creates three columns */
+  gap: 40px;
+  margin: 0 auto;
+  width: 90%;
+  max-width: 1200px; /* This controls the max width of the grid */
 }
 
-.flightcard{
+.flightcard {
   position: relative;
-
-}
-.popularFlightsGrid{
-  
-  position: relative;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-.flightp-pic{
-  width: 400px;
-  height: 485px;
+.flightp-pic {
+  width: 100%; /* Make the image responsive within the card */
+  max-width: 400px; /* Control the max width to maintain aspect ratio */
+  height: 500px; /* Adjust height automatically */
   border-radius: 20px;
-  position: relative;
-  overflow: hidden;
-  object-fit: cover;
-}
-
-.flight-content{
-  background-color: black;
-  border-radius: 20px;
-  opacity: 0.7;
 }
 
 
-.flightp-content, .flight-content{
-  margin-top: 365px;
+.flight-content, .flightp-content {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  height: 120px;
+  padding: 10px;
+  padding-top: 20px;
+  height: auto;
+  background-color: #000;
+  opacity: 0.7;
+  border-radius: 0 0 20px 20px; /* Adjusted to fit the bottom of the image */
 }
 
-.flightp-title{ 
-  font-size: 27px;
-  font-weight: bold;
+.flightp-title, .flightp-words, .price {
   color: white;
-  margin-left: 40px;
-  margin-right: 120px;
-  margin-top: 8px;
 }
 
-.flightp-words{
-  font-size: 8px;
-  font-weight: 10px;
-  color: white;
-  margin-left: 40px;
-  margin-right: 120px;
+.flightp-title {
+  font-size: 1.7rem; /* Adjusted for responsiveness */
 }
 
-.price{
-  font-size: 15px;;
-  color: white;
-  margin-left: 40px;
-  margin-right: 40px;
-  margin-top: 2px;
-  font-weight: bold;
+.flightp-words {
+  font-size: 1rem; /* Adjusted for readability */
+}
+
+.price {
   display: flex;
   justify-content: space-between;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .popularflights {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .popularflights {
+    grid-template-columns: 1fr; /* One column for very small screens */
+  }
 }
