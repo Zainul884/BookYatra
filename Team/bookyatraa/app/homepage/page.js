@@ -36,7 +36,7 @@ function Home() {
           <nav className="homenavigation">
             <Link href="./homepage"className="link">Home</Link>
             <Link href="./hotel" className="link">Hotel</Link>
-            <Link href="./flight"className="link">Flight</Link>
+            <Link href="./flights"className="link">Flights</Link>
             <Link href="./login" className="link">Login</Link>
             <Link href="./signup" className="link">Sign Up</Link>
           </nav>
@@ -52,7 +52,7 @@ function Home() {
               <p className='flightWords'>Search Flights & Places Hire to our most popular destinations</p>
               <div className='flightSearchBox'>
                 <img src="./Images Capstone/Vector.png" alt='vector' className='vector-pic'/>
-                <Link href="./flight" className="flightlink">Show flights</Link>
+                <Link href="./flights" className="flightlink">Show flights</Link>
               </div>
             </div>
           </div>
