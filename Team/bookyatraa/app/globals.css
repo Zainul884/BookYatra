@@ -118,40 +118,40 @@ html, body {
 .hamburger {
   background: none;
   border: none;
-  display: none; /* hidden by default */
+  display: none; 
   cursor: pointer;
-  font-size: 35px; /* Icon size */
+  font-size: 35px;
   position: absolute;
   right: 1rem;
   top: 1rem;
-  z-index: 1001; /* Ensures the hamburger is above other content */
+  z-index: 1001; 
   color: #fff;
 }
 
 /* Responsive nav styles */
 @media (max-width: 768px) {
   .hamburger {
-    display: block; /* show hamburger in mobile view */
+    display: block; 
   }
 
   .nav-links {
-    display: none; /* hide links initially in mobile view */
+    display: none; 
     flex-direction: column;
     position: absolute;
-    top: 70px; /* height of the header */
+    top: 70px; 
     right: 0;
-    left: 0; /* Take full width */
-    background-color: rgba(234, 249, 252, 0.9); /* Slightly transparent background */
+    left: 0; 
+    background-color: rgba(234, 249, 252, 0.9); 
     padding-top: 1rem;
     padding-bottom: 1rem;
-    align-items: center; /* Center the navigation links */
-    z-index: 1000; /* Make sure nav is above other content */
+    align-items: center; 
+    z-index: 1000; 
     max-width: fit-content; 
     padding-inline: 3px;
   }
 
   .nav-links.nav-expanded {
-    display: flex; /* show links when nav is expanded */
+    display: flex; 
   }
 
   .nav-links a {
@@ -160,7 +160,7 @@ html, body {
     padding: 10px;
     
     text-align: center;
-    /* Full width of each link */
+    
     transition: background-color 0.3s;
   }
 
@@ -187,7 +187,7 @@ html, body {
   width: 100%;
   max-width: 400px;
   position: absolute;
-  left: 25%; /* Move the sign-up box to the right by 20% of the screen width */
+  left: 25%; 
   top: 55%;
   transform: translateY(-50%);
 }
@@ -272,7 +272,7 @@ input {
   width: 100%;
   max-width: 400px;
   position: absolute;
-  left: 20%; /* Move the sign-up box to the right by 20% of the screen width */
+  left: 20%; 
   top: 55%;
   
   transform: translateY(-50%);
@@ -306,11 +306,11 @@ input {
 /* Name fields side by side */
 .name-fields {
   display: flex;
-  gap: 10px; /* Space between fields */
+  gap: 8px; 
 }
 
 .name-fields input {
-  flex: 1; /* Equal width */
+  flex: 1;
 }
 
 /* Submit button styles */
@@ -338,6 +338,7 @@ input {
   color: #666;
   margin-top: 1rem;
   text-align: center;
+  gap :auto;
 }
 
 .signin-link a {
