@@ -40,14 +40,14 @@ function Home() {
       id: 2,
       title: 'Taj Hotel',
       image: './Images Capstone/Taj Hotel Image.webp',
-      description: 'Udaipur, India',
+      Place: 'Udaipur, India',
       price: '$310',
     },
     {
       id: 3,
       title: 'The Plaza',
       image: './Images Capstone/Plaza Hotel.jpg',
-      description: 'New York, USA',
+      Place: 'New York, USA',
       price: '$250',
     },
   ];
@@ -112,7 +112,7 @@ function Home() {
           </div>
           <div className='container'>
             <div className='flightExploreBox'>
-              <img src="./Images Capstone/Vector.png" alt='vector' className='vector-pic'/>
+              <img src="./Images Capstone/VectorWhite.png" alt='vector' className='vectorWhite-pic'/>
               <Link href="./hotel" className="flightExpoLink">Explore Now</Link>
             </div>
           </div>
@@ -126,7 +126,7 @@ function Home() {
                 </div>
                 <div className='flightp-content'>
                   <h2 className='flightp-title'>{hotel.title}</h2>
-                  <p className='flightp-words'>{hotel.price}</p>
+                  <p className='flightp-words'>{hotel.Place}</p>
                   <div className='price'>
                     <p className='strating'>Starting From</p>
                     <p className='flightp-price'>{hotel.price}</p>
