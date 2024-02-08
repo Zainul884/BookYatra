@@ -28,6 +28,30 @@ function Home() {
     },
   ];
 
+  const hotels = [
+    {
+      id: 1,
+      title: 'Farmount Springs',
+      image: './Images Capstone/Farmount Image.jpg',
+      Place: 'Banff, Alberta',
+      price: '$450',
+    },
+    {
+      id: 2,
+      title: 'Taj Hotel',
+      image: './Images Capstone/Taj Hotel Image.webp',
+      Place: 'Udaipur, India',
+      price: '$310',
+    },
+    {
+      id: 3,
+      title: 'The Plaza',
+      image: './Images Capstone/Plaza Hotel.jpg',
+      Place: 'New York, USA',
+      price: '$250',
+    },
+  ];
+
   return (
     <div className="homepage">
       <header className="header">
@@ -69,7 +93,6 @@ function Home() {
           </div>
         </div>
         <h1 className='popularFlights'>Popular Flights</h1>
-        <div className='popularFlightsGrid'>
           <div className='popularflights'>
             {flights.map((flight) => (
               <div key={flight.id} className='flightcard'>
@@ -87,21 +110,26 @@ function Home() {
               </div>
             ))}
           </div>
-        </div>
+          <div className='container'>
+            <div className='flightExploreBox'>
+              <img src="./Images Capstone/VectorWhite.png" alt='vector' className='vectorWhite-pic'/>
+              <Link href="./hotel" className="flightExpoLink">Explore Now</Link>
+            </div>
+          </div>
         <h1 className='popularHotels'>Popular Hotels</h1>
         <div className='popularFlightsGrid'>
           <div className='popularflights'>
-            {flights.map((flight) => (
-              <div key={flight.id} className='flightcard'>
-                <img src={flight.image} alt={flight.title} className='flightp-pic'/>
+            {hotels.map((hotel) => (
+              <div key={hotel.id} className='flightcard'>
+                <img src={hotel.image} alt={hotel.title} className='flightp-pic'/>
                 <div className='flight-content'>
                 </div>
                 <div className='flightp-content'>
-                  <h2 className='flightp-title'>{flight.title}</h2>
-                  <p className='flightp-words'>{flight.description}</p>
+                  <h2 className='flightp-title'>{hotel.title}</h2>
+                  <p className='flightp-words'>{hotel.Place}</p>
                   <div className='price'>
                     <p className='strating'>Starting From</p>
-                    <p className='flightp-price'>{flight.price}</p>
+                    <p className='flightp-price'>{hotel.price}</p>
                   </div>
                 </div>
               </div>
