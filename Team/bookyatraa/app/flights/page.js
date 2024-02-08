@@ -265,7 +265,6 @@ const FlightPage = () => {
       <img className="absolute -translate-y-1/2 right-[5px] top-1/2" width="12" height="12" src="Icon70_358.png"></img>
     </div>
   </div>
-  <img className="absolute left-[-30px] top-[-75px]" width="298" height="290" src="./Images Capstone/LOGO without bg.png"></img>
 </div>)
 }
 
