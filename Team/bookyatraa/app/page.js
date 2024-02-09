@@ -20,9 +20,7 @@ function LandingPage() {
         </div>
         <button
           className="hamburger"
-          onClick={() => setIsNavExpanded(!isNavExpanded)}
-        >
-          {/* Hamburger Icon */}
+          onClick={() => setIsNavExpanded(!isNavExpanded)}style={{ color: 'white' }}>
           {isNavExpanded ? '✖' : '☰'}
         </button>
         <nav className={`nav-links ${isNavExpanded ? 'nav-expanded' : ''}`}>
@@ -36,7 +34,10 @@ function LandingPage() {
       <div className="main-content">
         <p className="tagline">Explore the World in Comfort and Style</p><br></br>
         <p className="tagline">BookYatra, Your Travel Companion.</p>
-        <button className="explore-button">Explore Now</button>
+        <Link href="/homepage">
+          <button className="explore-button">Explore Now</button>
+        </Link>
+       
       </div>
     </div>
   );
