@@ -130,7 +130,7 @@ const FlightPage = () => {
     </div>
   </div>
   <div className="absolute left-[362px] top-[1500px] flex flex-col items-center justify-start">
-    <img width="296" height="420" src="Rectangle 473_122.png"></img>
+    <img width="296" height="420" src="./Images Capstone/Popular Destinations For Flight Page.jpg"></img>
     <div className="absolute left-[24px] top-[286px] flex flex-col items-start justify-start gap-[16px]">
       <div className="flex flex-row items-end justify-end gap-[2px]">
         <div className="w-[177px] shrink-0 flex flex-col items-start justify-start">
@@ -147,7 +147,7 @@ const FlightPage = () => {
     </div>
   </div>
   <div className="absolute left-[697px] top-[1500px] flex flex-col items-center justify-start">
-    <img width="296" height="420" src="Rectangle 473_133.png"></img>
+    <img width="296" height="420" src="./Images Capstone/Popular Destinations For Flight Page.jpg"></img>
     <div className="absolute left-[24px] top-[286px] flex flex-col items-start justify-start gap-[16px]">
       <div className="flex flex-row items-end justify-end gap-[2px]">
         <div className="w-[177px] shrink-0 flex flex-col items-start justify-start">
@@ -164,7 +164,7 @@ const FlightPage = () => {
     </div>
   </div>
   <div className="absolute left-[1063px] top-[1500px] flex flex-col items-center justify-start">
-    <img width="296" height="420" src="Rectangle 473_144.png"></img>
+    <img width="296" height="420" src="./Images Capstone/Popular Destinations For Flight Page.jpg"></img>
     <div className="absolute left-[24px] top-[286px] flex flex-col items-start justify-start gap-[16px]">
       <div className="flex flex-row items-end justify-end gap-[2px]">
         <div className="w-[177px] shrink-0 flex flex-col items-start justify-start">
@@ -186,11 +186,9 @@ const FlightPage = () => {
       <div className="absolute left-0 top-0 w-[944px] h-[64px] flex">
         <div className="absolute left-0 top-0 w-[354px] h-[63px] flex">
           <div className="absolute left-[95px] top-[2px] w-[259px] h-[61px] flex">
-            <img className="absolute left-[37px] top-[29px]" width="53" height="24" src="Rectangle 2467_221.png"></img>
             <div className="absolute left-0 top-0 w-[259px] h-[61px] text-[57px] font-['Judson'] text-[#000]">BookYatra</div>
           </div>
           <div className="absolute left-[95px] top-[2px] w-[259px] h-[61px] flex">
-            <img className="absolute left-[37px] top-[29px]" width="53" height="24" src="Rectangle 2467_224.png"></img>
             <div className="absolute left-0 top-0 w-[259px] h-[61px] text-[57px] font-['Judson'] text-[#000]">BookYatra</div>
           </div>
           <div className="absolute left-0 top-0 w-[158px] h-[51px] text-[59px] font-['Judson'] text-[#000] text-center">#</div>
@@ -204,9 +202,9 @@ const FlightPage = () => {
       <div className="absolute left-[403px] top-[110px] w-[59px] h-[30px] text-[18px] font-['Inter'] text-[#000]">Hotels</div>
       <div className="absolute left-[401px] top-[140px] w-[83px] h-[30px] text-[18px] font-['Inter'] text-[#000]">About Us</div>
       <div className="absolute left-[401px] top-[170px] w-[75px] h-[30px] text-[18px] font-['Inter'] text-[#000]">FAQs</div>
-      <img className="absolute left-[570px] top-[70px]" width="28" height="28" src="Social Icons67_235.png"></img>
-      <img className="absolute left-[613px] top-[70px]" width="28" height="28" src="Instagram67_236.png"></img>
-      <img className="absolute left-[663px] top-[70px]" width="28" height="28" src="Twitter67_237.png"></img>
+      <img className="absolute left-[570px] top-[70px]" width="28" height="28" src="./Images Capstone/fb.png"></img>
+      <img className="absolute left-[613px] top-[70px]" width="28" height="28" src="./Images Capstone/Insta.png"></img>
+      <img className="absolute left-[663px] top-[70px]" width="28" height="28" src="./Images Capstone/Twitter.png"></img>
     </div>
     <div className="absolute left-[33px] top-[0px] w-[1440px] h-0 border-[1px] border-solid border-[#000]"></div>
   </div>
@@ -265,7 +263,6 @@ const FlightPage = () => {
       <img className="absolute -translate-y-1/2 right-[5px] top-1/2" width="12" height="12" src="Icon70_358.png"></img>
     </div>
   </div>
-  <img className="absolute left-[-30px] top-[-75px]" width="298" height="290" src="./Images Capstone/LOGO without bg.png"></img>
 </div>)
 }
 
