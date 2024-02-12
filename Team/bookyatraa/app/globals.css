@@ -444,7 +444,7 @@ input {
  margin-top: 90px;
 }
 
-.flights-content, .hotel-content{
+.flights-content, .hotels-content{
   position: absolute;
   flex-direction: column;
   top: 0;
@@ -525,13 +525,13 @@ input {
   border-radius: 20px;
 }
 
-.flight-content {
+.flight-content, .hotel-content {
   padding-top: 120px;
   background-color: #000;
   opacity: 0.7;
 }
 
- .flightp-content, .flight-content {
+ .flightp-content, .flight-content, .hotel-content, .hotelp-content {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -541,15 +541,29 @@ input {
   border-radius: 0 0 20px 20px; /* Adjusted to fit the bottom of the image */
 }
 
-.flightp-title, .flightp-words, .price {
+.flightp-title, .flightp-words, .price , .hotelp-title, .hotelp-words, .priceh{
   color: white;
   margin-inline: 40px;
 ;
 }
 
-.flightp-title {
+.per{
+  font-size: 10px;
+  font-weight: 10px;
+  margin-bottom: 2px;
+}
+
+.flightp-title, .hotelp-title {
   font-size: 27px;
   font-weight: bold;
+}
+
+.hotelp-title {
+  padding-bottom: 23px;
+}
+
+.hotelp-words{
+  
 }
 
 .flightp-words {

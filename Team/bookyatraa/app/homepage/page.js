@@ -82,7 +82,7 @@ function Home() {
           </div>
           <div className="hotel">
             <img src="./Images Capstone/homePagehotel.jpg" alt='hotel' className='hotel-pic'/>
-            <div className='hotel-content'>
+            <div className='hotels-content'>
               <h2 className='hotelsHome'>Hotels</h2>
               <p className='hotelWords'>Search hotels & Places Hire to our most popular destinations</p>
               <div className='hotelSearchBox'>
@@ -122,14 +122,16 @@ function Home() {
             {hotels.map((hotel) => (
               <div key={hotel.id} className='flightcard'>
                 <img src={hotel.image} alt={hotel.title} className='flightp-pic'/>
-                <div className='flight-content'>
+                <div className='hotel-content'>
                 </div>
-                <div className='flightp-content'>
-                  <h2 className='flightp-title'>{hotel.title}</h2>
-                  <p className='flightp-words'>{hotel.Place}</p>
+                <div className='hotelp-content'>
+                  <h2 className='hotelp-title'>{hotel.title}</h2>
+                  <p className='hotelp-words'>{hotel.Place}</p>
                   <div className='price'>
                     <p className='strating'>Starting From</p>
-                    <p className='flightp-price'>{hotel.price}</p>
+                    <div className='flightp-price'>
+                      <p className='pricer'>{hotel.price}/<span className='per'>per night</span></p>
+                    </div>
                   </div>
                 </div>
               </div>
