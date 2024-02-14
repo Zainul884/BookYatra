@@ -5,6 +5,9 @@ import Link from 'next/link';
 
 function LandingPage() {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
+  // Function to toggle navigation expansion
+  const toggleNav = () => {
+    setIsNavExpanded(!isNavExpanded);}
 
   return (
     <div className="landing-page">
@@ -18,17 +21,15 @@ function LandingPage() {
             layout="intrinsic"
           />
         </div>
-        <button
-          className="hamburger"
-          onClick={() => setIsNavExpanded(!isNavExpanded)}style={{ color: 'white' }}>
+        <button className="hamburger" onClick={toggleNav} aria-label="Toggle navigation">
           {isNavExpanded ? '✖' : '☰'}
         </button>
         <nav className={`nav-links ${isNavExpanded ? 'nav-expanded' : ''}`}>
-          <Link href="/homepage">Home</Link>
-          <Link href="/hotels">Hotels</Link>
-          <Link href="/flights">Flights</Link>
-          <Link href="/login">Login</Link>
-          <Link href="/signup">SignUp</Link>
+          <Link href="/homepage" onClick={toggleNav}>Home</Link>
+          <Link href="/hotels" onClick={toggleNav}>Hotels</Link>
+          <Link href="/flights" onClick={toggleNav}>Flights</Link>
+          <Link href="/login"onClick={toggleNav}>Login</Link>
+          <Link href="/signup" onClick={toggleNav}>SignUp</Link>
         </nav>
       </header>
       <div className="main-content">
@@ -42,5 +43,6 @@ function LandingPage() {
     </div>
   );
 }
+
 
 export default LandingPage;

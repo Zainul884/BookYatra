@@ -56,8 +56,8 @@ const Signup = () => {
           <Image
             src="/Images Capstone/LOGO without bg.png"
             alt="BookYatra Logo"
-            width={200} // Adjusted width as per your requirement
-            height={40} // Adjusted height to maintain aspect ratio
+            width={200} 
+            height={40} 
           />
         </div>
         <div className="slogan">
