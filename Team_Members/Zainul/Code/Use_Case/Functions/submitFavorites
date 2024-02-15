@@ -1,0 +1,22 @@
+//function that allows the user to sumbit their favorites and save them to the realtime database
+
+const submitFavorites = () => {
+    if (user && favorites.length > 0) {
+      const database = getDatabase();
+      const favoritesRef = ref(database, users/${user.uid}/favoritesData);
+
+      set(favoritesRef, {
+        favorites: favorites,
+        totalCost: calculateTotalPrice()
+      }).then(() => {
+        console.log("Favorites successfully submitted!");
+        setSubmitStatus("Favorites successfully submitted!");
+      }).catch((error) => {
+        console.error("Error submitting favorites:", error);
+        setSubmitStatus("Error submitting favorites. Please try again.");
+      });
+    } else {
+      setSubmitStatus("No favorites to submit.");
+    }
+  };
+  

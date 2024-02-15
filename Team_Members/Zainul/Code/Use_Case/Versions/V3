@@ -1,0 +1,509 @@
+//ChatGPT was used to fix some bugs in this code
+//When I entered the various different prompts, ChatGPT found my bugS
+//I also used ChatGPT to provide suggestions for my code which I later added such as comments and proper formatting or better code
+//My name is Zainul Malik
+
+"use client";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
+import { getDatabase, ref, set, onValue } from 'firebase/database';
+
+// Assuming firebaseConfig.js initializes Firebase, you don't need to import 'database' here
+import './firebaseConfig'; // Make sure this initializes Firebase correctly
+
+const Header = () => <header>Travel Search</header>;
+
+const styles = {
+  container: {
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    color: '#333',
+    backgroundColor: '#f9f9f9',
+    padding: '20px',
+    maxWidth: '800px',
+    margin: 'auto',
+  },
+  formContainer: {
+    backgroundColor: 'white',
+    padding: '20px 30px',
+    borderRadius: '10px',
+    boxShadow: '0 6px 12px rgba(0, 0, 0, 0.15)',
+    marginBottom: '30px',
+  },
+  inputGroup: {
+    marginBottom: '20px',
+  },
+  label: {
+    display: 'block',
+    marginBottom: '10px',
+    fontWeight: '600',
+    color: '#555',
+  },
+  input: {
+    width: '100%',
+    padding: '12px 15px',
+    border: '1px solid #ccc',
+    borderRadius: '6px',
+    marginBottom: '15px',
+    fontSize: '14px',
+  },
+  button: {
+    padding: '12px 25px',
+    border: 'none',
+    borderRadius: '6px',
+    backgroundColor: '#0056b3',
+    color: 'white',
+    fontSize: '16px',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+    ':hover': {
+      backgroundColor: '#004494'
+    }
+  },
+  resultItem: {
+    borderBottom: '1px solid #eee',
+    paddingBottom: '15px',
+    marginBottom: '15px',
+    lastChild: {
+      borderBottom: 'none',
+    }
+  },
+  flexContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '20px',
+    marginRight: '100px',
+  },
+  halfWidthContainer: {
+    flex: '1 1 50%',
+    maxWidth: '48%',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '10px',
+    padding: '20px',
+    border: '1px solid #ccc',
+    borderRadius: '8px',
+    backgroundColor: '#f8f8f8',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+    width: '100%', // Adjusting width for responsiveness
+    maxWidth: '400px', // Setting max width for larger screens
+    margin: '20px auto', // Centering the form
+  },
+  authInput: { // New style for the authentication input fields
+    width: '100%',
+    padding: '10px',
+    margin: '5px 0',
+    borderRadius: '4px',
+    border: '1px solid #ddd',
+    fontSize: '16px',
+    backgroundColor: '#fff', // Ensuring the background is white for visibility
+  },
+  authButton: { // New style for the authentication buttons
+    width: '100%',
+    padding: '10px',
+    border: 'none',
+    borderRadius: '4px',
+    backgroundColor: '#4CAF50', // Changing button color for distinction
+    color: 'white',
+    fontSize: '16px',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+    ':hover': {
+      backgroundColor: '#45a049', // Darker shade on hover
+    },
+  }
+};
+
+
+
+function DestIdSearch() {
+  const [destResults, setDestResults] = useState([]);
+  const [isLoadingDest, setIsLoadingDest] = useState(false);
+  const [errorDest, setErrorDest] = useState('');
+  const [query, setQuery] = useState('');
+
+  const [hotels, setHotels] = useState([]);
+  const [isLoadingHotels, setIsLoadingHotels] = useState(false);
+  const [errorHotels, setErrorHotels] = useState('');
+  const [destId, setDestId] = useState('');
+  const [arrivalDate, setArrivalDate] = useState('');
+  const [departureDate, setDepartureDate] = useState('');
+  const [adults, setAdults] = useState('1');
+  const [childrenAge, setChildrenAge] = useState('0,17');
+  const [roomQty, setRoomQty] = useState('1');
+  const [favorites, setFavorites] = useState([]);
+  const [user, setUser] = useState(null);
+  const [isSigningUp, setIsSigningUp] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [submitStatus, setSubmitStatus] = useState('');
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("User logged in:", user.uid); // Log user ID for verification
+        setUser(user);
+  
+        const database = getDatabase();
+        const userDataRef = ref(database, users/${user.uid}/favoritesData);
+        
+        const unsubscribeData = onValue(userDataRef, (snapshot) => {
+          const data = snapshot.val();
+          console.log("Retrieved data:", data); // Log the retrieved data
+          if (data && data.favorites) {
+            setFavorites(data.favorites);
+          } else {
+            setFavorites([]);
+          }
+        }, (error) => {
+          console.error("Error fetching data:", error);
+        });
+  
+        return () => unsubscribeData();
+      } else {
+        console.log("No user logged in");
+        setUser(null);
+        setFavorites([]);
+      }
+    });
+  
+    return () => unsubscribeAuth();
+  }, [user]); // Add 'user' to the dependency array
+  
+  
+  
+
+  const fetchFavorites = (userId) => {
+    const favoritesRef = firebase.database().ref(users/${userId}/favorites);
+    favoritesRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setFavorites(data.favoritesList || []);
+      }
+    });
+  };
+
+
+  const addToFavorites = (hotel) => {
+    setFavorites(prevFavorites => {
+      const newFavorites = prevFavorites.some(fav => fav.hotel_id === hotel.hotel_id) 
+        ? prevFavorites 
+        : [...prevFavorites, hotel];
+  
+      if (user) {
+        const database = getDatabase();
+        const favoritesRef = ref(database, users/${user.uid}/favorites);
+        set(favoritesRef, newFavorites);
+      }
+  
+      return newFavorites;
+    });
+  };
+  
+  const submitFavorites = () => {
+    if (user && favorites.length > 0) {
+      const database = getDatabase();
+      const favoritesRef = ref(database, users/${user.uid}/favoritesData);
+
+      set(favoritesRef, {
+        favorites: favorites,
+        totalCost: calculateTotalPrice()
+      }).then(() => {
+        console.log("Favorites successfully submitted!");
+        setSubmitStatus("Favorites successfully submitted!");
+      }).catch((error) => {
+        console.error("Error submitting favorites:", error);
+        setSubmitStatus("Error submitting favorites. Please try again.");
+      });
+    } else {
+      setSubmitStatus("No favorites to submit.");
+    }
+  };
+  
+  
+
+  const signIn = (email, password) => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        // You can set user state or perform other actions here
+      })
+      .catch(error => console.error("Error signing in:", error));
+  };
+
+  const handleSignOut = () => {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      console.log("User signed out");
+      setUser(null); // Reset the user state
+      setFavorites([]); // Clear favorites upon sign out
+    }).catch((error) => {
+      console.error("Sign out error:", error);
+    });
+  };
+
+  const signUp = (email, password) => {
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // User created
+        // You can set user state or perform other actions here
+      })
+      .catch(error => console.error("Error signing up:", error));
+  };
+
+
+  const calculateTotalPrice = () => {
+    return favorites.reduce((total, hotel) => {
+      // Accessing the nested price
+      const hotelPrice = parseFloat(hotel.property.priceBreakdown.grossPrice.value);
+      return total + (isNaN(hotelPrice) ? 0 : hotelPrice);
+    }, 0);
+  }
+
+  
+
+  const fetchDestId = async () => {
+    setIsLoadingDest(true);
+    setErrorDest('');
+    setDestResults([]);
+
+    const options = {
+      method: 'GET',
+      url: 'https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination',
+      params: { query: query },
+      headers: {
+        'X-RapidAPI-Key': 'ae41750b50msh389a7b6e1203026p127800jsnc1c3b5dbac79',
+        'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com',
+      },
+    };
+
+    try {
+      const response = await axios.request(options);
+      setDestResults(response.data.data);
+    } catch (error) {
+      console.error("Error fetching destination ID:", error);
+      setErrorDest("An error occurred while fetching the destination ID.");
+    } finally {
+      setIsLoadingDest(false);
+    }
+  };
+
+  const fetchHotels = async () => {
+    setIsLoadingHotels(true);
+    setErrorHotels('');
+  
+    const hotelOptions = {
+      method: 'GET',
+      url: 'https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels',
+      params: {
+        dest_id: destId,
+        search_type: 'CITY',
+        arrival_date: arrivalDate,
+        departure_date: departureDate,
+        adults: adults,
+        children_age: childrenAge,
+        room_qty: roomQty,
+        page_number: '1',
+        languagecode: 'en-us',
+        currency_code: 'AED'
+      },
+      headers: {
+        'X-RapidAPI-Key': 'ae41750b50msh389a7b6e1203026p127800jsnc1c3b5dbac79',
+        'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com',
+      },
+    };
+  
+    try {
+      const response = await axios.request(hotelOptions);
+      // Access the hotels array within the data object
+      if (response.data && response.data.data && Array.isArray(response.data.data.hotels)) {
+        setHotels(response.data.data.hotels);
+      } else {
+        setHotels([]); // Set to empty if the path is not as expected
+      }
+    } catch (error) {
+      console.error("Error fetching hotels:", error);
+      setErrorHotels("An error occurred while fetching hotels.");
+    } finally {
+      setIsLoadingHotels(false);
+    }
+  };
+  
+  if (!user) {
+    return (
+      <div style={styles.container}>
+        {isSigningUp ? (
+          <div style={styles.form}>
+            {/* Sign Up Form */}
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter email"
+              style={styles.authInput}
+            />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter password"
+              style={styles.authInput}
+            />
+            <button onClick={() => signUp(email, password)} style={styles.authButton}>Sign Up</button>
+            <button onClick={() => setIsSigningUp(false)} style={styles.authButton}>Sign In Instead</button>
+          </div>
+        ) : (
+          <div style={styles.form}>
+            {/* Sign In Form */}
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter email"
+              style={styles.authInput}
+            />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter password"
+              style={styles.authInput}
+            />
+            <button onClick={() => signIn(email, password)} style={styles.authButton}>Sign In</button>
+            <button onClick={() => setIsSigningUp(true)} style={styles.authButton}>Sign Up Instead</button>
+          </div>
+        )}
+      </div>
+    );
+}
+
+  return (
+    <div style={styles.container}>
+    <Header />
+    {user && (
+      <div style={{ textAlign: 'right', marginBottom: '10px' }}>
+        <button onClick={handleSignOut} style={styles.button}>Sign Out</button>
+      </div>
+    )}
+      
+  
+      {/* Destination ID Search Section */}
+      <div style={styles.formContainer}>
+        <div style={styles.inputGroup}>
+          <label style={styles.label}>Search Query (City, District, etc.)</label>
+          <input
+            type="text"
+            style={styles.input}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Enter city or district"
+            required
+          />
+        </div>
+        <button style={styles.button} onClick={fetchDestId}>
+          Search Destination ID
+        </button>
+      </div>
+  
+      {/* Hotel Search Section */}
+      <div style={styles.formContainer}>
+        <div style={styles.inputGroup}>
+          <label style={styles.label}>Destination ID</label>
+          <input
+            type="text"
+            style={styles.input}
+            value={destId}
+            onChange={(e) => setDestId(e.target.value)}
+            placeholder="Enter destination ID"
+            required
+          />
+        </div>
+        <div style={styles.inputGroup}>
+          <label style={styles.label}>Arrival Date</label>
+          <input
+            type="date"
+            style={styles.input}
+            value={arrivalDate}
+            onChange={(e) => setArrivalDate(e.target.value)}
+            required
+          />
+        </div>
+        <div style={styles.inputGroup}>
+          <label style={styles.label}>Departure Date</label>
+          <input
+            type="date"
+            style={styles.input}
+            value={departureDate}
+            onChange={(e) => setDepartureDate(e.target.value)}
+            required
+          />
+        </div>
+        <button style={styles.button} onClick={fetchHotels}>
+          Search Hotels
+        </button>
+      
+      </div>
+  
+      <div style={styles.flexContainer}>
+        {/* Left Container: Destination Results */}
+        <div style={{ ...styles.resultsContainer, ...styles.halfWidthContainer }}>
+          {destResults.map((dest, index) => (
+            <div key={index} style={styles.resultItem}>
+              <p>Destination ID: {dest.dest_id}</p>
+              <p>City: {dest.city_name}</p>
+              <p>Region: {dest.region}</p>
+              <p>Country: {dest.country}</p>
+              <p>Type: {dest.search_type}</p>
+            </div>
+          ))}
+        </div>
+  
+        {/* Right Container: Hotel Results */}
+        <div style={{ ...styles.resultsContainer, ...styles.halfWidthContainer }}>
+          {hotels.map((hotel, index) => (
+            <div key={index} style={styles.resultItem}>
+              <h3>{hotel.property.name}</h3>
+              <p>{hotel.accessibilityLabel}</p>
+              <button onClick={() => addToFavorites(hotel)}>Add to Favorites</button>
+            </div>
+          ))}
+        </div>
+  
+{/* Container for Favorites */}
+<div style={{ ...styles.resultsContainer, ...styles.halfWidthContainer }}>
+  <h2>Favorites:</h2>
+  {favorites.length > 0 ? (
+     <div>
+     {favorites.map((fav, index) => (
+       <div key={index} style={styles.resultItem}>
+         <h3>{fav.property.name}</h3>
+         <img src={fav.property.mainPhotoUrl} alt={fav.property.name} style={{ width: '100px', height: '100px' }}/>
+         <p>Address: {fav.property.address}</p>
+         <p>Rating: {fav.property.rating}</p>
+         <p>Price: {fav.property.priceBreakdown.grossPrice.value} {fav.property.priceBreakdown.grossPrice.currency}</p>
+         {/* Add other details as per your data structure */}
+       </div>
+     ))}
+     <div>
+        <strong>Total Price: {calculateTotalPrice()} AED</strong>
+      </div>
+      <button onClick={submitFavorites} style={styles.button}>Submit Favorites</button>
+      {submitStatus && <p>{submitStatus}</p>}
+    </div>
+  ) : (
+    <p>No favorites added.</p>
+  )}
+</div>
+
+      </div>
+    </div>
+  );
+}
+
+export default DestIdSearch;
