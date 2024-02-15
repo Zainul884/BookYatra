@@ -1,0 +1,17 @@
+//allows user to add favorite hotels to the favorites list and also adds up the total price
+
+const addToFavorites = (hotel) => {
+    setFavorites(prevFavorites => {
+      const newFavorites = prevFavorites.some(fav => fav.hotel_id === hotel.hotel_id) 
+        ? prevFavorites 
+        : [...prevFavorites, hotel];
+  
+      if (user) {
+        const database = getDatabase();
+        const favoritesRef = ref(database, users/${user.uid}/favorites);
+        set(favoritesRef, newFavorites);
+      }
+  
+      return newFavorites;
+    });
+  };
