@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const authenticate = (email, password) => {
-  // Simulate checking credentials (replace with actual validation logic)
+  
   const isValidUser = (email === "valid@example.com" && password === "password123");
   return isValidUser;
 };
@@ -13,17 +13,19 @@ function LogInPage(){
   const [isNavExpanded, setIsNavExpanded] = useState(false);
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState(''); // Error state to display message
-
- 
+  const [error, setError] = useState(''); 
+  // Function to toggle navigation expansion
+  const toggleNav = () => {
+    setIsNavExpanded(!isNavExpanded);}
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     const isValidUser = authenticate(email, password);
     if (isValidUser) {
-      // Redirect to homepage after successful login
+     
       window.location.href = '../homepage';
     } else {
-      // Display error message and stay on login page for invalid credentials
+      
       setError('Invalid credentials. Please try again.');
     }
   };
@@ -39,22 +41,18 @@ function LogInPage(){
               width={250}
               height={80}
               layout="intrinsic"
-            />
-            
+            /> 
           </div>
         </Link>
-          <button
-          className="hamburger"
-          onClick={() => setIsNavExpanded(!isNavExpanded)}
-        >
+        <button className="hamburger" onClick={toggleNav} aria-label="Toggle navigation">
           {isNavExpanded ? '✖' : '☰'}
         </button>
         <nav className={`nav-links ${isNavExpanded ? 'nav-expanded' : ''}`}>
-          <Link href="../homepage">Home</Link>
-          <Link href="/hotels">Hotels</Link>
-          <Link href="../flights">Flights</Link>
-          <Link href="../login">Login</Link>
-          <Link href="/signup">SignUp</Link>
+          <Link href="/homepage" onClick={toggleNav}>Home</Link>
+          <Link href="/hotels" onClick={toggleNav}>Hotels</Link>
+          <Link href="/flights" onClick={toggleNav}>Flights</Link>
+          <Link href="/login"onClick={toggleNav}>Login</Link>
+          <Link href="/signup" onClick={toggleNav}>SignUp</Link>
         </nav>
       </header>
       <div className="login-page">

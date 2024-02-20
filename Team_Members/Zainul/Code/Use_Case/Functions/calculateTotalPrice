@@ -1,0 +1,9 @@
+//calculate total price function
+
+const calculateTotalPrice = () => {
+    return favorites.reduce((total, hotel) => {
+      // Accessing the nested price
+      const hotelPrice = parseFloat(hotel.property.priceBreakdown.grossPrice.value);
+      return total + (isNaN(hotelPrice) ? 0 : hotelPrice);
+    }, 0);
+  }

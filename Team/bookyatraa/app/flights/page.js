@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 
 const FlightPage = () => {
-	return (<div className="relative w-[1440px] h-[3442px] bg-[#fff] overflow-hidden">
+	return (<div className="relative w-[1800px] h-[3442px] bg-[#fff] overflow-hidden">
   <div className="absolute left-[26px] top-[897px] w-[418px] h-[69px] text-[57px] font-['Inter'] text-[#000]">Flights</div>
   <div className="absolute left-[23px] top-[1333px] w-[568px] h-[69px] text-[57px] font-['Inter'] text-[#000]">Popular Destinations</div>
   <div className="absolute left-[43px] top-[2243px] w-[1150px] h-[378px] flex">
@@ -210,19 +210,37 @@ const FlightPage = () => {
   </div>
 
   <div className="flights">
-      <header className="header">
-        <div className="header-content">
-          <img src="./Images Capstone/LOGO without bg.png" alt="logo" className="logo-home" />
-          <nav className="homenavigation">
-            <Link href="./homepage"className="link">Home</Link>
-            <Link href="./hotel" className="link">Hotel</Link>
-            <Link href="./flights"className="link">Flights</Link>
-            <Link href="./login" className="link">Login</Link>
-            <Link href="./signup" className="link">Sign Up</Link>
-          </nav>
-        </div>
-        <hr className="line"></hr>
-      </header>
+  <header className="header">
+  <div className="header-content">
+    <Link href="./homepage">
+  
+        <img
+          src="./Images Capstone/LOGO without bg.png"
+          alt="logo"
+          className="logo-home"
+        />
+    
+    </Link>
+    <nav className="homenavigation">
+      <Link href="./homepage" className="link">
+        Home
+      </Link>
+      <Link href="./hotel" className="link">
+        Hotel
+      </Link>
+      <Link href="./flights" className="link">
+        Flights
+      </Link>
+      <Link href="./login" className="link">
+        Login
+      </Link>
+      <Link href="./signup" className="link">
+        Sign Up
+      </Link>
+    </nav>
+  </div>
+  <hr className="line"></hr>
+  </header>
   </div>    
   <div className="absolute left-[7px] top-[1006px] w-[690px] h-[244px] flex">
     <div className="absolute left-0 top-0 w-[690px] h-[244px] flex">

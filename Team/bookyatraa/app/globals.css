@@ -44,7 +44,7 @@ html, body {
   position: fixed;
   width: 100%;
   top: 0;
-  height: 70px;
+  height: 80px;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -52,12 +52,11 @@ html, body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  
+  margin-left: -60px;
+ 
 }
 
 .logo img {
-  flex-shrink: 0; 
   margin-top: 25px;
  
   
@@ -114,26 +113,23 @@ html, body {
   background-color:  #1e5a78; 
   color: white;
 }
-/* Hamburger menu styles */
-.hamburger {
-  background: none;
-  border: none;
-  display: none; 
-  cursor: pointer;
-  font-size: 35px;
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
-  z-index: 1001; 
-  color: #fff;
+.hamburger{
+  display: none;
 }
-
-/* Responsive nav styles */
-@media (max-width: 768px) {
-  .hamburger {
-    display: block; 
+/* Responsive Navbar */
+@media screen and (max-width:600px) {
+  .logo{
+    width:170px;
+    height:50px;
+    align-items: center;
+    margin-left: -50px;
   }
-
+  .landing-page{
+    height:100vh;
+  }
+  .landingpage-header{
+    height:70px;
+  }
   .nav-links {
     display: none; 
     flex-direction: column;
@@ -149,25 +145,80 @@ html, body {
     max-width: fit-content; 
     padding-inline: 3px;
   }
-
   .nav-links.nav-expanded {
-    display: flex; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 300px; /* Adjust as needed for your content */
+    width: 100%; /* Full width */
+    background-color: white; /* White background for the expanded menu */
+    /* Space at the top of the expanded menu */
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); /* Optional: adds shadow for depth */
   }
-
+  
   .nav-links a {
-    display: block;
-    color:#1e5a78;
-    padding: 10px;
+    color: #035c88; /* Dark color for the links for contrast */
+    text-decoration: none;
+    padding: 1rem; /* Spacing around links */
+    display: block; /* Makes the whole area clickable */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    width: 100%; /* Full width to the link for better mobile touch area */
+    text-align: center; /* Center text */
+  }
+  
+  .nav-links a:hover {
+    background-color: #f2f2f2; /* Light grey background on hover */
+  }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+    color:#fff;
+  }
+  .bar {
+    width: 100%;
+    height: 3px;
     
-    text-align: center;
-    
-    transition: background-color 0.3s;
+    transition: transform 0.3s ease;
+  }
+  
+  .hamburger.open .top {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  
+  .hamburger.open .middle {
+    opacity: 0;
+  }
+  
+  .hamburger.open .bottom {
+    transform: rotate(-45deg) translate(7px, -6px);
   }
 
-  .nav-links a:hover {
-    
+  .main-content {
+    right: 10%; /* Adjust content alignment for mobile */
+    color: #1e5a78;
+  }
+
+  /* Adjust tagline and button sizes for smaller screens */
+  .tagline {
+    font-size: larger;
+    font: bold;
+  }
+  .explore-button {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+    margin-top: 25px;
   }
 }
+
 /*login page */
 .login-page {
   display: flex;
@@ -251,6 +302,97 @@ input {
 
 .terms-text a:hover {
   text-decoration: underline;
+}
+
+
+@media screen and (max-width: 600px) {
+  .login-container {
+    left: 50%; /* Reset left positioning */
+    top:50% ;
+    transform: translate(-50%, -50%); 
+    width: calc(100% - 40px); /* Subtract the padding from the total width */
+    margin-top: 380px; /* Center the container */
+    position: absolute; /* Adjust the position to work with margin auto */
+    max-width: 540px;
+    margin: 0;
+    padding :20px;
+  }
+
+ .login-page{
+  height: auto; /* Adjust height to fit content */
+  min-height: 100vh; /* Ensure it's at least the height of the viewport */
+  padding: 0; /* Reset padding to allow for the container's padding */
+  display: flex; /* Use flexbox for centering */
+  align-items: center; /* Align items vertically */
+  justify-content: center; /* Align items horizontally */
+  overflow: hidden; /* Hide overflow to prevent scrolling */
+ }
+ .login-logo {
+  text-align: center;
+  margin-top: -55px;
+  margin-left: -40px;
+  width : 150px;
+  margin-bottom: 10px;
+}
+
+.login-heading {
+  color: #333;
+  text-align: center;
+  margin-bottom: 5px;
+  margin-top: -65px;
+  font: medium bold;
+}
+
+.form-label {
+  display: block;
+  margin-bottom:5px;
+  font-size: 0.9rem;
+ 
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom:4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.login-button {
+  background-color: #226688;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  margin-top: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.login-button:hover {
+  background-color: hwb(200 1% 65%); 
+}
+.login-error {
+  color: red;
+  margin-top: 1rem;
+}
+
+.terms-text {
+  font-size: 0.75rem;
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.terms-text a {
+  color: #226688; 
+  text-decoration: none;
+}
+
+.terms-text a:hover {
+  text-decoration: underline;
+}
+
 }
 /*sign up*/
 .signup-page {
@@ -346,12 +488,7 @@ input {
   text-decoration: none;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .name-fields {
-    flex-direction: column;
-  }
-}
+
 /*Social login*/
 .social-login {
   display: flex;
@@ -385,6 +522,418 @@ input {
 .social-icon {
   margin-right: 8px;
 }
+
+@media screen and (max-width: 600px) {
+  .signup-container {
+    left: 50%; /* Reset left positioning */
+    top:52% ;
+    transform: translate(-50%, -50%); 
+    width: calc(100% - 40px); /* Subtract the padding from the total width */
+    margin-top: 380px; /* Center the container */
+    position: absolute; /* Adjust the position to work with margin auto */
+    max-width: 540px;
+    margin: 0;
+    padding :20px;
+  }
+
+ .signup-page{
+  height: auto; /* Adjust height to fit content */
+  min-height: 100vh; /* Ensure it's at least the height of the viewport */
+  padding: 0; /* Reset padding to allow for the container's padding */
+  display: flex; /* Use flexbox for centering */
+  align-items: center; /* Align items vertically */
+  justify-content: center; /* Align items horizontally */
+  overflow: hidden; /* Hide overflow to prevent scrolling */
+ }
+ .signup-logo {
+  text-align: center;
+  margin-top: -60px;
+  margin-left: -40px;
+  width : 150px;
+  margin-bottom: 10px;}
+
+.slogan p {
+  margin: 0;
+  color: #333;
+  margin-bottom: 10px;
+  font:medium bold;
+  margin-top: -70px;
+  text-align: center;
+}
+.signup-container input,
+.signup-container select {
+  width: 100%;
+  padding: 7px;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Name fields side by side */
+.name-fields {
+  display: flex;
+  gap: 8px; 
+}
+
+.name-fields input {
+  flex: 1;
+}
+
+/* Submit button styles */
+.signup-container button {
+  width: 100%;
+  padding: 10px;
+  margin-top:auto;
+  background-color:#226688; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.signup-container button:hover {
+  background-color:#1e5a78; 
+}
+
+/* Privacy policy and sign-in link styles */
+.privacy-policy,
+.signin-link {
+  font-size: small;
+  color: #666;
+  margin-top: 2px;
+  text-align: center;
+  
+}
+
+.signin-link a {
+  color: #226688;
+  text-decoration: none;
+}
+}
+/* Home Page */
+.homepage {
+  background-color: white;
+}
+
+.logo-home{
+  width: 298px;
+  height: 290px;
+  margin-top: -75px;
+  margin-left: -30px;
+  margin-bottom: -110px;
+}
+
+.header-content{
+  display: flex;
+  justify-content: space-between;
+}
+
+.homenavigation{
+  color: black;
+  font-size: 20px;
+  font-family:'Inter', sans-serif;
+  margin-top: 38px;
+  margin-right: 8px;
+}
+
+.link{
+  margin-right: 27px;
+  font-style: italic;
+}
+
+.line{
+  border: 1px solid rgb(255, 255, 255);
+  box-shadow: 3px 3px 3px gray;
+}
+
+.flight-hotel{
+  display: grid;
+  grid-template-columns: 3fr 3fr;
+  grid-gap: 30px;
+  margin-inline: 80px;
+
+}
+
+.flight, .hotel{
+  position: relative;
+  overflow: hidden;
+}
+
+
+.flight-pic, .hotel-pic{
+  object-fit: cover;
+ height: 450px;
+ width: 900px;
+ border-radius: 20px; ;
+ margin-top: 90px;
+}
+
+.flights-content, .hotels-content{
+  position: absolute;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content:flex-end;
+  align-items: center;
+  padding: 1em; 
+  box-sizing: border-box;
+}
+
+.flightsHome, .hotelsHome{
+  font-size: 2.3rem;
+  font-weight: bold;
+  color: white;
+}
+
+.flightWords, .hotelWords{
+  font-size: medium;
+  color: white;
+  margin-bottom: 0.5rem;
+  margin-inline: 50px;
+  text-align: center;
+}
+
+.flightlink, .hotellink { 
+  text-decoration: black;
+  font-size: small;
+}
+
+.flightSearchBox , .hotelSearchBox{
+  border: 1px solid white;
+  border-radius: 4px;
+  background-color: white;
+  padding: 10px;
+  margin-bottom: 1px;
+  padding-inline: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.vector-pic{
+  width: 13px;
+  height: 13px;
+  margin-right: 4px;
+  margin-top: 3px;
+}
+
+.popularFlights, .popularHotels {
+  font-size: 3.2rem;
+  font-style: italic;
+  margin: 50px 0 30px 80px;
+}
+
+.popularflights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Creates three columns */
+  gap: 40px;
+  margin: 0 auto;
+  width: 90%;
+  max-width: 1200px; /* This controls the max width of the grid */
+}
+
+.flightcard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+}
+
+.flightp-pic {
+  width: 100%; /* Make the image responsive within the card */
+  max-width: 400px; /* Control the max width to maintain aspect ratio */
+  height: 500px; /* Adjust height automatically */
+  border-radius: 20px;
+}
+
+.flight-content, .hotel-content {
+  padding-top: 120px;
+  background-color: #000;
+  opacity: 0.7;
+}
+
+ .flightp-content, .flight-content, .hotel-content, .hotelp-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  padding-bottom: 10px;
+  border-radius: 0 0 20px 20px; /* Adjusted to fit the bottom of the image */
+}
+
+.flightp-title, .flightp-words, .price , .hotelp-title, .hotelp-words, .priceh{
+  color: white;
+  margin-inline: 40px;
+;
+}
+
+.per{
+  font-size: 10px;
+  font-weight: 10px;
+  margin-bottom: 2px;
+}
+
+.flightp-title, .hotelp-title {
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.hotelp-title {
+  padding-bottom: 23px;
+}
+.flightp-words {
+  font-size: 10px;
+  font-weight: 10px;
+  max-width: 180px;
+}
+
+.price {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .popularflights {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .popularflights {
+    grid-template-columns: 1fr; /* One column for very small screens */
+  }
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  max-width: 1600px;
+  margin-inline: auto;
+}
+
+.flightExploreBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #1D9BF0;
+  border-radius: 7px;
+  background-color: #1D9BF0;
+  padding: 20px;
+  padding-inline: 30px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 23.92px;
+  letter-spacing: 0.9px;
+  font-weight: 300;
+}
+
+.vectorWhite-pic{
+  width: 23px;
+  height: 23px;
+  margin-right: 10px;
+  margin-bottom: 4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Home Page */
 .homepage {
