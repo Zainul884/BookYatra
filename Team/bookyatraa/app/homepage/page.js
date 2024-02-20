@@ -4,6 +4,25 @@ import Link from 'next/link';
 
 
 function Home() {
+  const reviews = [
+    {
+      id: 1,
+      name: 'Prit Patel',
+      image: './Images Capstone/Prit Image.jpg',
+      description: '“Customer testimonials are more effective than paid marketing copy as they take the spotlight away from the seller to shine it on the customers.” ',
+      rating: '4.0 ⭐⭐⭐⭐',
+      date:'14 Feb,2023'
+    },
+    {
+      id: 1,
+      name: 'Zanudi',
+      image: './Images Capstone/Zanudi Image.jpg',
+      description: '“Customer testimonials are more effective than paid marketing copy as they take the spotlight away from the seller to shine it on the customers.” ',
+      rating: '4.0 ⭐⭐⭐⭐',
+      date:'20 Dec,2023'
+    },
+  ];
+
   const flights = [
     {
       id: 1,
@@ -143,9 +162,45 @@ function Home() {
               <Link href="./hotel" className="flightExpoLink">Explore Now</Link>
             </div>
           </div>
-          <h1 className='testimonal'>Testimonal</h1>
-          <div className='users'>
-            <p>What <span className='book'>Book</span>Yatra Users Are Saying</p>
+        </div>
+        <h1 className='testimonal'>Testimonal</h1>
+        <div className='users'>
+          <p className='testimonalHeading'>What <span className='book'>Book</span>Yatra Users Are Saying</p>
+        </div>
+        <div className='testimonalBox'>
+          {reviews.map((review) => (
+            <div key={review.id} className='review'>
+              <img src={review.image} alt={review.name} className='review-pic'/>
+              <div className='review-content'>
+                <h2 className='review-title'>{review.name}</h2>
+                <p className='review-rating'>{review.rating}</p>
+                <p className='review-words'>{review.description}</p>
+                <p className='review-date'>{review.date}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className='poster'>
+          <div className='easyFly'>
+            <img src="./Images Capstone/Easy Flying.jpg" alt='easyFly' className='easyFly-pic'/>
+            <div className='easyFly-content'>
+              <h2 className='easyFly-title'>Easy Flying</h2>
+              <p className='easyFly-words'>Fill your life with experiences, not things. Have stories to tell, not stuff to show. Book your next flight to start the journey!</p>
+            </div>
+          </div>
+          <div className='livingBetter'>
+            <img src="./Images Capstone/Hotel Image.jpg" alt='livingBetter' className='livingBetter-pic'/>
+            <div className='livingBetter-content'>
+              <h2 className='livingBetter-title'>Easy Flying</h2>
+              <p className='livingBetter-words'>Fill your life with experiences, not things. Have stories to tell, not stuff to show. Book your next flight to start the journey!</p>
+            </div>
+          </div>
+          <div className='Prblm'>
+            <img src="./Images Capstone/chatbot.jpg" alt='easyFly' className='easyFly-pic'/>
+            <div className='easyFly-content'>
+              <h2 className='easyFly-title'>Easy Flying</h2>
+              <p className='easyFly-words'>Fill your life with experiences, not things. Have stories to tell, not stuff to show. Book your next flight to start the journey!</p>
+            </div>
           </div>
         </div>
       </main>
