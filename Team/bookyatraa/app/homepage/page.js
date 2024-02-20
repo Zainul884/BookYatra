@@ -127,7 +127,7 @@ function Home() {
                 <div className='hotelp-content'>
                   <h2 className='hotelp-title'>{hotel.title}</h2>
                   <p className='hotelp-words'>{hotel.Place}</p>
-                  <div className='price'>
+                  <div className='pricep'>
                     <p className='strating'>Starting From</p>
                     <div className='flightp-price'>
                       <p className='pricer'>{hotel.price}/<span className='per'>per night</span></p>
@@ -136,6 +136,16 @@ function Home() {
                 </div>
               </div>
             ))}
+          </div>
+          <div className='container'>
+            <div className='flightExploreBox'>
+              <img src="./Images Capstone/VectorWhite.png" alt='vector' className='vectorWhite-pic'/>
+              <Link href="./hotel" className="flightExpoLink">Explore Now</Link>
+            </div>
+          </div>
+          <h1 className='testimonal'>Testimonal</h1>
+          <div className='users'>
+            <p>What <span className='book'>Book</span>Yatra Users Are Saying</p>
           </div>
         </div>
       </main>
