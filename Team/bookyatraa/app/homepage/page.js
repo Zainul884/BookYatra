@@ -4,6 +4,27 @@ import Link from 'next/link';
 
 
 function Home() {
+
+  const posters = [
+    {
+      id: 1,
+      title: 'Easy Flying',
+      image: './Images Capstone/Easy Flying.jpg',
+      description: 'Fill your life with experiences, not things. Have stories to tell, not stuff to show. Book your next flight to start the journey!',
+    },
+    {
+      id: 2,
+      title: 'Living Better',
+      image: './Images Capstone/Hotel Image.jpg',
+      description: 'Discover the luxury of being yourself in a land of wonder, one hotel stay at a time',
+    },
+    {
+      id: 3,
+      title: 'Having Problem?',
+      image: './Images Capstone/chatbot.png',
+      description: 'Discover the luxury of being yourself in a land of wonder, one hotel stay at a time',
+    }
+  ];
   const reviews = [
     {
       id: 1,
@@ -181,26 +202,39 @@ function Home() {
           ))}
         </div>
         <div className='poster'>
-          <div className='easyFly'>
-            <img src="./Images Capstone/Easy Flying.jpg" alt='easyFly' className='easyFly-pic'/>
-            <div className='easyFly-content'>
-              <h2 className='easyFly-title'>Easy Flying</h2>
-              <p className='easyFly-words'>Fill your life with experiences, not things. Have stories to tell, not stuff to show. Book your next flight to start the journey!</p>
+          {posters.map((poster) => (
+          <div key={poster.id} className='p-poster' >
+            <img src={poster.image} alt='poster' className='poster-pic'/>
+            <div className='poster-content'>
+              <h2 className='poster-title'>{poster.title}</h2>
+              <p className='poster-words'>{poster.description}</p>
             </div>
           </div>
-          <div className='livingBetter'>
-            <img src="./Images Capstone/Hotel Image.jpg" alt='livingBetter' className='livingBetter-pic'/>
-            <div className='livingBetter-content'>
-              <h2 className='livingBetter-title'>Easy Flying</h2>
-              <p className='livingBetter-words'>Fill your life with experiences, not things. Have stories to tell, not stuff to show. Book your next flight to start the journey!</p>
+          ))}
+        </div>
+        <hr className="blck"></hr>
+        <div className='footer'>
+          <p className='foot-title'>#BookYatra</p>
+          <div>
+            <p className='foot-head'>Explore</p>
+            <nav className="footer-nav">
+              <Link href="./flights" className="footer-link">Flights</Link>
+              <Link href="./hotel" className="footer-link">Hotels</Link>
+              <Link href="./About" className="footer-link">About Us</Link>
+              <Link href="./FAQ" className="footer-link">FAQs</Link>
+            </nav>
+          </div>
+          <div>
+            <p className='foot-head'>Follow Us</p>
+            <div className="follow-links">
+              <img src="./Images Capstone/Social Icons.png" alt='facebook' className='facebook-pic'/>
+              <img src="./Images Capstone/Instagram.png" alt='instagram' className='instagram-pic'/>
+              <img src="./Images Capstone/Twitter.png" alt='twitter' className='twitter-pic'/>
             </div>
           </div>
-          <div className='Prblm'>
-            <img src="./Images Capstone/chatbot.jpg" alt='easyFly' className='easyFly-pic'/>
-            <div className='easyFly-content'>
-              <h2 className='easyFly-title'>Easy Flying</h2>
-              <p className='easyFly-words'>Fill your life with experiences, not things. Have stories to tell, not stuff to show. Book your next flight to start the journey!</p>
-            </div>
+          <div>
+            <p className='foot-head'>Legal</p>
+            <p className='terms'>Terms of Use</p>
           </div>
         </div>
       </main>
@@ -209,3 +243,4 @@ function Home() {
 }
 
 export default Home;
+
