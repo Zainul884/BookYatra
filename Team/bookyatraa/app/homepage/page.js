@@ -153,7 +153,7 @@ function Home() {
           <div className='container'>
             <div className='flightExploreBox'>
               <img src="./Images Capstone/VectorWhite.png" alt='vector' className='vectorWhite-pic'/>
-              <Link href="./hotel" className="flightExpoLink">Explore Now</Link>
+              <Link href="./flights" className="flightExpoLink">Explore Now</Link>
             </div>
           </div>
         <h1 className='popularHotels'>Popular Hotels</h1>
