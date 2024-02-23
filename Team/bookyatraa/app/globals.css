@@ -777,6 +777,11 @@ input {
 ;
 }
 
+.hotelp-words{
+  font-size: 20px;
+  font-weight: 600;
+}
+
 .per{
   font-size: 10px;
   font-weight: 10px;
@@ -784,7 +789,7 @@ input {
 }
 
 .flightp-title, .hotelp-title {
-  font-size: 27px;
+  font-size: 23px;
   font-weight: bold;
 }
 

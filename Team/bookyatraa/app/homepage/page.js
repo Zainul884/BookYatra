@@ -1,6 +1,6 @@
 "use client";
-import React from 'react';
 import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
 
 
 function Home() {
@@ -68,29 +68,49 @@ function Home() {
     },
   ];
 
-  const hotels = [
-    {
-      id: 1,
-      title: 'Farmount Springs',
-      image: './Images Capstone/Farmount Image.jpg',
-      Place: 'Banff, Alberta',
-      price: '$450',
-    },
-    {
-      id: 2,
-      title: 'Taj Hotel',
-      image: './Images Capstone/Taj Hotel Image.webp',
-      Place: 'Udaipur, India',
-      price: '$310',
-    },
-    {
-      id: 3,
-      title: 'The Plaza',
-      image: './Images Capstone/Plaza Hotel.jpg',
-      Place: 'New York, USA',
-      price: '$250',
-    },
-  ];
+  const [destId, setDestId] = useState([]); // This will be the destination ID for the hotel search
+  const [hotelsDetails, setHotelsDetails] = useState([]);
+  const cityName = 'mumbai'; // Example city name
+  const url = `https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination?query=${cityName}`;
+  const Hotelurl = `https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels?dest_id=20088325&search_type=CITY&arrival_date=2024-04-10&departure_date=2024-04-18&adults=1&children_age=0%2C17&room_qty=1&page_number=1&languagecode=en-us&currency_code=AED`;
+  const options = {
+	  method: 'GET',
+	  headers: {
+		  'X-RapidAPI-Key': 'd5873eece3msh6c105f37489832ap16623ajsn3ba97a7a3aa6',
+		  'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com'
+	  }
+  };
+
+
+  useEffect(() => {
+    const fetchDestId = async () => {
+        
+    try {
+    	const response = await fetch(url, options);
+    	const result = await response.json();
+      setDestId(result.data[0].dest_id);
+    } catch (error) {
+        console.error('Fetch error:', error);
+      }
+    };
+
+    fetchDestId();
+  }, []);
+
+  useEffect(() => {
+    const fetchHotelDetails = async () => {
+      
+    try {
+    	const response = await fetch(Hotelurl, options);
+    	const result = await response.json();
+      setHotelsDetails(result.data.hotels.slice(0,3).map((hotel) => hotel.property));
+    } catch (error) {
+        console.error('Fetch error:', error);
+      }
+    };
+
+    fetchHotelDetails();
+  }, []);
 
   return (
     <div className="homepage">
@@ -159,23 +179,22 @@ function Home() {
         <h1 className='popularHotels'>Popular Hotels</h1>
         <div className='popularFlightsGrid'>
           <div className='popularflights'>
-            {hotels.map((hotel) => (
-              <div key={hotel.id} className='flightcard'>
-                <img src={hotel.image} alt={hotel.title} className='flightp-pic'/>
-                <div className='hotel-content'>
+            {hotelsDetails.map((hotel, index) => (
+              <div key={index} className='flightcard'>
+                <img src={hotel.photoUrls} alt={hotel.name} className='flightp-pic'/>
+                <div className='flight-content'>
                 </div>
                 <div className='hotelp-content'>
-                  <h2 className='hotelp-title'>{hotel.title}</h2>
-                  <p className='hotelp-words'>{hotel.Place}</p>
-                  <div className='pricep'>
+                  <h2 className='hotelp-title'>{hotel.name.split(' ').slice(0, 3).join(' ')}</h2>
+                  <p className='hotelp-words'>{hotel.wishlistName}</p>
+                  <div className='price'>
                     <p className='strating'>Starting From</p>
-                    <div className='flightp-price'>
-                      <p className='pricer'>{hotel.price}/<span className='per'>per night</span></p>
-                    </div>
+                    <p className='hotelp-price'>${Math.round(hotel.priceBreakdown.grossPrice.value/75)}<span className='per'>/per night</span></p>
                   </div>
                 </div>
               </div>
             ))}
+
           </div>
           <div className='container'>
             <div className='flightExploreBox'>
