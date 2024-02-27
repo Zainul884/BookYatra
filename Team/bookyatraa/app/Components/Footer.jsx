@@ -1,5 +1,5 @@
 import React from 'react'
-import im1 from '../../public/Images Capstone/Vector (1).png'
+import im1 from '../../public/Images Capstone/twitter.png'
 import im2 from '../../public/Images Capstone/Instagram.png'
 import im3 from '../../public/Images Capstone/Social Icons.png'
 export default function Footer() {
