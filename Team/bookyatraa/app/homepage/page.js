@@ -68,10 +68,8 @@ function Home() {
     },
   ];
 
-  const [destId, setDestId] = useState([]); // This will be the destination ID for the hotel search
   const [hotelsDetails, setHotelsDetails] = useState([]);
-  const cityName = 'mumbai'; // Example city name
-  const url = `https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination?query=${cityName}`;
+
   const Hotelurl = `https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels?dest_id=20088325&search_type=CITY&arrival_date=2024-04-10&departure_date=2024-04-18&adults=1&children_age=0%2C17&room_qty=1&page_number=1&languagecode=en-us&currency_code=AED`;
   const options = {
 	  method: 'GET',
@@ -81,21 +79,6 @@ function Home() {
 	  }
   };
 
-
-  useEffect(() => {
-    const fetchDestId = async () => {
-        
-    try {
-    	const response = await fetch(url, options);
-    	const result = await response.json();
-      setDestId(result.data[0].dest_id);
-    } catch (error) {
-        console.error('Fetch error:', error);
-      }
-    };
-
-    fetchDestId();
-  }, []);
 
   useEffect(() => {
     const fetchHotelDetails = async () => {
@@ -147,7 +130,7 @@ function Home() {
               <p className='hotelWords'>Search hotels & Places Hire to our most popular destinations</p>
               <div className='hotelSearchBox'>
                 <img src="./Images Capstone/Vector.png" alt='vector' className='vector-pic'/>
-                <Link href="./hotel" className="hotellink">Show flights</Link>
+                <Link href="./hotel" className="hotellink">Show Hotels</Link>
               </div>
             </div>
           </div>
