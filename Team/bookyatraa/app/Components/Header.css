@@ -1,0 +1,247 @@
+.out{
+    background-color: white;
+    height: max-content;
+    margin-top: -200px;
+    z-index: 1;
+    position: relative;
+    border-radius: 20px;
+    border: 1px solid rgb(58, 58, 58);
+}
+
+.ticket-container{
+    width: 90%;
+    
+}
+
+.heading{
+  margin-top: 100px;
+  text-align: left;
+  font-size: 40px;
+}
+
+select,option{
+  border-color: white;
+  outline: none !important;
+  background-color: white;;
+}
+
+.widthChange{
+min-width: 300px;
+display: flex;
+justify-content: space-between;
+}
+
+
+.nav-link{
+  color: #000;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.ticket-flight {
+    border-radius: 25px;
+    border: 0.836px solid #000;
+    box-shadow: 0px 3.342px 3.342px 0px rgba(0, 0, 0, 0.25);
+    background-color: #fff;
+    padding: 6px 29px 14px;
+  }
+  @media (max-width: 991px) {
+ .ticket-flight {
+      max-width: 100%;
+      padding: 0 20px;
+    }
+  }
+  .div-2 {
+    gap: 20px;
+    display: flex;
+  }
+  @media (max-width: 991px) {
+    .div-2 {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0px;
+    }
+  }
+  .column {
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    width: 24%;
+    margin-left: 0px;
+  }
+  @media (max-width: 991px) {
+    .column {
+      width: 100%;
+    }
+  }
+  .div-3 {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    color: #000;
+    font-weight: 400;
+  }
+  @media (max-width: 991px) {
+    .div-3 {
+      margin-top: 38px;
+    }
+  }
+  .img {
+    aspect-ratio: 1.79;
+    object-fit: auto;
+    object-position: center;
+    width: 122px;
+    max-width: 100%;
+  }
+  .div-4 {
+    margin-top: 4px;
+    text-align: left;
+    font: 40px Inter, sans-serif;
+  }
+
+  .div-6 {
+    font-family: Inter, sans-serif;
+    margin-top: 37px;
+  }
+  .div-7 {
+    font-family: Inter, sans-serif;
+    margin-top: 10px;
+    white-space: nowrap;
+  }
+  @media (max-width: 991px) {
+    .div-7 {
+      white-space: initial;
+    }
+  }
+  .column-2 {
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    width: 76%;
+    margin-left: 20px;
+  }
+  @media (max-width: 991px) {
+    .column-2 {
+      width: 100%;
+    }
+  }
+  .div-8 {
+    display: flex;
+    margin-top: 69px;
+    flex-grow: 1;
+    flex-direction: column;
+  }
+  @media (max-width: 991px) {
+    .div-8 {
+      max-width: 100%;
+      margin-top: 40px;
+    }
+  }
+  .div-9 {
+    display: flex;
+   gap: 40px;
+    color: #000;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+  @media (max-width: 991px) {
+    .div-9 {
+      max-width: 100%;
+      flex-wrap: wrap;
+      white-space: initial;
+    }
+  }
+  .img-2 {
+    aspect-ratio: 1.16;
+    object-fit: auto;
+    object-position: center;
+    width: 50px;
+    fill: var(--Blackish-Green, #121);
+  }
+  .div-10 {
+    align-self: start;
+    margin-top: 10px;
+    flex-grow: 1;
+    flex-basis: auto;
+    font: 40px Inter, sans-serif;
+  }
+  .div-12 {
+    align-self: end;
+    display: flex;
+    margin-top: 38px;
+    width: 210px;
+    max-width: 100%;
+    flex-direction: column;
+  }
+  .div-13 {
+    display: flex;
+    justify-content: space-between;
+    gap: 0px;
+    color: #000;
+    font-weight: 400;
+  }
+  .div-14 {
+    flex-grow: 1;
+    flex-basis: auto;
+    font: 40px Junge, sans-serif;
+  }
+  .div-15 {
+    align-self: start;
+    margin-top: 20px;
+    flex-grow: 1;
+    white-space: nowrap;
+    font: 15px Inter, sans-serif;
+  }
+  @media (max-width: 991px) {
+    .div-15 {
+      white-space: initial;
+    }
+  }
+  .div-16 {
+    border-radius: 4.691px;
+    background-color: #1d9bf0;
+    align-self: center;
+    display: flex;
+    margin-top: 10px;
+    gap: 11px;
+    font-size: 13px;
+    color: #fff;
+    font-weight: 500;
+    padding: 6px 6px 6px 14px;
+    width: max-content;
+  }
+  .div-17 {
+
+    margin: auto 0;
+    color: white;
+  }
+  .img-3 {
+    aspect-ratio: 1;
+    object-fit: auto;
+    object-position: center;
+    width: 14px;
+    stroke-width: 1.403px;
+    stroke: #fff;
+  }
+
+
+
+  .flight-reserve-text{
+    border: 1px solid #79747E;
+    height: max-content;
+    position: relative;
+    font-size: 25px;
+    border-radius: 5px;
+    
+  }
+
+  .flight-reserve-text span{
+    position: absolute;
+    top: -7px;
+    left: 10px;
+    background-color: white;
+    z-index: 99;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 10px;
+  }
