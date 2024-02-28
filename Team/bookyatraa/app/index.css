@@ -1,0 +1,120 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container-fluid{
+  padding: 0 !important;
+}
+
+
+.travel-tips-card {
+  border-radius: 30px;
+  border: 1px solid #000;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  background-color: #fff;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  color: #000;
+  width: 100%;
+  text-align: left;
+  max-width: 40%;
+  padding: 23px 12px;
+}
+
+.travel-tips-card .div-2 {
+  font: 500 20px Inter, sans-serif;
+}
+
+.travel-tips-card .div-3 {
+  margin-top: 18px;
+  font: 400 14px Inter, sans-serif;
+}
+
+
+
+
+
+
+.trip-card{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  justify-content: center;
+}
+
+
+.trip-card div{
+  color: white !important;
+}
+.trip-card .div {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+   border-radius: 10px;
+  width: 100%;
+  padding: 50px 24px 24px;
+  max-width: 300px;
+  color: white !important;
+}
+
+
+.trip-card  .img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.trip-card .div-2 {
+  position: relative;
+  justify-content: space-between;
+  display: flex;
+  margin-top: 236px;
+  gap: 2px;
+  color: var(--Neutrals, #fff);
+}
+
+.trip-card .div-6 {
+  align-self: start;
+  margin-top: 17px;
+  flex-grow: 1;
+  width: 0%;
+  font: 600 24px Montserrat, -apple-system, Roboto, Helvetica,
+    sans-serif;
+}
+
+.trip-card .div-7 {
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  background-color: #fff;
+  margin-top: 16px;
+  color: var(--Blackish-Green, #121) !important;
+  padding: 16px 60px;
+  font: 500 14px Inter, sans-serif;
+}
+
+p{margin-bottom: 0.1rem;
+text-align: left;}
+
+
+select{
+  border-color: white !important;
+}
+
+.homenavigation a{
+  text-decoration: none;
+color: #000 !important;
+}

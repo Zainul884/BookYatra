@@ -1,0 +1,11 @@
+//fetches favorite hotels and total price from realtime database
+  
+  const fetchFavorites = (userId) => {
+    const favoritesRef = firebase.database().ref(users/${userId}/favorites);
+    favoritesRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setFavorites(data.favoritesList || []);
+      }
+    });
+  };
