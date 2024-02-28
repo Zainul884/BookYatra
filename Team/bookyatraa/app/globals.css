@@ -149,25 +149,24 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-height: 300px; /* Adjust as needed for your content */
-    width: 100%; /* Full width */
-    background-color: white; /* White background for the expanded menu */
+    max-height: 300px; 
+    width: 100%;
+    background-color: white; 
     /* Space at the top of the expanded menu */
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); /* Optional: adds shadow for depth */
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); 
   }
   
   .nav-links a {
-    color: #035c88; /* Dark color for the links for contrast */
+    color: #035c88; 
     text-decoration: none;
-    padding: 1rem; /* Spacing around links */
-    display: block; /* Makes the whole area clickable */
-    transition: background-color 0.3s; /* Smooth transition for hover effect */
-    width: 100%; /* Full width to the link for better mobile touch area */
-    text-align: center; /* Center text */
+    padding: 1rem;
+    display: block; 
+    transition: background-color 0.3s; 
+    width: 100%; 
   }
   
   .nav-links a:hover {
-    background-color: #f2f2f2; /* Light grey background on hover */
+    background-color: #f2f2f2; 
   }
   .hamburger {
     display: flex;
@@ -203,7 +202,7 @@ html, body {
   }
 
   .main-content {
-    right: 10%; /* Adjust content alignment for mobile */
+    right: 10%; 
     color: #1e5a78;
   }
 
@@ -307,25 +306,25 @@ input {
 
 @media screen and (max-width: 600px) {
   .login-container {
-    left: 50%; /* Reset left positioning */
+    left: 50%; 
     top:50% ;
     transform: translate(-50%, -50%); 
-    width: calc(100% - 40px); /* Subtract the padding from the total width */
-    margin-top: 380px; /* Center the container */
-    position: absolute; /* Adjust the position to work with margin auto */
+    width: calc(100% - 40px); 
+    margin-top: 380px;
+    position: absolute; 
     max-width: 540px;
     margin: 0;
     padding :20px;
   }
 
  .login-page{
-  height: auto; /* Adjust height to fit content */
-  min-height: 100vh; /* Ensure it's at least the height of the viewport */
-  padding: 0; /* Reset padding to allow for the container's padding */
-  display: flex; /* Use flexbox for centering */
-  align-items: center; /* Align items vertically */
-  justify-content: center; /* Align items horizontally */
-  overflow: hidden; /* Hide overflow to prevent scrolling */
+  height: auto;
+  min-height: 100vh; 
+  padding: 0;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  overflow: hidden; 
  }
  .login-logo {
   text-align: center;
@@ -430,8 +429,8 @@ input {
   margin: 0;
   color: #333;
   margin-bottom: 10px;
-  font:large bold;
-  margin-top: -70px;
+  font:x-large bold;
+  margin-top: -60px;
   text-align: center;
 }
 
@@ -439,7 +438,7 @@ input {
 .signup-container input,
 .signup-container select {
   width: 100%;
-  padding: 10px;
+  padding: 7px;
   margin-bottom: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -459,8 +458,8 @@ input {
 .signup-container button {
   width: 100%;
   padding: 10px;
-  margin-top: 1rem;
-  background-color:#226688; /* Blue color for the button */
+  margin-top:4px;
+  background-color:#226688; 
   color: white;
   border: none;
   border-radius: 5px;
@@ -470,7 +469,7 @@ input {
 }
 
 .signup-container button:hover {
-  background-color:#1e5a78; /* Darker blue on hover */
+  background-color:#1e5a78; 
 }
 
 /* Privacy policy and sign-in link styles */
@@ -525,25 +524,25 @@ input {
 
 @media screen and (max-width: 600px) {
   .signup-container {
-    left: 50%; /* Reset left positioning */
+    left: 50%; 
     top:52% ;
     transform: translate(-50%, -50%); 
-    width: calc(100% - 40px); /* Subtract the padding from the total width */
-    margin-top: 380px; /* Center the container */
-    position: absolute; /* Adjust the position to work with margin auto */
+    width: calc(100% - 40px);
+    margin-top: 380px; 
+    position: absolute;
     max-width: 540px;
     margin: 0;
     padding :20px;
   }
 
  .signup-page{
-  height: auto; /* Adjust height to fit content */
-  min-height: 100vh; /* Ensure it's at least the height of the viewport */
-  padding: 0; /* Reset padding to allow for the container's padding */
-  display: flex; /* Use flexbox for centering */
-  align-items: center; /* Align items vertically */
-  justify-content: center; /* Align items horizontally */
-  overflow: hidden; /* Hide overflow to prevent scrolling */
+  height: auto; 
+  min-height: 100vh; 
+  padding: 0; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  overflow: hidden; 
  }
  .signup-logo {
   text-align: center;
@@ -612,6 +611,8 @@ input {
   text-decoration: none;
 }
 }
+
+
 /* Home Page */
 .homepage {
   background-color: white;
@@ -843,10 +844,6 @@ input {
   margin-right: 10px;
   margin-bottom: 4px;
 }
-
-
-
-
 
 
 
