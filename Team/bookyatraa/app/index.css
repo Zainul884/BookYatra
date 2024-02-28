@@ -9,9 +9,10 @@ body {
   box-sizing: border-box;
 }
 
-.container-fluid {
+.container-fluid{
   padding: 0 !important;
 }
+
 
 .travel-tips-card {
   border-radius: 30px;
@@ -19,44 +20,55 @@ body {
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   background-color: #fff;
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
   color: #000;
   width: 100%;
+  text-align: left;
   max-width: 40%;
-  padding: 3vw 2vw; /* Using viewport units for responsive padding */
-  margin: 0 auto; /* Centering the card */
+  padding: 23px 12px;
 }
 
 .travel-tips-card .div-2 {
-  font: 500 2.5vw Inter, sans-serif; /* Using viewport units for responsive font size */
+  font: 500 20px Inter, sans-serif;
 }
 
 .travel-tips-card .div-3 {
-  margin-top: 1.5vw; /* Using viewport units for responsive margin */
-  font: 400 1.5vw Inter, sans-serif; /* Using viewport units for responsive font size */
+  margin-top: 18px;
+  font: 400 14px Inter, sans-serif;
 }
 
-.trip-card {
+
+
+
+
+
+.trip-card{
   display: flex;
   flex-wrap: wrap;
-  gap: 3vw; /* Using viewport units for responsive gap */
+  gap: 3rem;
   justify-content: center;
-  padding: 3vw; /* Using viewport units for responsive padding */
 }
 
+
+.trip-card div{
+  color: white !important;
+}
 .trip-card .div {
   display: flex;
   flex-direction: column;
   overflow: hidden;
   position: relative;
-  border-radius: 1vw; /* Using viewport units for responsive border radius */
+  display: flex;
+   border-radius: 10px;
   width: 100%;
+  padding: 50px 24px 24px;
   max-width: 300px;
-  padding: 5vw 2vw; /* Using viewport units for responsive padding */
   color: white !important;
 }
 
-.trip-card .img {
+
+.trip-card  .img {
   position: absolute;
   inset: 0;
   height: 100%;
@@ -64,22 +76,22 @@ body {
   object-fit: cover;
   object-position: center;
 }
-
 .trip-card .div-2 {
   position: relative;
   justify-content: space-between;
   display: flex;
-  margin-top: 15vw; /* Using viewport units for responsive margin */
+  margin-top: 236px;
   gap: 2px;
   color: var(--Neutrals, #fff);
 }
 
 .trip-card .div-6 {
   align-self: start;
-  margin-top: 1.5vw; /* Using viewport units for responsive margin */
+  margin-top: 17px;
   flex-grow: 1;
   width: 0%;
-  font: 600 2.5vw Montserrat, -apple-system, Roboto, Helvetica, sans-serif; /* Using viewport units for responsive font size */
+  font: 600 24px Montserrat, -apple-system, Roboto, Helvetica,
+    sans-serif;
 }
 
 .trip-card .div-7 {
@@ -88,22 +100,21 @@ body {
   align-items: center;
   border-radius: 4px;
   background-color: #fff;
-  margin-top: 1.5vw; /* Using viewport units for responsive margin */
+  margin-top: 16px;
   color: var(--Blackish-Green, #121) !important;
-  padding: 2vw 6vw; /* Using viewport units for responsive padding */
-  font: 500 1.5vw Inter, sans-serif; /* Using viewport units for responsive font size */
+  padding: 16px 60px;
+  font: 500 14px Inter, sans-serif;
 }
 
-p {
-  margin-bottom: 0.5vw; /* Using viewport units for responsive margin */
-  text-align: left;
-}
+p{margin-bottom: 0.1rem;
+text-align: left;}
 
-select {
+
+select{
   border-color: white !important;
 }
 
-.homenavigation a {
+.homenavigation a{
   text-decoration: none;
-  color: #000 !important;
+color: #000 !important;
 }
