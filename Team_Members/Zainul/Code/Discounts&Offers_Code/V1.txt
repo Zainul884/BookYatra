@@ -1,0 +1,60 @@
+//Discount and Offers Page
+//ChatGPT was used to generate some fake data and help in giving a basic design which was later refined
+//My name is Zainul Malik
+"use client";
+import Header from "../header/page";
+
+export default function Offers() {
+    const offers = [
+        { id: 1, title: "Summer Getaway Deals", description: "Save up to 30% on summer trips!", code: "SUMMER30", expiryDate: "2024-08-31" },
+        { id: 2, title: "Early Bird Special", description: "Book early and save 20% on select destinations.", code: "EARLY20", expiryDate: "2024-05-15" },
+        { id: 3, title: "Weekend Escapes", description: "Get 15% off on weekend getaways!", code: "WEEKEND15", expiryDate: "2024-09-30" },
+        { id: 4, title: "Last Minute Deals", description: "Additional 10% off on last-minute bookings.", code: "LASTMIN10", expiryDate: "2024-12-31" },
+        { id: 5, title: "Winter Wonderland", description: "Enjoy 25% off on winter holiday destinations.", code: "WINTER25", expiryDate: "2024-02-28" },
+        { id: 6, title: "Luxury for Less", description: "Luxury stays now 20% off with our exclusive code.", code: "LUXURY20", expiryDate: "2024-11-30" },
+        { id: 7, title: "Adventure Awaits", description: "20% off on adventure tours.", code: "ADVENTURE20", expiryDate: "2024-10-15" },
+        { id: 8, title: "Family Fun Sale", description: "Save 15% on family vacation packages.", code: "FAMILY15", expiryDate: "2024-06-30" },
+        { id: 9, title: "Solo Travel Special", description: "Solo travelers enjoy 10% off. Your journey, your way.", code: "SOLO10", expiryDate: "2024-07-20" },
+        { id: 10, title: "Group Getaways", description: "Groups of 4+ save 25%. Gather your crew.", code: "GROUP25", expiryDate: "2024-08-25" },
+    ];
+
+    const copyCodeToClipboard = async (code) => {
+        try {
+            await navigator.clipboard.writeText(code);
+            alert(`Coupon code ${code} copied to clipboard!`);
+        } catch (err) {
+            console.error('Failed to copy: ', err);
+        }
+    };
+
+    return (
+        <div className="offers-page">
+            <Header />
+            <div className="hero min-h-[30vh] bg-blue-900">
+                <div className="hero-content text-center text-white">
+                    <div className="max-w-md">
+                        <h1 className="text-3xl font-bold">Exclusive Offers</h1>
+                        <p className="py-6">Discover our latest deals and discounts for your next adventure.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div className="container mx-auto p-6">
+                <div className="flex flex-wrap justify-center">
+                    {offers.map((offer) => (
+                        <div key={offer.id} className="card w-96 bg-base-100 shadow-xl m-4">
+                            <div className="card-body text-center">
+                                <h2 className="card-title">{offer.title}</h2>
+                                <p>{offer.description}</p>
+                                <div className="flex justify-center mt-4">
+                                    <button className="btn btn-primary" onClick={() => copyCodeToClipboard(offer.code)}>Copy Code</button>
+                                </div>
+                                <p className="text-sm text-gray-500 mt-2">Expires on: {offer.expiryDate}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+}
