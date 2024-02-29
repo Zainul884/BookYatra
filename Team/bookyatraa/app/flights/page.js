@@ -24,7 +24,7 @@ function FlightPage() {
             <Link href="./hotel" className="link">Hotel</Link>
             <Link href="./flights"className="link">Flights</Link>
             <Link href="./login" className="link">Login</Link>
-            <Link href="./signup" className="link">Sign Up</Link>
+            <Link href="./signup" className="link">SignUp</Link>
           </nav>
         </div>
     <Header/>

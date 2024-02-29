@@ -6,7 +6,7 @@ export default function Footer() {
   return (
 
     <footer style={{marginBottom:"50px"}}>
-      <div className="footer-outer d-flex gap-5 align-items-start pb-5" style={{ marginLeft: "150px",marginBottom:"70px"}}>
+      <div className="footer-outer d-flex gap-5 align-items-start pb-5 flex-wrap" style={{ marginLeft: "150px",marginBottom:"70px"}}>
         <div className='logo' style={{ fontSize: "50px", fontStyle: "italic" }}>#BookYata</div>
         <div className='explore'><h3 className='pt-4' style={{ fontWeight: "400", fontStyle: "italic" }}>Explore</h3><div className="d-flex flex-column justify-content-start"><p>Flights</p>
           <p>Hotels</p>

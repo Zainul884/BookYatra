@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@wojtekmaj/react-daterange-picker": "^5.5.0",
     "axios": "^1.6.7",
     "bootstrap": "^5.3.3",
     "framer-motion": "^11.0.3",
