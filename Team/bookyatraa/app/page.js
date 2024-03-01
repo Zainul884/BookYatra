@@ -3,13 +3,16 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+
+
 function LandingPage() {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
-  // Function to toggle navigation expansion
+  
   const toggleNav = () => {
     setIsNavExpanded(!isNavExpanded);}
 
   return (
+  
     <div className="landing-page">
       <header className="landingpage-header">
         <div className="logo">
@@ -41,6 +44,7 @@ function LandingPage() {
        
       </div>
     </div>
+
   );
 }
 

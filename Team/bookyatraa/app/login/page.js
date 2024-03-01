@@ -1,36 +1,67 @@
 "use client";
-import React ,{useState}from 'react';
+import React, { useState } from 'react';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, OAuthProvider } from 'firebase/auth';
+import { auth } from '../firebaseConfig';
 import Link from 'next/link';
 import Image from 'next/image';
+import { GoogleLoginButton, AppleLoginButton } from 'react-social-login-buttons';
 
-const authenticate = (email, password) => {
-  
-  const isValidUser = (email === "valid@example.com" && password === "password123");
-  return isValidUser;
-};
 function LogInPage(){
-
-  const [isNavExpanded, setIsNavExpanded] = useState(false);
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState(''); 
-  // Function to toggle navigation expansion
   const toggleNav = () => {
     setIsNavExpanded(!isNavExpanded);}
   
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const isValidUser = authenticate(email, password);
-    if (isValidUser) {
-     
-      window.location.href = '../homepage';
-    } else {
-      
-      setError('Invalid credentials. Please try again.');
-    }
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [isNavExpanded, setIsNavExpanded] = useState(false);
+
+    // Handler for form submission for email/password login
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (!email || !password) {
+            setError("Please enter both email and password");
+            return;
+        }
+
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            console.log('Logged in successfully');
+            // Redirect to another page/component upon success
+            window.location.href = './hero';
+        } catch (error) {
+            console.error('Error logging in:', error);
+            setError(error.message);
+        }
+    };
+    // Function to handle Google sign-in
+    const handleGoogleSignIn = async () => {
+      const provider = new GoogleAuthProvider();
+      try {
+          await signInWithPopup(auth, provider);
+          console.log('Logged in with Google');
+          // Redirect to another page/component upon success
+          window.location.href = './hero';
+      } catch (error) {
+          console.error('Error logging in with Google:', error);
+          setError(error.message);
+      }
   };
 
-  return (
+  // Function to handle Apple sign-in
+  const handleAppleSignIn = async () => {
+      const provider = new OAuthProvider('apple.com');
+      try {
+          await signInWithPopup(auth, provider);
+          console.log('Logged in with Apple');
+          // Redirect to another page/component upon success
+          window.location.href = '../homepage';
+      } catch (error) {
+          console.error('Error logging in with Apple:', error);
+          setError(error.message);
+      }
+  };
+return (
     <div className="landing-page">
       <header className="landingpage-header">
         <Link href="/">
@@ -88,26 +119,13 @@ function LogInPage(){
             />
 
             <button type="submit" className="login-button">Sign-In</button>
-          </form>
+     
           {error && <p className="login-error">{error}</p>}
           <div className="social-login">
-              <button className="google-button">
-                <Image
-                    src="/Images Capstone/Google.png" 
-                    alt="BookYatra Logo"
-                    width={20} 
-                    height={5} 
-                />
-              </button>
-              <button className="apple-button">
-              <Image
-                    src="/Images Capstone/apple.png" 
-                    alt="BookYatra Logo"
-                    width={20} 
-                    height={10} 
-              />
-              </button>
-        </div>  
+              <GoogleLoginButton onClick={handleGoogleSignIn}  />
+              <AppleLoginButton onClick={handleAppleSignIn} />
+          </div>  
+        </form>
           
           <p className="terms-text">
             By proceeding, you agree to our <Link href="/terms">Terms of Use</Link>
