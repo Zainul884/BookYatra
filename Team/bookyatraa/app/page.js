@@ -21,7 +21,7 @@ function LandingPage() {
             alt="BookYatra Logo"
             width={250}
             height={80}
-            layout="intrinsic"
+           
           />
         </div>
         <button className="hamburger" onClick={toggleNav} aria-label="Toggle navigation">
@@ -47,6 +47,4 @@ function LandingPage() {
 
   );
 }
-
-
 export default LandingPage;
