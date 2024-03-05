@@ -1,0 +1,747 @@
+//Chat GPT was used to fix some errors in this code 
+// React icons library is used for the icons
+//Booking API for fetching the data 
+
+
+
+"use client";
+
+import React from 'react';
+import Link from 'next/link';
+import { FaSearch, FaSignOutAlt, FaHeart, FaTrash, FaInstagram, FaFacebookF, FaTwitter, FaRegHeart,FaExternalLinkAlt } from 'react-icons/fa';
+import axios from 'axios';
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { getDatabase, onValue, ref, set } from 'firebase/database';
+import { useEffect, useState } from 'react';
+import styled, { createGlobalStyle, keyframes } from 'styled-components';
+import './firebaseConfig';
+import './styles.css';
+
+
+
+
+
+function DestIdSearch() {
+  const [destResults, setDestResults] = useState([]);
+  const [isLoadingDest, setIsLoadingDest] = useState(false);
+  const [errorDest, setErrorDest] = useState('');
+  const [query, setQuery] = useState('');
+ 
+  const [cityName, setCityName] = useState('');
+  const [arrivalDate, setArrivalDate] = useState('');
+  const [departureDate, setDepartureDate] = useState('');
+  const [adults, setAdults] = useState('1');
+  const [childrenAge, setChildrenAge] = useState('');
+  const [roomQty, setRoomQty] = useState('1');
+  const [hotels, setHotels] = useState([]);
+  const [isLoadingHotels, setIsLoadingHotels] = useState(false);
+  const [errorHotels, setErrorHotels] = useState('');
+  const [favorites, setFavorites] = useState([]);
+  const [user, setUser] = useState(null);
+  const [isSigningUp, setIsSigningUp] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [submitStatus, setSubmitStatus] = useState('');
+  const [defaultHotels, setDefaultHotels] = useState([]);
+
+
+  
+  const [showFavorites, setShowFavorites] = useState(false);
+  const toggleFavorites = () => {
+    setShowFavorites(!showFavorites);
+  };
+
+  
+  
+  useEffect(() => {
+    const fetchDefaultHotels = async () => {
+      setIsLoadingHotels(true); 
+      setErrorHotels(''); 
+      const predefinedDestId = '-159890';
+      try {
+        const hotelResponse = await axios.get('https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels', {
+          params: {
+            dest_id: predefinedDestId,
+            arrival_date: '2024-05-01', 
+            departure_date: '2024-05-10', 
+            adults: '1',
+            room_qty: '1',
+            search_type: 'CITY',
+            page_number: '1',
+            languagecode: 'en-us',
+            currency_code: 'CAD',
+          },
+          headers: {
+            'X-RapidAPI-Key': 'ae41750b50msh389a7b6e1203026p127800jsnc1c3b5dbac79',
+            'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com',
+          },
+        });
+        setDefaultHotels(hotelResponse.data.data.hotels.slice(0, 3));
+      } catch (error) {
+        console.error("Error fetching default hotels:", error);
+        setErrorHotels("An error occurred while fetching default hotels.");
+      } finally {
+        setIsLoadingHotels(false);
+      }
+    };
+  
+    fetchDefaultHotels();
+  }, []);
+
+
+
+  const deleteFromFavorites = (hotelId) => {
+    const updatedFavorites = favorites.filter(fav => fav.hotel_id !== hotelId);
+  
+    setFavorites(updatedFavorites); 
+  
+    
+    if (user) {
+      const database = getDatabase();
+      const favoritesRef = ref(database, `users/${user.uid}/favoritesData/favorites`);
+      set(favoritesRef, updatedFavorites).catch((error) => {
+        console.error("Error updating favorites in Firebase:", error);
+      });
+    }
+  };
+
+ 
+
+      return (
+        <div className='container'>
+        
+          <div className='searchContainer'>
+
+          
+            <div className='top'>
+              <Link href="">Home</Link>              
+              <Link href="">Hotel Booking</Link>
+              <Link href="">Flight Booking</Link>
+              <Link href="">SignUp</Link>
+              <Link href="">SignIn</Link>
+            </div>
+          
+            
+          
+        {user && (
+          <div className='signOut'>
+            <button onClick={handleSignOut} className='button'><FaSignOutAlt />Sign Out</button>
+          </div>
+        )}
+            <div className='searchLine'>
+            <p className='p2'>Nestle Into Comfort, Where Quietude Meets Luxury</p>
+            </div>
+
+            
+          <div className='formContainer'>
+            <div className='inputGroup'>
+              <label className='label'>City Name</label>
+              <input
+                type="text"
+                
+                value={cityName}
+                onChange={(e) => setCityName(e.target.value)}
+                placeholder="Enter city name"
+                required
+              />
+            </div>
+            <div className='inputGroup'>
+              <label className='label'>Arrival Date</label>
+              <input
+                type='date'
+                
+                value={arrivalDate}
+                onChange={(e) => setArrivalDate(e.target.value)}
+                required
+              />
+            </div>
+            <div className='inputGroup'>
+              <label className='label'>Departure Date</label>
+              <input
+                type="date"
+                
+                value={departureDate}
+                onChange={(e) => setDepartureDate(e.target.value)}
+                required
+              />
+            </div>
+            
+            <button className='button' onClick={fetchHotelsWithCityName}>
+               <FaSearch />
+            </button>
+          
+          </div>
+          </div>
+      
+          <div className='header2'>
+            <p className='line'>Discover Calgary's Premier Hotels: Where Luxury Meets Adventure in 2024</p>
+            <p className='line2'>Reflect on the type of vacation you desire. Are you seeking a tranquil beach resort or a bustling city hotel? BookYatra                 offers diverse options to match every travel style.
+           </p>
+           </div>
+
+    <div className='resultsContainer'>
+      
+      {defaultHotels.map((hotel, index) => (
+         <div key={index} className='resultItem2'>
+         <img src='./images/H1.png' />
+         <h3 className='hotelName1'>{hotel.property.name}</h3>
+         <p className='hotelInfo1'>{hotel.accessibilityLabel}</p>
+         <button className='fxVS'>Visit Now <FaExternalLinkAlt /></button>
+         </div>
+      ))}
+    </div>
+           
+            
+           
+           
+            <div className='fav'>
+<h2 className='f1'>Discover Your Perfect Stay: Browse Top Picks and User Favorites Below</h2>
+<p className='f1line'>Your favorite hotels are a window to new experiences.</p>
+</div>
+
+            
+            <div className='resultsContainer'> 
+            
+            {hotels.map((hotel, index) => (
+            
+            <div key={index} className='resultItem2'>
+              <img src='./images/H1.png'  style={{ width: '500px', height: '300px' }}/>
+              <h3 className='hotelName1'>{hotel.property.name}</h3>
+              <p className='hotelInfo1'>{hotel.accessibilityLabel}</p>
+              
+            
+          
+              <button 
+                className='favoriteButton1' 
+                onClick={() => addToFavorites(hotel)}
+              >
+               <FaRegHeart /> Add to Favorites
+              </button>
+            </div>
+          ))}
+          </div>
+
+          <div className='showfavcon'>
+
+          <button onClick={toggleFavorites} className="toggleFavoritesButton">
+      {showFavorites ? 'Hide Favorites' : 'Show Favorites'}
+    </button></div>
+        
+
+   
+      {showFavorites && (
+
+
+
+
+<div className='favoritesContainer'>
+      {favorites.length > 0 ? (
+       
+         <div>
+          <div className='favcontainer'>
+          {favorites.map((fav, index) => (
+           <div key={index} className='resultItem3'>
+             
+             
+             
+             <div className='favCard'>
+             <h3 className='favHotelName'>{fav.property.name}</h3>
+             <p className='favHotelPrice'>Price: {fav.property.priceBreakdown.grossPrice.value.toFixed(2)} {fav.property.priceBreakdown.grossPrice. currency}</p>
+             <button 
+            className='deleteButton' 
+            onClick={() => deleteFromFavorites(fav.hotel_id)} 
+          >
+            Delete <FaTrash />
+          </button>
+             </div>
+             
+           </div>
+         ))}
+         </div>
+         <div className='showfavcon1'>
+            <strong className='price'>Total Price: $ {calculateTotalPrice()} CAD</strong>
+          
+          <button onClick={submitFavorites} className='toggleFavoritesButton1'>Submit Favorites</button>
+          </div>
+          {submitStatus && <p className='status'>{submitStatus}</p>}
+          
+        </div>
+      ) : (
+        <p>No favorites added.</p>
+      )}
+
+
+          </div>
+          )}
+
+          <footer>
+          <hr className="blck"></hr>
+        <div className='footer'>
+          <p className='foot-title'>#BookYatra</p>
+          <div>
+            <p className='foot-head'>Explore</p>
+            <nav className="footer-nav">
+              <Link href="./flights" className="footer-link">Flights</Link>
+              <Link href="./hotel" className="footer-link">Hotels</Link>
+              <Link href="./About" className="footer-link">About Us</Link>
+              <Link href="./FAQ" className="footer-link">FAQs</Link>
+            </nav>
+          </div>
+          <div>
+            <p className='foot-head'>Follow Us</p>
+            <div className="follow-links">
+            <a href="https://instagram.com"  className="follow-link"><FaInstagram /></a>
+            <a href="https://facebook.com"  className="follow-link"><FaFacebookF /></a>
+            <a href="https://twitter.com"  className="follow-link"><FaTwitter /></a>
+            </div>
+          </div>
+          <div>
+            <p className='foot-head'>Legal</p>
+            <p className='terms'>Terms of Use</p>
+          </div>
+        </div>
+          </footer>
+      </div>
+       
+      );
+    
+    }
+
+    export default DestIdSearch;
+
+
+    //CSS
+
+
+    .container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgba(255, 255, 255, 1);
+    width:100% ;
+    
+    
+}
+
+.searchContainer {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/gb.jpg') no-repeat  center;
+  background-size: cover;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.fxVS{
+  
+  background-color: blue;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  
+  gap: 5px;
+  
+}
+
+.top{
+  display: flex;
+  
+  align-items: center;
+  justify-content: flex-end;
+  gap: 40px;
+  margin: 20px;
+  font-weight: 400;
+  
+
+
+}
+  
+.signOut {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+    margin-top: -50px;
+   
+  }
+  
+  .searchLine {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 50px;
+    
+  }
+
+  .p2 {
+    color: white;
+    font-size: 48px;
+    font-weight: bold;
+    width: 500px;
+  }
+  
+  .formContainer {
+    background-color: white;
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    margin-bottom: 40px;
+    width: 60%;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 200px;
+    margin-top: 50px;
+  
+
+  }
+  
+  
+  
+  
+  .label {
+    
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #444;
+  }
+  
+  
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    max-width: 200px;
+    background-color: #f0f0f0;
+    color: #444;
+    
+  }
+  
+  .button {
+    padding: 10px;
+    margin-top: 55px;
+    height: 50%;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    gap:5px;
+  }
+
+  .favoriteButton1 {
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+
+  }
+  
+  .favoriteButton1:hover {
+    background-color: #1600d9;
+  }
+  
+
+  .header2{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .line{
+    font-size: 50px;
+    color: black;
+    
+    max-width: 750px;
+    font-weight: bold;
+    
+    
+  }
+  .line2{
+    font-size: 20px;
+    color: grey;
+    
+    max-width: 700px;
+    align-items: center;
+    
+  }
+
+  .resultsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap:10px;
+    
+    padding: 20px;
+    
+  }
+
+  .resultItem2 {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 2px solid black;
+    
+    
+  }
+
+  .hotelName1{
+    
+    font-size: 28px;
+    font-weight: bold;
+    color: black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  
+  .hotelInfo1 {
+    font-size: 16px;
+    color: #666;
+    width: 60%;
+    padding-bottom: 20px;
+    
+  }
+
+  .favoritesContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .favcontainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .resultItem3 {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/gb.jpg') no-repeat center center;
+    background-size: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+    color: white;
+  }
+  
+  .resultItem3:hover {
+    transform: scale(1.05);
+  }
+  
+  .favCard {
+    
+    padding: 15px;
+    border-radius: 8px;
+  }
+  
+  .favHotelName, .favHotelPrice {
+    margin: 0;
+  }
+  
+  .deleteButton {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: background 0.2s ease-in-out;
+  }
+  
+  .deleteButton:hover {
+    background-color: #bb2d3b;
+  }
+  
+  .showfavcon1 {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .toggleFavoritesButton1 {
+    align-self: center;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .toggleFavoritesButton1:hover {
+    background-color: #0056b3;
+  }
+  
+  .status {
+    text-align: center;
+    color: #28a745;
+  }
+  .f1{
+    font-size: 40px;
+    font-weight:600;
+    color: black;
+  }
+
+  .f1line{
+    font-size: 15px;
+    margin-top: 1px;
+  }
+  
+  .fav{
+    margin-left: 20px;
+   
+  }
+
+  .resultItem3 {
+    
+    padding: 20px;
+    height: 300px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+   
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/gb.jpg') no-repeat center center;
+    
+    
+  }
+  .showfavcon {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    color: black;
+  }
+
+
+  .toggleFavoritesButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .favCard{
+    
+    width: max-content;
+    display: block;
+    
+    justify-content: center;
+    align-content: center;
+    
+    
+    
+  }
+  .favHotelName{
+    font-size: 30px;
+    max-width:400px ;
+    color: white;
+    font-weight: 600;
+    }
+  
+    .favHotelPrice{
+        font-size: 20px;
+        max-width:400px ;
+        color: white;
+        
+        }
+  
+  .price{
+    font-size: 30px;
+    color: #444
+  }
+  
+  
+  .status{
+    color: #444;
+    margin-left: 10px;
+  }
+  
+  
+  .favcontainer{
+    
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap:10px;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  
+
+  .deleteButton {
+    background-color: #ff0000;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    gap:10px;
+  }
+
+ 
+  
+  .blck{
+    height: 1px;
+    background-color: black; 
+    border: none;
+    margin-top: 100px;
+    
+  }
+  
+  .footer{
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 0px 60px 20px;
+    margin-top: 10px;
+    max-width: 800px;
+    color: black;
+  }
+  
+  .foot-title{
+    font-size: 47px;
+    font-weight: 400;
+    font-style: italic;
+    font-family: 'Judson', serif;
+    margin-top: -22px;
+  }
+  
+  .footer-nav{
+    display: flex;
+    flex-direction: column;
+    font-size: 17px;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .follow-links, .terms{
+    display: flex;
+    justify-content: space-between;
+    width : 110px;
+    align-items: center;
+  }
+  
+  .foot-head{
+    font-size: 28.5px;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  
+  
+  

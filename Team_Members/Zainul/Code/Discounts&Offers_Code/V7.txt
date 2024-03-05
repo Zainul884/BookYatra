@@ -1,0 +1,321 @@
+//v7
+//Discount and Offers Page
+//ChatGPT was used to generate some fake data and help in giving a basic design which was later refined
+//Also used to fix some bugs and errors
+//My name is Zainul Malik
+"use client";
+import React, { useState } from "react";
+import Header from "../header/page";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faShoppingCart,
+  faCopy,
+  faCartPlus,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+
+export default function Offers() {
+  const [cart, setCart] = useState([]);
+  const [cartVisible, setCartVisible] = useState(false);
+  const [deleteMode, setDeleteMode] = useState(false);
+  const [selectedItems, setSelectedItems] = useState([]);
+const [offers, setOffers] = useState([
+    {
+      id: 1,
+      title: "Summer Getaway Deals",
+      description: "Save up to 30% on summer trips!",
+      code: "SUMMER30",
+      expiryDate: "2024-08-31",
+      ratingsSum: 24, 
+      numberOfRatings: 6, 
+    },
+    {
+      id: 2,
+      title: "Early Bird Special",
+      description: "Book early and save 20% on select destinations.",
+      code: "EARLY20",
+      expiryDate: "2024-05-15",
+      ratingsSum: 24, 
+      numberOfRatings: 6, 
+    },
+    {
+      id: 3,
+      title: "Weekend Escapes",
+      description: "Get 15% off on weekend getaways!",
+      code: "WEEKEND15",
+      expiryDate: "2024-09-30",
+      ratingsSum: 24, 
+      numberOfRatings: 6, 
+    },
+    {
+      id: 4,
+      title: "Last Minute Deals",
+      description: "Additional 10% off on last-minute bookings.",
+      code: "LASTMIN10",
+      expiryDate: "2024-12-31",
+      ratingsSum: 24, 
+      numberOfRatings: 6, 
+    },
+    {
+      id: 5,
+      title: "Winter Wonderland",
+      description: "Enjoy 25% off on winter holiday destinations.",
+      code: "WINTER25",
+      expiryDate: "2024-02-28",
+      ratingsSum: 24, 
+      numberOfRatings: 6, 
+    },
+    {
+      id: 6,
+      title: "Luxury for Less",
+      description: "Luxury stays now 20% off with our exclusive code.",
+      code: "LUXURY20",
+      expiryDate: "2024-11-30",
+      ratingsSum: 24, 
+      numberOfRatings: 6, 
+    },
+    {
+      id: 7,
+      title: "Adventure Awaits",
+      description: "20% off on adventure tours.",
+      code: "ADVENTURE20",
+      expiryDate: "2024-10-15",
+      ratingsSum: 24, 
+      numberOfRatings: 6, 
+    },
+    {
+      id: 8,
+      title: "Family Fun Sale",
+      description: "Save 15% on family vacation packages.",
+      code: "FAMILY15",
+      expiryDate: "2024-06-30",
+      ratingsSum: 24, 
+      numberOfRatings: 6, 
+    },
+    {
+      id: 9,
+      title: "Solo Travel Special",
+      description: "Solo travelers enjoy 10% off. Your journey, your way.",
+      code: "SOLO10",
+      expiryDate: "2024-07-20",
+      ratingsSum: 24, 
+      numberOfRatings: 6, 
+    },
+    {
+      id: 10,
+      title: "Group Getaways",
+      description: "Groups of 4+ save 25%. Gather your crew.",
+      code: "GROUP25",
+      expiryDate: "2024-08-25",
+      ratingsSum: 24, 
+      numberOfRatings: 6, 
+    },
+  ]);
+
+  const copyCodeToClipboard = async (code) => {
+    try {
+      await navigator.clipboard.writeText(code);
+      alert(Coupon code ${code} copied to clipboard!);
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+    }
+  };
+
+  const addToCart = (offer) => {
+    setCart([...cart, offer]);
+  };
+
+  const toggleCart = () => {
+    setCartVisible(!cartVisible);
+  };
+
+  const handleSelectItem = (id) => {
+    const newSelection = selectedItems.includes(id)
+      ? selectedItems.filter((itemId) => itemId !== id)
+      : [...selectedItems, id];
+    setSelectedItems(newSelection);
+  };
+
+  const deleteSelectedItems = () => {
+    setCart(cart.filter((offer) => !selectedItems.includes(offer.id)));
+    setSelectedItems([]);
+    setDeleteMode(false);
+  };
+
+  const toggleDeleteMode = () => {
+    setDeleteMode(!deleteMode);
+    if (deleteMode) {
+      setSelectedItems([]);
+    }
+  };
+
+  const StarRating = ({ rating }) => {
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 >= 0.5 ? 1 : 0;
+    const emptyStars = 5 - fullStars - halfStar;
+  
+    return (
+      <div>
+        {'★'.repeat(fullStars)}
+        {'☆'.repeat(halfStar)}
+        {'☆'.repeat(emptyStars)}
+      </div>
+    );
+  };
+
+  const addRating = (offerId, newRating) => {
+    setOffers(offers.map((offer) => {
+      if (offer.id === offerId) {
+        return {
+          ...offer,
+          ratingsSum: offer.ratingsSum + newRating,
+          numberOfRatings: offer.numberOfRatings + 1,
+        };
+      }
+      return offer;
+    }));
+  };
+  
+  const InteractiveStarRating = ({ offerId, ratingsSum, numberOfRatings, onRating }) => {
+    const initialAverageRating = numberOfRatings > 0 ? ratingsSum / numberOfRatings : 0;
+    const [rating, setRating] = useState(initialAverageRating);
+  
+    const handleRating = (newRating) => {
+      setRating(newRating);
+      onRating(offerId, newRating, numberOfRatings + 1); 
+    };
+  
+    return (
+      <div style={{ cursor: 'pointer' }}>
+        {[...Array(5)].map((star, index) => {
+          const ratingValue = index + 1;
+          return (
+            <span key={index} onClick={() => handleRating(ratingValue)}>
+              {ratingValue <= Math.ceil(rating) ? '★' : '☆'}
+            </span>
+          );
+        })}
+      </div>
+    );
+  };
+  
+
+  const handleRating = (offerId, newRating, newTotalRatings) => {
+    setOffers(offers.map((offer) => {
+      if (offer.id === offerId) {
+        const updatedRatingsSum = offer.ratingsSum + newRating;
+        return {
+          ...offer,
+          ratingsSum: updatedRatingsSum,
+          numberOfRatings: newTotalRatings,
+        };
+      }
+      return offer;
+    }));
+  };
+  
+  
+
+  return (
+    <div className="offers-page">
+      <Header />
+      <div className="hero min-h-[30vh] bg-blue-900">
+        <div className="hero-content text-center text-white">
+          <div className="max-w-md">
+            <h1 className="text-3xl font-bold">Exclusive Offers</h1>
+            <p className="py-6">
+              Discover our latest deals and discounts for your next adventure.
+            </p>
+            <button className="btn btn-secondary" onClick={toggleCart}>
+              <FontAwesomeIcon icon={faShoppingCart} /> ({cart.length})
+            </button>
+          </div>
+        </div>
+      </div>
+  
+      {cartVisible && (
+        <div className="container mx-auto p-6">
+          <div className="bg-white shadow-xl rounded-lg p-4">
+            <h2 className="text-2xl font-bold mb-2">Your Saved Offers</h2>
+            {cart.length > 0 && (
+              <div className="flex justify-between mb-4">
+                <button className="btn" onClick={toggleDeleteMode}>
+                  {deleteMode ? (
+                    <FontAwesomeIcon icon={faTimes} />
+                  ) : (
+                    <FontAwesomeIcon icon={faTrash} />
+                  )}{" "}
+                  {deleteMode ? "Cancel" : "Delete Items"}
+                </button>
+                {deleteMode && selectedItems.length > 0 && (
+                  <button
+                    className="btn btn-error"
+                    onClick={deleteSelectedItems}
+                  >
+                    <FontAwesomeIcon icon={faTrash} /> ({selectedItems.length})
+                  </button>
+                )}
+              </div>
+            )}
+  
+            {cart.map((offer, index) => (
+              <div
+                key={index}
+                className={`p-2 border-b ${
+                  selectedItems.includes(offer.id) ? "bg-gray-200" : ""
+                }`}
+              >
+                {deleteMode && (
+                  <input
+                    type="checkbox"
+                    className="mr-2"
+                    checked={selectedItems.includes(offer.id)}
+                    onChange={() => handleSelectItem(offer.id)}
+                  />
+                )}
+                <span className="font-bold">{offer.title}</span> -{" "}
+                <span>{offer.description}</span>
+              </div>
+            ))}
+            {cart.length === 0 && <p>Your cart is empty.</p>}
+          </div>
+        </div>
+      )}
+  
+  <div className="container mx-auto p-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+        {offers.map((offer, index) => (
+            <div key={offer.id} className="card bg-base-100 shadow-xl m-4">
+                <div className="card-body text-center">
+                    {/* Random Image for each offer */}
+                    <img src={https://picsum.photos/200/200?random=${index}} alt="Offer" className="mb-4" />
+                    <h2 className="card-title">{offer.title}</h2>
+                    <p>{offer.description}</p>
+                    <InteractiveStarRating
+                        offerId={offer.id}
+                        ratingsSum={offer.ratingsSum}
+                        numberOfRatings={offer.numberOfRatings}
+                        onRating={(offerId, newRating) => handleRating(offerId, newRating)}
+                    />
+                    <div className="flex justify-center mt-4 gap-2">
+                        <button
+                            className="btn"
+                            onClick={() => copyCodeToClipboard(offer.code)}
+                        >
+                            <FontAwesomeIcon icon={faCopy} /> Copy
+                        </button>
+                        <button className="btn" onClick={() => addToCart(offer)}>
+                            <FontAwesomeIcon icon={faCartPlus} /> Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+        ))}
+    </div>
+</div>
+
+    </div>
+  );
+  
+}

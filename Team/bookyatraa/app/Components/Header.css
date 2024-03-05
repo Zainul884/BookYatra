@@ -57,7 +57,7 @@ justify-content: space-between;
   }
   @media (max-width: 991px) {
     .div-2 {
-      flex-direction: column;
+      /* flex-direction: column; */
       align-items: stretch;
       gap: 0px;
     }
@@ -84,6 +84,12 @@ justify-content: space-between;
   @media (max-width: 991px) {
     .div-3 {
       margin-top: 38px;
+    }
+    .div-4,.div-5{
+      width: 50%;
+    }
+    .div-6{
+      align-self: center !important;
     }
   }
   .img {
@@ -228,14 +234,14 @@ justify-content: space-between;
 
   .flight-reserve-text{
     border: 1px solid #79747E;
-    height: max-content;
+    height: 60px;
     position: relative;
     font-size: 25px;
     border-radius: 5px;
     
   }
 
-  .flight-reserve-text span{
+  .flight-reserve-text .top-head{
     position: absolute;
     top: -7px;
     left: 10px;
@@ -244,4 +250,32 @@ justify-content: space-between;
     padding-left: 5px;
     padding-right: 5px;
     font-size: 10px;
+  }
+
+  .react-daterange-picker__wrapper{
+    border: 0px !important;
+    font-size: 20px;
+  }
+
+  .flight-reserve-text input{
+    width: 70px;
+    border: 0px !important;
+    height: 50px;
+  }
+
+  .flight-reserve-text input:focus{
+    outline: none !important;
+    border: 0px !important;
+  }
+  .flight-reserve-text select{
+    border: 1px solid white !important;
+    font-size: 18px;
+
+  }
+
+
+  @media (max-width: 768px) {
+    .flight-reserve-text{
+      font-size: 20px;
+    }
   }

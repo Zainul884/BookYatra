@@ -1,0 +1,92 @@
+//v3
+//Discount and Offers Page
+//ChatGPT was used to generate some fake data and help in giving a basic design which was later refined
+//Also used to fix some bugs and errors
+//My name is Zainul Malik
+"use client";
+import React, { useState } from 'react';
+import Header from "../header/page";
+
+export default function Offers() {
+    const [cart, setCart] = useState([]);
+    const [cartVisible, setCartVisible] = useState(false);
+    const offers = [
+        { id: 1, title: "Summer Getaway Deals", description: "Save up to 30% on summer trips!", code: "SUMMER30", expiryDate: "2024-08-31" },
+        { id: 2, title: "Early Bird Special", description: "Book early and save 20% on select destinations.", code: "EARLY20", expiryDate: "2024-05-15" },
+        { id: 3, title: "Weekend Escapes", description: "Get 15% off on weekend getaways!", code: "WEEKEND15", expiryDate: "2024-09-30" },
+        { id: 4, title: "Last Minute Deals", description: "Additional 10% off on last-minute bookings.", code: "LASTMIN10", expiryDate: "2024-12-31" },
+        { id: 5, title: "Winter Wonderland", description: "Enjoy 25% off on winter holiday destinations.", code: "WINTER25", expiryDate: "2024-02-28" },
+        { id: 6, title: "Luxury for Less", description: "Luxury stays now 20% off with our exclusive code.", code: "LUXURY20", expiryDate: "2024-11-30" },
+        { id: 7, title: "Adventure Awaits", description: "20% off on adventure tours.", code: "ADVENTURE20", expiryDate: "2024-10-15" },
+        { id: 8, title: "Family Fun Sale", description: "Save 15% on family vacation packages.", code: "FAMILY15", expiryDate: "2024-06-30" },
+        { id: 9, title: "Solo Travel Special", description: "Solo travelers enjoy 10% off. Your journey, your way.", code: "SOLO10", expiryDate: "2024-07-20" },
+        { id: 10, title: "Group Getaways", description: "Groups of 4+ save 25%. Gather your crew.", code: "GROUP25", expiryDate: "2024-08-25" },
+    ];
+
+    const copyCodeToClipboard = async (code) => {
+        try {
+            await navigator.clipboard.writeText(code);
+            alert(Coupon code ${code} copied to clipboard!);
+        } catch (err) {
+            console.error('Failed to copy: ', err);
+        }
+    };
+
+    const addToCart = (offer) => {
+        setCart([...cart, offer]);
+    };
+
+    const toggleCart = () => {
+        setCartVisible(!cartVisible);
+    };
+
+
+    return (
+        <div className="offers-page">
+            <Header />
+            <div className="hero min-h-[30vh] bg-blue-900">
+                <div className="hero-content text-center text-white">
+                    <div className="max-w-md">
+                        <h1 className="text-3xl font-bold">Exclusive Offers</h1>
+                        <p className="py-6">Discover our latest deals and discounts for your next adventure.</p>
+                        <button className="btn btn-secondary" onClick={toggleCart}>
+                            View Cart ({cart.length})
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {cartVisible && (
+                <div className="container mx-auto p-6">
+                    <div className="bg-white shadow-xl rounded-lg p-4">
+                        <h2 className="text-2xl font-bold mb-2">Your Saved Offers</h2>
+                        {cart.map((offer, index) => (
+                            <div key={index} className="p-2 border-b">
+                                <h3 className="font-bold">{offer.title}</h3>
+                                <p>{offer.description}</p>
+                            </div>
+                        ))}
+                        {cart.length === 0 && <p>Your cart is empty.</p>}
+                    </div>
+                </div>
+            )}
+
+            <div className="container mx-auto p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                    {offers.map((offer) => (
+                        <div key={offer.id} className="card bg-base-100 shadow-xl">
+                            <div className="card-body text-center">
+                                <h2 className="card-title">{offer.title}</h2>
+                                <p>{offer.description}</p>
+                                <div className="flex justify-center mt-4 gap-2">
+                                    <button className="btn btn-primary" onClick={() => copyCodeToClipboard(offer.code)}>Copy Code</button>
+                                    <button className="btn btn-secondary" onClick={() => addToCart(offer)}>Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+}
