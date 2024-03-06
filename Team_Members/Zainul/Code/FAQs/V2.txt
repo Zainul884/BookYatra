@@ -1,0 +1,116 @@
+//v2
+//Added cards instead of just list 
+//FAQ's page
+//ChatGPT was used to generate some fake data and help in giving a basic design which was later refined
+//Also used to fix some bugs and errors
+//My name is Zainul Malik
+"use client";
+import React, { useState } from "react";
+import styled from "styled-components";
+import { IconContext } from "react-icons";
+import { FaPlane, FaBriefcase, FaRegLifeRing, FaInfoCircle, FaPassport, FaCreditCard, FaLock } from "react-icons/fa";
+const FaqGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  padding: 20px;
+`;
+
+const FaqCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+`;
+
+const CardTitle = styled.h3`
+  margin-top: 15px;
+  font-size: 1.1em;
+`;
+
+const CardDescription = styled.p`
+  text-align: center;
+  color: #666;
+`;
+
+const FAQ = () => {
+  const [expanded, setExpanded] = useState(null);
+
+  const faqCategories = [
+    {
+      icon: <FaCreditCard />,
+      title: "Payments and billing",
+      description: "Get help with payment and billing queries.",
+      content: "Detailed payment and billing information goes here."
+    },
+    {
+      icon: <FaPlane />,
+      title: "Booking Flights",
+      description: "All you need to know about booking your flight.",
+      content: "Information about flight booking, changes, and cancellation policies."
+    },
+    {
+      icon: <FaBriefcase />,
+      title: "Business Travel",
+      description: "Manage your business travel arrangements.",
+      content: "Guidance for managing corporate accounts and business travel bookings."
+    },
+    {
+      icon: <FaRegLifeRing />,
+      title: "Support and Assistance",
+      description: "Need help? Find out how to get support.",
+      content: "Information on how to reach customer support, service hours, and more."
+    },
+    {
+      icon: <FaInfoCircle />,
+      title: "General Information",
+      description: "Learn more about our services.",
+      content: "General information about our services, company background, and policies."
+    },
+    {
+      icon: <FaPassport />,
+      title: "Travel Documentation",
+      description: "Ensure you have the required documents for your trip.",
+      content: "Details on passport, visa requirements, and health advisories for your travel."
+    },
+    {
+      icon: <FaLock />,
+      title: "Security and Privacy",
+      description: "Understand our commitment to your privacy.",
+      content: "Information on how we protect your data and privacy."
+    },
+    // Add other categories as needed...
+  ];
+
+  const toggleExpand = (index) => {
+    setExpanded(expanded === index ? null : index);
+  };
+
+  return (
+    <IconContext.Provider value={{ size: "2em" }}>
+      <FaqGrid>
+        {faqCategories.map((cat, index) => (
+          <FaqCard key={index} onClick={() => toggleExpand(index)}>
+            {cat.icon}
+            <CardTitle>{cat.title}</CardTitle>
+            <CardDescription>
+              {expanded === index ? cat.content : cat.description}
+            </CardDescription>
+          </FaqCard>
+        ))}
+      </FaqGrid>
+    </IconContext.Provider>
+  );
+};
+
+export default FAQ;
