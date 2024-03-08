@@ -1,0 +1,161 @@
+//Made this Special Attraction page in which the user can search a city and will display the attractions in the city 
+//Chat Gpt was used to cover edge cases so the app does not crash
+
+
+"use client";
+import react from 'react';
+import { useState } from 'react';
+
+
+
+export default function AttractionSearch() {
+
+    const [attractions,setAttractions] = useState([]);
+    const [isLoading,setIsLoading] = useState(false);
+    const [error,setError] = useState('');
+    const [search,setSearch] = useState('');
+
+    const fetchAttractions = async(search) => {
+        if(!search) return;
+        setIsLoading(true);
+        setError('');
+
+        const url=`https://booking-com15.p.rapidapi.com/api/v1/attraction/searchLocation?query=${encodeURIComponent(search)}&languagecode=en-us`;
+        const options={
+            method:'GET',
+            headers:{
+                'X-RapidAPI-Key':'ae41750b50msh389a7b6e1203026p127800jsnc1c3b5dbac79',
+                'X-RapidAPI-Host':'booking-com15.p.rapidapi.com'
+            }
+        }
+
+        const response = await fetch(url,options);
+        const result=await response.json();
+        
+        try{
+        if(result && result.data &&result.data.destinations){
+            setAttractions(result.data.destinations);
+
+            if(result.data.destinations.length>0){
+                fetchAttractionsDetails(result.data.destinations[0].id);
+            }
+        }
+        else{
+            setAttractions([]);
+        }
+        }
+
+        catch(error){
+            console.log('Error fetching attraction details:',error);
+            setError('An error occurred while fetching attraction details.');
+        }
+
+        finally{
+            setIsLoading(false);
+        }
+    }
+
+    const fetchAttractionsDetails = async(id) => {
+
+        setIsLoading(true);
+        setError('');
+
+        const url = `https://booking-com15.p.rapidapi.com/api/v1/attraction/searchAttractions?id=${encodeURIComponent(id)}&page=1&currency_code=CAD&languagecode=en-us`;
+        const options={
+            method:'GET',
+            headers:{
+                'X-RapidAPI-Key':'ae41750b50msh389a7b6e1203026p127800jsnc1c3b5dbac79',
+                'X-RapidAPI-Host':'booking-com15.p.rapidapi.com'
+            }
+        }
+
+        try{
+
+        const response=await fetch(url,options);
+        const result= await response.json();
+
+
+        if(result&& result.data && result.data.products){
+            setAttractions(result.data.products);
+        }
+
+
+
+
+
+        }catch(error){
+            console.log('Error fetching attraction details:',error);
+            setError('An error occurred while fetching attraction details.');
+        }
+
+        finally{
+            setIsLoading(false);
+        }
+    }
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        fetchAttractions(search);
+    }   
+
+
+    return (
+        <div >
+            <div >Discover Amazing Places</div>
+            <form onSubmit={handleSearch}>
+                <input
+                    type="text"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="Search for attractions..."
+                   
+                />
+                <button type="submit"><FaSearchLocation /></button>
+            </form>
+            <div >
+                {isLoading ? (
+                    <div > Loading...</div>
+                ) : error ? (
+                    <div > {error}</div>
+                ) : attractions.length > 0 ? (
+                    attractions.map((attraction) => (
+                        <div key={attraction.id} >
+                            <div>
+                                <div>
+                                    <h4>{attraction.name}</h4>
+                                    <img src={attraction.primaryPhoto ? attraction.primaryPhoto.small : `/images/placeholder.jpg`} alt={attraction.name} />
+                                </div>
+
+                                <div >
+                                    <div >
+                                        
+                                        <p >{attraction.shortDescription}</p>
+                                    </div>
+                                    <div >
+                                       
+                                        <p >
+                                            Price: ${attraction.representativePrice && attraction.representativePrice.chargeAmount
+                                                ? `${attraction.representativePrice.chargeAmount} ${attraction.representativePrice.currency}`
+                                                : 'Not Available'}
+                                        </p>
+                                    </div>
+                                    <button onClick={() => navigateToDetail(attraction.id)}>Visit</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p>No attractions found.</p>
+                )}
+            </div>
+        </div>
+    );
+
+
+
+
+
+
+
+}
