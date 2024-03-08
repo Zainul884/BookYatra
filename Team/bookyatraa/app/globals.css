@@ -748,17 +748,17 @@ body {
   border: 1px solid #ddd;
   border-radius: 5px;
   max-width: 800px;
-  width: calc(100% - 40px); /* Accounts for padding */
+  width: calc(100% - 40px); 
   box-sizing: border-box;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow-y: auto; /* Enables scrolling within the container if content is too long */
-  position: absolute; /* Absolute positioning to help with exact placement */
-  top: 100px; /* Space for the header - adjust accordingly */
-  bottom: 15px; /* Space from the bottom - adjust accordingly */
+  overflow-y: auto; 
+  position: absolute;
+  top: 100px; 
+  bottom: 15px;
   left: 0;
   right: 0;
-  margin: auto; /* This will help with horizontal centering */
-  max-height: calc(100vh - 100px); /* Height adjusted for top and bottom spacing */
+  margin: auto; 
+  max-height: calc(100vh - 100px); 
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 /* Styles for the scrollbar */
