@@ -626,7 +626,7 @@ input {
 
 .terms-container {
   padding: 10px;
-  max-height: 850vh;
+  max-height: 90vh;
   background-color:lightcyan;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -658,7 +658,7 @@ input {
 .terms-content h2 {
   margin-top: 1 rem;
   font: large bold;
-  margin-bottom: 1.8px;
+  margin-bottom: 1.9px;
   color:#000;
 }
 .terms-content p {
@@ -726,6 +726,110 @@ body {
 .decline-button:hover {
   background-color: #d32f2f; 
 }
+
+
+/* Privacy Policy Page Styles */
+.privacy-policy-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin:0;
+  text-align: center;
+  box-sizing: border-box;
+  padding-top: 10vh;
+  overflow: hidden;
+}
+
+.privacy-container {
+  padding: 20px;
+  background-color: lightcyan;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  max-width: 800px;
+  width: calc(100% - 40px); /* Accounts for padding */
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* Enables scrolling within the container if content is too long */
+  position: absolute; /* Absolute positioning to help with exact placement */
+  top: 100px; /* Space for the header - adjust accordingly */
+  bottom: 15px; /* Space from the bottom - adjust accordingly */
+  left: 0;
+  right: 0;
+  margin: auto; /* This will help with horizontal centering */
+  max-height: calc(100vh - 100px); /* Height adjusted for top and bottom spacing */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+/* Styles for the scrollbar */
+.privacy-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.privacy-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.privacy-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
+
+.privacy-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.privacy-container:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.privacy-content {
+  color: gray;
+  transition: color 0.3s ease, transform 0.3s ease;
+  animation: fadeInUp 1s ease;
+
+
+}
+
+.privacy-title {
+  text-align: center;
+  font:x-large bold;
+  color: rgb(16, 16, 16);
+  margin-bottom: 4px; 
+  margin-top:5px;
+}
+
+.section-title {
+  font: large bold; 
+  color: #000;
+  margin-top: 1rem;
+  margin-bottom: 4px;
+}
+
+.privacy-content p, .privacy-content li {
+  font: medium bold;
+  line-height: 1.1;
+ 
+}
+
+.privacy-content h2:hover, .privacy-content p:hover {
+  color: #226688;
+  transform: scale(1.02);
+}
+
+/* Keyframes for the fadeInUp animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 /* Home Page */
 .homepage {
   background-color: white;
