@@ -17,15 +17,11 @@
 }
 
 /* landing page */
-
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
 }
-
-
-
 .landing-page {
   height: 100vh;
   background-image: url('/Images Capstone/Landing Page Image.png'); 
@@ -33,7 +29,6 @@ html, body {
   background-position: center;
   position: relative;
 }
-
 .landingpage-header {
   display: flex;
   justify-content: space-between;
@@ -55,16 +50,12 @@ html, body {
   margin-left: -60px;
  
 }
-
 .logo img {
-  margin-top: 25px;
- 
-  
+  margin-top: 25px; 
 }
 .nav-links{
   margin-left: auto;
 }
-
 .nav-links a {
   color: rgb(247, 247, 249);
   text-decoration: none;
@@ -72,13 +63,10 @@ html, body {
   transition: color 0.3s;
   font: large bold;
 }
-
 .nav-links a:hover {
   color: #1e5a78; 
   text-decoration: underline ;
 }
-
-
 .main-content {
   position: absolute;
   top: 50%;
@@ -91,13 +79,11 @@ html, body {
   align-items: center; 
   
 }
-
 .tagline {
  font :xx-large bolder;
  margin-bottom: 0.5rem;
 
 }
-
 .explore-button {
   font-size: 1rem;
   padding: 0.8rem 1.5rem;
@@ -108,7 +94,6 @@ html, body {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-
 .explore-button:hover {
   background-color:  #1e5a78; 
   color: white;
@@ -206,7 +191,7 @@ html, body {
     color: #1e5a78;
   }
 
-  /* Adjust tagline and button sizes for smaller screens */
+ 
   .tagline {
     font-size: larger;
     font: bold;
@@ -429,7 +414,6 @@ input {
   position: absolute;
   left: 20%; 
   top: 55%;
-  
   transform: translateY(-50%);
 }
 .signup-logo {
@@ -467,6 +451,8 @@ input {
 .name-fields input {
   flex: 1;
 }
+
+
 
 /* Submit button styles */
 .signup-container button {
@@ -625,8 +611,121 @@ input {
   text-decoration: none;
 }
 }
+/* Terms of Use Page*/
+.terms-of-use-page {
+  padding-top: 55px ;
+  display: flex;
+  margin-top: 0px;
+  text-align: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.terms-container {
+  padding: 10px;
+  max-height: 850vh;
+  background-color:lightcyan;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  max-width:800px;
+  position:relative;
+  margin: 30px;
+  top:15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.terms-container:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+.terms-content {
+  text-align:left;
+  margin-left: 20px;
+  color:gray;
+  transition: color 0.3s ease, transform 0.3s ease;
+  animation: fadeInUp 1s ease;
+}
+
+.terms-content h1 {
+  text-align: center;
+  font:x-large bold;
+  color: rgb(16, 16, 16);
+
+}
+.terms-content h2 {
+  margin-top: 1 rem;
+  font: large bold;
+  margin-bottom: 1.8px;
+  color:#000;
+}
+.terms-content p {
+  font: medium bold;
+}
+.terms-content h2:hover, .terms-content p:hover {
+  color: #226688 ; 
+  transform: scale(1.02);
+}
+/* Keyframes for the fade-in-up animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+/* Importing Google Font - Open Sans */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+/* Set the default font for the body */
+body {
+  font-family: 'Open+Sans', sans-serif;
+}
 
 
+/* New styles for buttons */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 70px; 
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.accept-button {
+  background-color: #058809; 
+  color: white;
+  border: none;
+  padding: 10px 40px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 1rem; 
+  transition: background-color 0.3s ease;
+}
+
+.accept-button:hover {
+  background-color: #45a049; 
+}
+
+.decline-button {
+  background-color: #d0170a; 
+  color: white;
+  border: none;
+  padding: 10px 40px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.decline-button:hover {
+  background-color: #d32f2f; 
+}
 /* Home Page */
 .homepage {
   background-color: white;
@@ -858,92 +957,6 @@ input {
   margin-right: 10px;
   margin-bottom: 4px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* Home Page */
