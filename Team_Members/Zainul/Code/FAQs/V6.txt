@@ -1,5 +1,5 @@
-//v8
-//Added "Was This Helpful?" feature with thumbs up/down
+//v7
+//Added form and ability to submit it using formspree
 //FAQ's page
 //ChatGPT was used to generate some fake data and help in giving a basic design which was later refined. I also used it to help fix the issue where the card was not properly showing the foreground 
 //Also used to fix some bugs and errors
@@ -17,12 +17,8 @@ import {
   FaCreditCard,
   FaLock,
   FaGlobe,
-  FaQuestionCircle,
-  FaHeadphones,
-  FaThumbsUp, 
-  FaThumbsDown
+  FaQuestionCircle
 } from 'react-icons/fa';
-import { color } from 'framer-motion';
 
 
 // Styled Components
@@ -54,9 +50,9 @@ const FaqCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 150px;
+  padding: 50px;
   border: 1px solid #ccc;
-  border-radius: 45px;
+  border-radius: 8px;
   background: #fff;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   cursor: pointer;
@@ -126,7 +122,7 @@ const ActiveCard = styled.div`
   left: 50%;
   transform: translate(-50%, -50%) scale(1);
   padding: 20px;
-  border-radius: 30px;
+  border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   width: 80%;
   max-width: 500px;
@@ -223,8 +219,7 @@ const FAQ = () => {
   const [isCardActive, setIsCardActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isFormModalVisible, setFormModalVisible] = useState(false);
-  const [feedbackGiven, setFeedbackGiven] = useState(null); 
-  const [hoverFeedback, setHoverFeedback] = useState(null); 
+
 
   const faqCategories = [
     {
@@ -281,7 +276,7 @@ const FAQ = () => {
       icon: <FaGlobe />,
       title: "International Travel",
       description: "Information for globe trotters.",
-      content: "Find out about international travel arrangements, visas, and more.",
+      content: "Find out about international travel arrangements, visas, and more."
     },
     
   ];
@@ -347,17 +342,12 @@ const FAQ = () => {
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value.toLowerCase());
   };
-  
-  const filteredFaqCategories = faqCategories.filter(category =>
-    faqQuestions[category.id].some(qa =>
+
+  const filteredFaqCategories = faqCategories.filter(category => 
+    faqQuestions[category.id].some(qa => 
       qa.question.toLowerCase().includes(searchQuery) || qa.answer.toLowerCase().includes(searchQuery)
     )
   );
-
-  const handleFeedback = (questionIndex, wasHelpful) => {
-    console.log(`Feedback for question ${questionIndex}: ${wasHelpful ? "Helpful" : "Not helpful"}`);
-    
-  };
   
 
   const toggleExpand = (index) => {
@@ -373,7 +363,7 @@ return (
         onChange={handleSearchChange}
         style={{ marginBottom: '20px', padding: '10px', width: '90%', maxWidth: '600px', display: 'block', marginLeft: 'auto', marginRight: 'auto' }}
       />
-        <IconContext.Provider value={{ size: '2em' }}>
+      <IconContext.Provider value={{ size: '2em' }}>
         <FaqGrid>
           {filteredFaqCategories.length > 0 ? filteredFaqCategories.map((cat, index) => (
             <FaqCard key={index} onClick={() => handleClickCard(index)}>
@@ -394,44 +384,7 @@ return (
             {faqQuestions[faqCategories[activeCard].id]?.map((qa, qaIndex) => (
               <Question key={qaIndex} onClick={() => handleClickQuestion(qaIndex)}>
                 {qa.question}
-                {activeQuestion === qaIndex && (
-                  <>
-                    <Answer>{qa.answer}</Answer>
-                    <div style={{ marginTop: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <div style={{paddingRight: '10px'}}>
-                      Was This Helpful?
-                      </div>
-                      
-                        <FaThumbsUp
-                          size={24}
-                          style={{
-                            marginRight: '10px',
-                            cursor: 'pointer',
-                            color: feedbackGiven === 'up' || hoverFeedback === 'up' ? '#007aff' : '#000',
-                          }}
-                          onMouseEnter={() => setHoverFeedback('up')}
-                          onMouseLeave={() => setHoverFeedback(null)}
-                          onClick={() => {
-                            handleFeedback(qaIndex, true);
-                            setFeedbackGiven('up');
-                          }}
-                        />
-                        <FaThumbsDown
-                          size={24}
-                          style={{
-                            cursor: 'pointer',
-                            color: feedbackGiven === 'down' || hoverFeedback === 'down' ? '#007aff' : '#000',
-                          }}
-                          onMouseEnter={() => setHoverFeedback('down')}
-                          onMouseLeave={() => setHoverFeedback(null)}
-                          onClick={() => {
-                            handleFeedback(qaIndex, false);
-                            setFeedbackGiven('down');
-                          }}
-                        />
-                      </div>
-                  </>
-                )}
+                {activeQuestion === qaIndex && <Answer>{qa.answer}</Answer>}
               </Question>
             ))}
           </>
@@ -441,15 +394,12 @@ return (
 
 
 
-<ContactButton onClick={() => setFormModalVisible(true)}>
-  <div style={{ display: 'flex', alignItems: 'center' }}>
-    <FaHeadphones style={{ marginRight: '5px' }} />
-    <span>Contact Us</span>
-  </div>
-</ContactButton>
+    <ContactButton onClick={() => setFormModalVisible(true)}>Contact Us</ContactButton>
+
 
 <ModalBackdrop isVisible={isFormModalVisible} onClick={() => setFormModalVisible(false)}>
   <ModalContent onClick={(e) => e.stopPropagation()}> 
+    <h2>Contact Us</h2>
     <form action="https://formspree.io/f/mvoeqgpr" method="POST">
       <FormInput type="text" name="name" placeholder="Your Name" required />
       <FormInput type="email" name="email" placeholder="Your Email" required />
@@ -459,7 +409,6 @@ return (
     <ContactButton onClick={() => setFormModalVisible(false)}>Close</ContactButton>
   </ModalContent>
 </ModalBackdrop>
-
 
   </>
 );
