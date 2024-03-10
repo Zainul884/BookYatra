@@ -1,0 +1,47 @@
+// Import useForm and ValidationError from @formspree/react
+//FormSpree Form
+import React from 'react';
+import { useForm, ValidationError } from '@formspree/react';
+
+function ContactForm() {
+  // Initialize the useForm hook with your Formspree form ID
+  const [state, handleSubmit] = useForm("mvoeqgpr");
+
+  // Check if the form submission was successful and display a message
+  if (state.succeeded) {
+      return <p>Thanks for your message!</p>;
+  }
+
+  // Form layout with validation error handling
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="email">
+        Email Address
+      </label>
+      <input
+        id="email"
+        type="email" 
+        name="email"
+      />
+      <ValidationError 
+        prefix="Email" 
+        field="email"
+        errors={state.errors}
+      />
+      <textarea
+        id="message"
+        name="message"
+      ></textarea>
+      <ValidationError 
+        prefix="Message" 
+        field="message"
+        errors={state.errors}
+      />
+      <button type="submit" disabled={state.submitting}>
+        Submit
+      </button>
+    </form>
+  );
+}
+
+export default ContactForm;
