@@ -70,14 +70,33 @@ function TermsOfUse() {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState(termsData);
     const [openSectionId, setOpenSectionId] = useState(null);
+    const [sortOrder, setSortOrder] = useState('');
+    
+    const handlePrint = () => {
+        window.print();
+    };
+
+
+
 
     useEffect(() => {
-        const filteredResults = termsData.filter(term =>
+        const filteredTerms = termsData.filter(term =>
             term.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
             term.content.toLowerCase().includes(searchTerm.toLowerCase())
         );
-        setSearchResults(filteredResults);
-    }, [searchTerm]);
+
+        // Sort the results if a sortOrder is set
+        if (sortOrder) {
+            filteredTerms.sort((a, b) => {
+                return sortOrder === 'ascending' 
+                    ? a.title.localeCompare(b.title) 
+                    : b.title.localeCompare(a.title);
+            });
+        }
+
+        setSearchResults(filteredTerms);
+    }, [searchTerm, sortOrder]);
+
 
     const toggleNav = () => setIsNavExpanded(!isNavExpanded);
 
@@ -103,8 +122,8 @@ function TermsOfUse() {
                 </nav>
             </header>
             <div className="terms-of-use-page">
-                <div className="terms-container">
-                    <div className="terms-content">
+                <div className="terms-container ">
+                    <div className="terms-content ">
                         <h1 >Terms of Use</h1>
                         <div clasname='term-search' >
                             <input
@@ -114,6 +133,16 @@ function TermsOfUse() {
                                 placeholder="Search terms..."
                             />
                         </div>
+                            <select className="sort-order"
+                                value={sortOrder}
+                                onChange={(e) => setSortOrder(e.target.value)}
+                                >
+                                <option value="">Sort By</option>
+                                <option value="ascending">Title Ascending</option>
+                                <option value="descending">Title Descending</option>
+                            </select>
+                    </div>
+                   
                         {searchResults.map(({ id, title, content }) => (
                             <AccordionSection
                                 key={id}
@@ -123,10 +152,12 @@ function TermsOfUse() {
                                 onClick={() => toggleSection(id)}
                             />
                         ))}
+                        <button onClick={handlePrint} className="print-button">
+                            Print 
+                        </button>
                     </div>
                 </div>
             </div>
-        </div>
     );
 }
 

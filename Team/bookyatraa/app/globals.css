@@ -203,11 +203,12 @@ html, body {
   }
 }
 /*Chatbot*/
+
 .chatbot-button {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  z-index: 100;
+ 
   background-color: #077ea6;
   color: white;
   border: none;
@@ -228,8 +229,7 @@ html, body {
   position: fixed;
   bottom: 90px;
   right: 20px;
-  z-index: 100;
-  max-height: 600px;
+  max-height: 300px;
   width: 350px;
   border: 1px solid #ccc;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -237,9 +237,76 @@ html, body {
   overflow: hidden;
   background-color: white;
 }
-
 .chatbot-expanded {
   display: block;
+}
+.chatbot{
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 85%;
+}
+.chatbot-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 80%;
+  overflow-y:scroll;
+  padding : 20px;
+}
+.user-message{
+  background-color: #f2f2f2;
+  color:black;
+  padding :10px;
+  align-self: flex-end;
+  text-align: right;
+  margin:5px 0;
+  max-width: 50%;
+  word-wrap: break-word;
+}
+.bot-message{
+  background-color: green;
+  color:white;
+  align-items: flex-start;
+  padding :10px;
+  margin: 5px 0;
+  border-radius: 10px;
+  max-width: 50%;
+  word-wrap:break-word;
+
+}
+.input-container{
+  background-color: #f2f2f2;
+  display:flex;
+  padding :10px;
+  align-self:center;
+  justify-content: center;
+  text-align: left;
+  margin:10px 0;
+  width: 100%;
+  height: 20%;
+}
+.input[type="text"]{
+  width:70%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid green;
+  outline: none;
+}
+.send-button{
+  width: 20%;
+  padding: 10px;
+  border-radius: 5px;
+  border:none;
+  outline:none;
+  background-color: green;
+  color :white;
+  cursor: pointer; 
+}
+.send-button:hover{
+ opacity:0.8 ;
 }
 
 /*login page */
@@ -675,8 +742,6 @@ input {
   align-items: center; 
   display: flex;
   top:30px;
-
-
   flex-direction: column;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
@@ -728,7 +793,7 @@ input {
   font-size: 1rem; 
   font-weight: bold;
   padding: 0.5rem;
-  background-color: #f3f3f3; /* Adjusted from 'bg-gray-100' */
+  background-color: #f3f3f3;
   color: #000;
   border: none;
   cursor: pointer;
@@ -737,25 +802,26 @@ input {
 }
 
 .accordion-title:hover {
-  background-color: #e2e2e2; /* Adjusted from 'hover:bg-gray-300' */
+  background-color: #e2e2e2; 
 }
 
 .accordion-content {
   margin-top: 0.1rem;
   padding: 0.3rem;
-  background-color: #e0ffff; /* Equivalent to 'bg-lightcyan-600', adjusted for clarity */
+  background-color: #e0ffff;
   border-radius: 0.25rem;
   color: #000;
   width: 100%;
   text-align:left;
 }
 .accordion-section {
-  width: 100%; /* Ensure it takes the full width of its parent */
+  width: 100%; 
 }
 
 /* Input Styles */
-input[type="text"] {
+input[type="text"],.sort-order {
   padding: 0.5rem;
+  margin-bottom: 10px;
   border-radius: 0.25rem;
   background-color: #f3f3f3;
   border: 1px solid #ddd;
@@ -766,6 +832,19 @@ input[type="text"] {
 
 input[type="text"]::placeholder {
   color: #aaa;
+}
+.print-button {
+  padding:5px 25px;
+  background-color: #08759a; /* Bootstrap primary color for example */
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button.print-button:hover {
+  background-color: #0a5d8e; /* Darker shade when hovered */
 }
 
 
@@ -787,10 +866,6 @@ input[type="text"]::placeholder {
 body {
   font-family: 'Open+Sans', sans-serif;
 }
-
-
-
-
 
 /* Privacy Policy Page Styles */
 .privacy-policy-page {
