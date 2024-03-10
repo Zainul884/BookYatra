@@ -1,8 +1,6 @@
-
 "use client";
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-
 
 function Home() {
 
@@ -26,6 +24,7 @@ function Home() {
       description: 'Discover the luxury of being yourself in a land of wonder, one hotel stay at a time',
     }
   ];
+  
   const reviews = [
     {
       id: 1,
