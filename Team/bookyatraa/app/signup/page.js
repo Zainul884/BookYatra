@@ -32,7 +32,7 @@ const Signup = () => {
               alt="BookYatra Logo"
               width={250}
               height={80}
-              layout="intrinsic"
+          
             />
         </div>
         </Link>
@@ -114,6 +114,8 @@ const Signup = () => {
                 </p>
         </form>
       </div>
+
+
     </div>
     </div>
   );

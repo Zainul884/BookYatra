@@ -31,7 +31,7 @@ function FlightPage() {
     <h1 className='heading container'>Popular Destinations</h1>
     <TravelCard/>
     <h1 className='heading container'>
-Tips for Booking a Flight with BookYatra
+  Tips for Booking a Flight with BookYatra
 </h1>
    <TravelTips/>
    <hr/>

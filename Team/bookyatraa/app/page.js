@@ -2,14 +2,14 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-
+import ChatBot from './api/chatbot';
 
 
 function LandingPage() {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
-  
-  const toggleNav = () => {
-    setIsNavExpanded(!isNavExpanded);}
+
+  const toggleNav = () => {setIsNavExpanded(!isNavExpanded);}
+
 
   return (
   
@@ -21,7 +21,7 @@ function LandingPage() {
             alt="BookYatra Logo"
             width={250}
             height={80}
-            layout="intrinsic"
+           
           />
         </div>
         <button className="hamburger" onClick={toggleNav} aria-label="Toggle navigation">
@@ -40,13 +40,11 @@ function LandingPage() {
         <p className="tagline">BookYatra, Your Travel Companion.</p>
         <Link href="/homepage">
           <button className="explore-button">Explore Now</button>
-        </Link>
-       
+        </Link>  
       </div>
+    <ChatBot />
     </div>
 
   );
 }
-
-
 export default LandingPage;

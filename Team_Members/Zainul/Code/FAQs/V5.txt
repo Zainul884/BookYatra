@@ -1,0 +1,303 @@
+//v5
+//Added data to each card like questions and answers
+//FAQ's page
+//ChatGPT was used to generate some fake data and help in giving a basic design which was later refined. I also used it to help fix the issue where the card was not properly showing the foreground 
+//Also used to fix some bugs and errors
+//My name is Zainul Malik
+"use client";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { IconContext } from 'react-icons';
+import {
+  FaPlane,
+  FaBriefcase,
+  FaRegLifeRing,
+  FaInfoCircle,
+  FaPassport,
+  FaCreditCard,
+  FaLock,
+  FaGlobe,
+  FaQuestionCircle
+} from 'react-icons/fa';
+
+
+// Styled Components
+const Container = styled.div`
+  padding: 40px 20px;
+  background: #f9f9f9;
+`;
+
+const Header = styled.h1`
+  text-align: center;
+  color: #007aff;
+  margin-bottom: 40px;
+  font-size: 2.5em;
+`;
+
+const FaqGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, minmax(240px, 1fr));
+  gap: 20px;
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, minmax(240px, 1fr));
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const FaqCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+  position: relative; /* Needed for z-index to work */
+  z-index: ${({ isActive }) => (isActive ? 999 : 1)}; /* Bring active card to front */
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+`;
+
+const CardTitle = styled.h3`
+  margin-top: 15px;
+  font-size: 1.1em;
+`;
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: ${({ isActive }) => (isActive ? 'block' : 'none')};
+  z-index: 998;
+`;
+
+const Modal = styled.div`
+  background: #fff;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(${({ isActive }) => (isActive ? 1 : 0.5)});
+  transition: all 0.3s ease;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 500px;
+  z-index: 999;
+  display: ${({ isActive }) => (isActive ? 'block' : 'none')};
+  max-height: 80vh;
+  overflow-y: auto;
+`;
+
+const Question = styled.div`
+  margin: 10px 0;
+  padding: 10px;
+  background: #f7f7f7;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background: #e7e7e7;
+  }
+`;
+
+const Answer = styled.p`
+  background: #fff;
+  padding: 10px;
+  border-left: 4px solid #007aff;
+`;
+const ActiveCard = styled.div`
+  background: #fff;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  max-width: 500px;
+  z-index: 999;
+  transition: all 0.4s ease;
+  max-height: 80vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+
+const FAQ = () => {
+  const [activeCard, setActiveCard] = useState(null);
+  const [activeQuestion, setActiveQuestion] = useState(null);
+  const [isCardActive, setIsCardActive] = useState(false);
+
+  const faqCategories = [
+    {
+      id: 'payments',
+      icon: <FaCreditCard />,
+      title: "Payments and billing",
+      description: "Get help with payment and billing queries.",
+      content: "Detailed payment and billing information goes here."
+    },
+    {
+      id: 'flights',
+      icon: <FaPlane />,
+      title: "Booking Flights",
+      description: "All you need to know about booking your flight.",
+      content: "Information about flight booking, changes, and cancellation policies."
+    },
+    {
+      id: 'businessTravel',
+      icon: <FaBriefcase />,
+      title: "Business Travel",
+      description: "Manage your business travel arrangements.",
+      content: "Guidance for managing corporate accounts and business travel bookings."
+    },
+    {
+      id: 'support',
+      icon: <FaRegLifeRing />,
+      title: "Support and Assistance",
+      description: "Need help? Find out how to get support.",
+      content: "Information on how to reach customer support, service hours, and more."
+    },
+    {
+      id: 'generalInfo',
+      icon: <FaInfoCircle />,
+      title: "General Information",
+      description: "Learn more about our services.",
+      content: "General information about our services, company background, and policies."
+    },
+    {
+      id: 'travelDocs',
+      icon: <FaPassport />,
+      title: "Travel Documentation",
+      description: "Ensure you have the required documents for your trip.",
+      content: "Details on passport, visa requirements, and health advisories for your travel."
+    },
+    {
+      id: 'securityPrivacy',
+      icon: <FaLock />,
+      title: "Security and Privacy",
+      description: "Understand our commitment to your privacy.",
+      content: "Information on how we protect your data and privacy."
+    },
+    {
+      id: 'internationalTravel',
+      icon: <FaGlobe />,
+      title: "International Travel",
+      description: "Information for globe trotters.",
+      content: "Find out about international travel arrangements, visas, and more."
+    },
+    
+  ];
+
+  const faqQuestions = {
+    payments: [
+      { question: "How do I update my billing information?", answer: "You can update your billing information through your account settings. Navigate to the 'Billing' section, and you'll be able to enter new payment details."},
+      { question: "What payment methods do you accept?", answer: "We accept all major credit cards, including Visa, MasterCard, American Express, and Discover. We also accept PayPal and bank transfers for some regions."},
+      { question: "Can I get a receipt for my payment?", answer: "Yes, receipts are automatically sent to your email address after each payment. You can also find all payment receipts in your account under the 'Payment History' section."},
+    ],
+    flights: [
+      { question: "How can I change my flight?", answer: "You can change your flight by accessing your booking through our website or app, selecting 'Modify Flight', and following the instructions. Please note that fees may apply."},
+      { question: "What is the baggage allowance for my flight?", answer: "Baggage allowances vary by airline and ticket class. You can check the specific allowance for your flight in your booking confirmation or by contacting the airline directly."},
+      { question: "What should I do if my flight is cancelled?", answer: "If your flight is cancelled, you will be notified by the airline with instructions on how to rebook or receive a refund. You can also contact our customer support for assistance."},
+    ],
+    businessTravel: [
+      { question: "Do you offer corporate discounts?", answer: "Yes, we offer corporate discounts for businesses with frequent travel needs. Contact our business sales team for more information."},
+      { question: "How can I manage my team's travel itineraries?", answer: "Our platform allows you to manage your team's travel itineraries. Create a business account and add team members to organize and track all bookings in one place."},
+      { question: "Can I set travel policies for my employees?", answer: "Yes, our business accounts enable you to set custom travel policies for your employees, including preferred airlines, budget limits, and travel class restrictions."},
+    ],
+    support: [
+      { question: "How can I contact customer support?", answer: "You can contact our customer support team via email, phone, or live chat. Visit our 'Contact Us' page for more details."},
+      { question: "What are your customer support hours?", answer: "Our customer support team is available 24/7 to assist you with any queries."},
+      { question: "Where can I find answers to common questions?", answer: "Our FAQ section covers a wide range of common questions. If you can't find what you're looking for, don't hesitate to reach out to our support team."},
+    ],
+    generalInfo: [
+      { question: "How do I create an account?", answer: "You can create an account by clicking the 'Sign Up' button on our homepage and filling in the necessary information."},
+      { question: "Is my personal information secure?", answer: "We take your privacy seriously. Your personal information is encrypted and protected with the latest security measures."},
+      { question: "Can I delete my account?", answer: "Yes, you can delete your account at any time. Please note that this action is irreversible and all your data will be permanently removed."},
+    ],
+    travelDocs: [
+      { question: "What travel documents do I need?", answer: "Required travel documents vary by destination. Generally, you'll need a valid passport, and you may also need visas or other permits."},
+      { question: "How do I know if I need a visa?", answer: "Visa requirements depend on your destination and nationality. Check our 'Travel Documents' section for guidelines, or contact the embassy of the country you're visiting."},
+      { question: "Can you help me with visa applications?", answer: "While we provide information on visa requirements, the application process is managed by the respective embassies or visa processing centers."},
+    ],
+    securityPrivacy: [
+      { question: "How do you protect my data?", answer: "We use industry-standard encryption and security protocols to protect your data. We also comply with privacy laws and regulations."},
+      { question: "What is your privacy policy?", answer: "Our privacy policy outlines how we collect, use, and protect your personal information. You can view it in full on our website."},
+      { question: "Can I opt-out of marketing communications?", answer: "Yes, you can opt-out of marketing communications at any time through your account settings or by clicking the unsubscribe link in any of our emails."},
+    ],
+    internationalTravel: [
+      { question: "Do I need travel insurance?", answer: "While not mandatory, we strongly recommend travel insurance for international trips to cover unexpected medical expenses, trip cancellations, and luggage loss."},
+      { question: "How can I find out about health advisories?", answer: "Check our 'Health Advisories' section for the latest information on health alerts and vaccination requirements for international travel."},
+      { question: "What currency will I use abroad?", answer: "Currency varies by country. We recommend checking the currency exchange rates before your trip and considering multiple forms of payment."},
+    ],
+   
+  };
+
+  const handleClickCard = (index) => {
+    setActiveCard(activeCard === index ? null : index);
+    setActiveQuestion(null); // Reset active question
+    setIsCardActive(true);
+  };
+
+  const handleClickQuestion = (questionIndex) => {
+    if (activeQuestion === questionIndex) {
+      setActiveQuestion(null); 
+    } else {
+      setActiveQuestion(questionIndex);
+    }
+  };
+
+  
+
+  const toggleExpand = (index) => {
+    setExpanded(expanded === index ? null : index);
+  };
+  return (
+    <>
+      <Container>
+        <Header>How can we help you today?</Header>
+        <IconContext.Provider value={{ size: '2em' }}>
+          <FaqGrid>
+            {faqCategories.map((cat, index) => (
+              <FaqCard key={index} onClick={() => handleClickCard(index)}>
+                {cat.icon}
+                <CardTitle>{cat.title}</CardTitle>
+              </FaqCard>
+            ))}
+          </FaqGrid>
+        </IconContext.Provider>
+      </Container>
+
+      <Overlay isActive={activeCard != null} onClick={() => setActiveCard(null)} />
+      {activeCard != null && (
+        <Modal isActive={activeCard != null}>
+          {faqCategories[activeCard] && (
+            <>
+              <CardTitle>{faqCategories[activeCard].title}</CardTitle>
+              {faqQuestions[faqCategories[activeCard].id]?.map((qa, qaIndex) => (
+                <Question key={qaIndex} onClick={() => handleClickQuestion(qaIndex)}>
+                  {qa.question}
+                  {activeQuestion === qaIndex && <Answer>{qa.answer}</Answer>}
+                </Question>
+              ))}
+            </>
+          )}
+        </Modal>
+      )}
+    </>
+  );
+};
+
+export default FAQ;

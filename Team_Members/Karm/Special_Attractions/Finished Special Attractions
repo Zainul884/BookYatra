@@ -1,0 +1,308 @@
+//Chat gpt was used to fix errors in the code
+
+"use client";
+import react from 'react';
+import { useState } from 'react';
+import { FaSpinner, FaExclamationTriangle, FaSearchLocation, FaTag, FaInfoCircle } from 'react-icons/fa';
+
+import './styles.css';
+
+
+export default function AttractionSearch() {
+
+    const [attractions,setAttractions] = useState([]);
+    const [isLoading,setIsLoading] = useState(false);
+    const [error,setError] = useState('');
+    const [search,setSearch] = useState('');
+
+    const fetchAttractions = async(search) => {
+        if(!search) return;
+        setIsLoading(true);
+        setError('');
+
+        const url=`https://booking-com15.p.rapidapi.com/api/v1/attraction/searchLocation?query=${encodeURIComponent(search)}&languagecode=en-us`;
+        const options={
+            method:'GET',
+            headers:{
+                'X-RapidAPI-Key':'ae41750b50msh389a7b6e1203026p127800jsnc1c3b5dbac79',
+                'X-RapidAPI-Host':'booking-com15.p.rapidapi.com'
+            }
+        }
+
+        const response = await fetch(url,options);
+        const result=await response.json();
+        
+        try{
+        if(result && result.data &&result.data.destinations){
+            setAttractions(result.data.destinations);
+
+            if(result.data.destinations.length>0){
+                fetchAttractionsDetails(result.data.destinations[0].id);
+            }
+        }
+        else{
+            setAttractions([]);
+        }
+        }
+
+        catch(error){
+            console.log('Error fetching attraction details:',error);
+            setError('An error occurred while fetching attraction details.');
+        }
+
+        finally{
+            setIsLoading(false);
+        }
+    }
+
+    const fetchAttractionsDetails = async(id) => {
+
+        setIsLoading(true);
+        setError('');
+
+        const url = `https://booking-com15.p.rapidapi.com/api/v1/attraction/searchAttractions?id=${encodeURIComponent(id)}&page=1&currency_code=CAD&languagecode=en-us`;
+        const options={
+            method:'GET',
+            headers:{
+                'X-RapidAPI-Key':'ae41750b50msh389a7b6e1203026p127800jsnc1c3b5dbac79',
+                'X-RapidAPI-Host':'booking-com15.p.rapidapi.com'
+            }
+        }
+
+        try{
+
+        const response=await fetch(url,options);
+        const result= await response.json();
+
+
+        if(result&& result.data && result.data.products){
+            setAttractions(result.data.products);
+        }
+
+
+
+
+
+        }catch(error){
+            console.log('Error fetching attraction details:',error);
+            setError('An error occurred while fetching attraction details.');
+        }
+
+        finally{
+            setIsLoading(false);
+        }
+    }
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        fetchAttractions(search);
+    }   
+
+
+    return (
+        <div className='container'>
+            <div className='header'>Discover Amazing Places</div>
+            <form onSubmit={handleSearch}>
+                <input
+                    type="text"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="Search for attractions..."
+                    className='input'
+                />
+                <button type="submit"><FaSearchLocation /></button>
+            </form>
+            <div className='attractionList'>
+                {isLoading ? (
+                    <div className="spinner"><FaSpinner /> Loading...</div>
+                ) : error ? (
+                    <div className="errorText"><FaExclamationTriangle /> {error}</div>
+                ) : attractions.length > 0 ? (
+                    attractions.map((attraction) => (
+                        <div key={attraction.id} className='attractionItem'>
+                            <div className='attractionCard'>
+                                <div className="front">
+                                    <h4>{attraction.name}</h4>
+                                    <img src={attraction.primaryPhoto ? attraction.primaryPhoto.small : `/images/placeholder.jpg`} alt={attraction.name} />
+                                </div>
+
+                                <div className="back">
+                                    <div className="icon">
+                                        <FaInfoCircle />
+                                        <p className='shortDes'>{attraction.shortDescription}</p>
+                                    </div>
+                                    <div className="icon">
+                                        <FaTag />
+                                        <p className='price'>
+                                            Price: ${attraction.representativePrice && attraction.representativePrice.chargeAmount
+                                                ? `${attraction.representativePrice.chargeAmount} ${attraction.representativePrice.currency}`
+                                                : 'Not Available'}
+                                        </p>
+                                    </div>
+                                    <button onClick={() => navigateToDetail(attraction.id)}>Visit</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p>No attractions found.</p>
+                )}
+            </div>
+        </div>
+    );
+
+
+
+
+
+
+
+}
+
+
+
+Css Code:
+.container {
+    background-color: #fff;
+    padding: 20px;
+    width: 100%;
+    margin: auto;
+    color: #333;
+}
+
+.header, .spinner, .errorText {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+
+
+.input {
+    padding: 10px;
+    width: 50%; 
+    margin: 10px;
+    color: #333;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+  }
+
+
+  .input:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 8px rgba(0,123,255,0.5);
+  }
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: #007bff; 
+    color: white; 
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background-color 0.3s ease;
+    visibility: visible; 
+  }
+  
+
+button:hover {
+    background-color: #0056b3;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.attractionList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px;
+    padding: 20px 0; 
+}
+
+.attractionItem {
+    perspective: 1000px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.attractionCard {
+    width: 100%;
+    height: 400px;
+    transition: transform 0.8s; 
+    transform-style: preserve-3d;
+}
+
+
+.attractionCard h4 {
+    font-size: 20px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    font-weight: 600;
+    
+    
+}
+
+.attractionCard:hover {
+    transform: rotateY(180deg);
+}
+
+ .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.front {
+    background: #fff;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.back {
+    background: #f0f0f0;
+    transform: rotateY(180deg);
+}
+
+img {
+    
+    height: auto;
+    border-radius: 10px 10px 0 0;
+}
+
+.shortDes, .price {
+    padding: 10px;
+}
+
+.icon {
+    display: flex;
+    align-items: center; 
+    gap: 5px;
+    justify-content: center; 
+}

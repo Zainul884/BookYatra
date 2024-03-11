@@ -1,0 +1,70 @@
+//v1
+//FAQ's Page
+//Basic design
+//ChatGPT was used to generate some fake data and help in giving a basic design which was later refined
+//Also used to fix some bugs and errors
+//My name is Zainul Malik
+"use client";
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
+
+const FAQ = () => {
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const faqs = [
+    {
+      question: "How do I book a trip?",
+      answer: "You can book a trip by selecting your desired destination and dates, then following the booking process.",
+    },
+    {
+      question: "What payment methods are accepted?",
+      answer: "We accept all major credit cards, PayPal, and various other payment methods.",
+    },
+    {
+        question: "Can I cancel my booking and get a refund?",
+        answer: "Yes, you can cancel your booking. Depending on the time of cancellation, you may be eligible for a full or partial refund. Please refer to our cancellation policy for detailed information.",
+      },
+      {
+        question: "How do I change my travel dates or destination?",
+        answer: "To change your travel dates or destination, please contact our customer service team. Changes are subject to availability and may incur additional costs.",
+      },
+      {
+        question: "What should I do if I don’t receive my booking confirmation?",
+        answer: "If you haven't received your booking confirmation within 24 hours, please check your spam folder. If it's not there, contact our customer service for assistance.",
+      },
+      {
+        question: "Are there any discounts for group bookings?",
+        answer: "Yes, we offer discounts for group bookings of 10 or more people. Please contact us directly for more information and to arrange your group booking.",
+      },
+      {
+        question: "How can I find out about travel restrictions due to COVID-19?",
+        answer: "We recommend checking the official government website of your destination for the most up-to-date travel restrictions and safety guidelines related to COVID-19.",
+      }
+      
+  ];
+
+  return (
+    <div style={{ maxWidth: "800px", margin: "20px auto" }}>
+      <h2 style={{ textAlign: "center" }}>Frequently Asked Questions</h2>
+      {faqs.map((faq, index) => (
+        <div key={index} style={{ marginBottom: "15px", borderBottom: "1px solid #ccc", paddingBottom: "10px" }}>
+          <div
+            style={{ display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer" }}
+            onClick={() => setOpenIndex(openIndex === index ? null : index)}
+          >
+            <h3>{faq.question}</h3>
+            {openIndex === index ? (
+              <FontAwesomeIcon icon={faMinusCircle} />
+            ) : (
+              <FontAwesomeIcon icon={faPlusCircle} />
+            )}
+          </div>
+          {openIndex === index && <p style={{ marginTop: "10px" }}>{faq.answer}</p>}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default FAQ;
