@@ -1,5 +1,3 @@
-
-
 import Header from '../Components/Header';
 import Flight from '../Components/Flight';
 import TravelCard from '../Components/TravelCard';
