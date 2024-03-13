@@ -1,77 +1,88 @@
-// components/ChatBot.js
+"use client";
 import React, { useState } from 'react';
-import axios from 'axios';
-import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
-import {
-  MainContainer,
-  ChatContainer,
-  MessageList,
-  Message,
-  MessageInput,
-  TypingIndicator
-} from '@chatscope/chat-ui-kit-react';
+import OpenAI from 'openai';
 
-function ChatBot() {
-  const [isChatbotExpanded, setIsChatbotExpanded] = useState(true);
-  const [input, setInput] = useState('');
-  const [messages, setMessages] = useState([
-    { text: 'Hello, how can I help you today?', sender: 'assistant' }
-  ]);
-  const [isTyping, setIsTyping] = useState(false);
 
-  const handleSend = async (textToSend) => {
-    if (!textToSend.trim()) return;
+const openai = new OpenAI({
+  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+  dangerouslyAllowBrowser: true,
+});
 
-    const outgoingMessage = { text: textToSend, sender: 'user' };
-    setMessages(m => [...m, outgoingMessage]);
+export default function ChatBot() {
+  const [userInput, setUserInput] = useState('');
+  const [chatHistory, setChatHistory] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isChatbotExpanded, setIsChatbotExpanded] = useState(false);
 
-    setIsTyping(true);
+  const handleUserInput = async () => {
+    if (!userInput.trim()) return;
+
+    setIsLoading(true);
+    const userMessage = { role: 'user', content: userInput };
+    setChatHistory(prevChat => [...prevChat, userMessage]);
+
     try {
-      const response = await axios.post('/api/chat', {
-        messages: [{ role: 'user', content: textToSend }]
+      const chatCompletion = await openai.chat.completions.create({
+        messages: [...chatHistory, userMessage],
+        model: 'gpt-3.5-turbo',
       });
 
-      const botReply = response.data.choices[0].message.content;
-      setMessages(m => [...m, { text: botReply, sender: 'assistant' }]);
+      const botMessage = {
+        role: 'assistant',
+        content: chatCompletion.choices[0].message.content,
+      };
+      setChatHistory(prevChat => [...prevChat, botMessage]);
     } catch (error) {
       console.error('Error posting message to API:', error);
-      setMessages(m => [...m, { text: "I'm having trouble understanding you right now.", sender: 'assistant' }]);
+      const errorMessage = {
+        role: 'assistant',
+        content: "I'm having trouble understanding you right now.",
+      };
+      setChatHistory(prevChat => [...prevChat, errorMessage]);
     } finally {
-      setIsTyping(false);
-      setInput('');
+      setUserInput('');
+      setIsLoading(false);
     }
   };
 
   return (
     <>
-      <button className="chatbot-button" onClick={() => setIsChatbotExpanded(!isChatbotExpanded)}>💬</button>
+      <button className="chatbot-button" onClick={() => setIsChatbotExpanded(!isChatbotExpanded)}>
+        💬
+      </button>
       {isChatbotExpanded && (
         <div className="chatbot-container">
-          <MainContainer>
-            <ChatContainer>
-              <MessageList typingIndicator={isTyping && <TypingIndicator content="Assistant is typing" />}>
-                {messages.map((message, index) => (
-                  <Message
-                    key={index}
-                    model={{
-                      message: message.text,
-                      direction: message.sender === 'user' ? 'outgoing' : 'incoming'
-                    }}
-                  />
-                ))}
-              </MessageList>
-              <MessageInput
-                placeholder="Type message here..."
-                value={input}
-                onChange={setInput}
-                onSend={() => handleSend(input)}
+          <div className="chatbot-content">
+          <div className="chatbot-header">
+            <div className="text-l text-center font-bold text-blue-800 mb-2">BookYatra Assistant</div>
+            <p className="text-gray-600 text-center">Hello,How May I help you today?</p>
+          </div>
+            <div className="chat-history clearfix">
+              {chatHistory.map((message, index) => (
+                <div key={index} className={`${message.role === 'user' ? 'user-message' : 'bot-message'}`}>
+                  {message.content}
+                </div>
+              ))}
+            </div>
+            <div className="input-container">
+              <input
+                type="text"
+                placeholder="Ask me something..."
+                value={userInput}
+                onChange={(e) => setUserInput(e.target.value)}
+                className="input-field"
               />
-            </ChatContainer>
-          </MainContainer>
+              <button
+                onClick={handleUserInput}
+                className="send-button"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Loading...' : 'Ask'}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </>
   );
 }
-
-export default ChatBot;
