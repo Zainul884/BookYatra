@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 "use client";
 import React, { useState } from 'react';
 import OpenAI from 'openai';
@@ -86,3 +87,5 @@ export default function ChatBot() {
     </>
   );
 }
+=======
+>>>>>>> Stashed changes

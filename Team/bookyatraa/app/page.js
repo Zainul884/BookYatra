@@ -42,7 +42,11 @@ function LandingPage() {
           <button className="explore-button">Explore Now</button>
         </Link>  
       </div>
+<<<<<<< Updated upstream
     <ChatBot />
+=======
+    
+>>>>>>> Stashed changes
     </div>
 
   );
