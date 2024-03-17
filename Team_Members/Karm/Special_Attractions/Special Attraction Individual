@@ -1,0 +1,1186 @@
+//Chat Gpt was used to fix some errors
+//Booking.com is used fo the api and three different endpoints are used.
+
+"use client";
+import react from 'react';
+import { useState } from 'react';
+import { FaSpinner, FaExclamationTriangle, FaSearchLocation, FaTag, FaInfoCircle, FaTimes,FaStar } from 'react-icons/fa';
+import { FaHeart, FaRegHeart ,FaWheelchair, FaTicketAlt,FaCheckCircle,FaRegTimesCircle, FaMapMarkerAlt, FaThumbsUp,FaCameraRetro } from 'react-icons/fa';
+
+import './styles.css';
+import './styles2.css';
+
+
+
+export default function AttractionSearch() {
+
+    const [attractions, setAttractions] = useState([]);
+    const [attractions2, setAttractions2] = useState([]);
+    const [favorites, setFavorites] = useState([]);
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [search, setSearch] = useState('');
+    const [isSidePanelVisible, setIsSidePanelVisible] = useState(false);
+    const [selectedAttraction, setSelectedAttraction] = useState(null);
+
+    const [lightboxVisible, setLightboxVisible] = useState(false);
+    const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+
+
+    
+      
+    
+      const openLightbox = (index) => {
+        setCurrentPhotoIndex(index);
+        setLightboxVisible(true);
+      };
+    
+      const closeLightbox = () => {
+        setLightboxVisible(false);
+      };
+    
+      const showNextPhoto = () => {
+        setCurrentPhotoIndex((prevIndex) =>
+          prevIndex === selectedAttraction.photos.length - 1 ? 0 : prevIndex + 1
+        );
+      };
+    
+      const showPrevPhoto = () => {
+        setCurrentPhotoIndex((prevIndex) =>
+          prevIndex === 0 ? selectedAttraction.photos.length - 1 : prevIndex - 1
+        );
+      };
+
+
+    const fetchAttractions = async(search) => {
+        if(!search) return;
+        setIsLoading(true);
+        setError('');
+
+        const url=`https://booking-com15.p.rapidapi.com/api/v1/attraction/searchLocation?query=${encodeURIComponent(search)}&languagecode=en-us`;
+        const options={
+            method:'GET',
+            headers:{
+                'X-RapidAPI-Key':'ae41750b50msh389a7b6e1203026p127800jsnc1c3b5dbac79',
+                'X-RapidAPI-Host':'booking-com15.p.rapidapi.com'
+            }
+        }
+
+        const response = await fetch(url,options);
+        const result=await response.json();
+        
+        try{
+        if(result && result.data &&result.data.destinations){
+            setAttractions(result.data.destinations);
+
+            if(result.data.destinations.length>0){
+                fetchAttractionsDetails(result.data.destinations[0].id);
+                
+            }
+        }
+        else{
+            setAttractions([]);
+        }
+        }
+
+        catch(error){
+            console.log('Error fetching attraction details:',error);
+            setError('An error occurred while fetching attraction details.');
+        }
+
+        finally{
+            setIsLoading(false);
+        }
+    }
+
+    const fetchAttractionsDetails = async(id) => {
+
+        setIsLoading(true);
+        setError('');
+
+        const url = `https://booking-com15.p.rapidapi.com/api/v1/attraction/searchAttractions?id=${encodeURIComponent(id)}&page=1&currency_code=CAD&languagecode=en-us`;
+        const options={
+            method:'GET',
+            headers:{
+                'X-RapidAPI-Key':'ae41750b50msh389a7b6e1203026p127800jsnc1c3b5dbac79',
+                'X-RapidAPI-Host':'booking-com15.p.rapidapi.com'
+            }
+        }
+
+        try{
+
+        const response=await fetch(url,options);
+        const result= await response.json();
+        
+
+
+        if(result&& result.data && result.data.products){
+            console.log("Setting attractions:", result.data.products);
+            setAttractions(result.data.products);
+            
+        }
+
+
+
+
+
+        }catch(error){
+            console.log('Error fetching attraction details:',error);
+            setError('An error occurred while fetching attraction details.');
+        }
+
+        finally{
+            setIsLoading(false);
+        }
+    }
+
+
+
+
+
+    const fetchAttractionsDetails2 = async(productSlug) => {
+
+        setIsLoading(true);
+        setError('');
+
+        const url = `https://booking-com15.p.rapidapi.com/api/v1/attraction/getAttractionDetails?slug=${encodeURIComponent(productSlug)}&page=1&currency_code=CAD&languagecode=en-us`;
+        
+        const options = {
+          method: 'GET',
+          headers: {
+            'X-RapidAPI-Key': 'ae41750b50msh389a7b6e1203026p127800jsnc1c3b5dbac79',
+            'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com'
+          }
+        };
+        
+        try {
+            const response = await fetch(url, options);
+            const result = await response.json();
+            console.log('result:', result);
+        
+            if (result && result.data) {
+              
+              setSelectedAttraction(result.data); 
+          }
+          } catch (error) {
+            console.log('Error fetching attraction details:', error);
+            setError('An error occurred while fetching attraction details.');
+          } finally {
+            setIsLoading(false);
+          }
+      };
+
+   
+
+
+    
+
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        fetchAttractions(search);
+    }   
+
+    const navigateToDetail = (productSlug) => {
+      console.log(`Visit button clicked for ProductSlug: ${productSlug}`);
+     
+      const selected = attractions.find(attraction => attraction.slug === productSlug);
+      console.log("Selected Attraction:", selected); 
+  
+      if (selected) {
+         
+          setSelectedAttraction(selected);
+          fetchAttractionsDetails2(productSlug);
+          setIsSidePanelVisible(true);
+      } else {
+          console.error('Selected attraction not found');
+          
+      }
+  };
+  
+    const closeSidePanel = () => {
+        console.log('Closing side panel');
+        setIsSidePanelVisible(false);
+    };
+
+    const toggleFavorite = (attraction) => {
+        const isFavorite = favorites.some(fav => fav.id === attraction.id);
+        if (isFavorite) {
+            setFavorites(favorites.filter(fav => fav.id !== attraction.id));
+        } else {
+            setFavorites([...favorites, attraction]);
+        }
+    };
+
+    return (
+        <>
+      <style>
+                {`
+                .modalBackground {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 100;
+                }
+                .modalContent {
+                    background-color: white;
+                    padding: 20px;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    max-width: 2000px;
+                    width: 90%;
+                    position: relative; /* For absolute positioning of the close button */
+                }
+                .closeButton {
+                    cursor: pointer;
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    font-size: 24px;
+                    background: none;
+                    border: none;
+                    color: #333; /* Adjust color as needed */
+                }
+                `}
+            </style>
+            <div className='containersa'>
+            <div className='headersa'>Discover Amazing Places</div>
+            <form onSubmit={handleSearch}>
+                <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search for attractions..." className='inputsa' />
+                <button type="submit" ><FaSearchLocation /></button>
+            </form>
+            <div className='attractionListsa'>
+                {isLoading ? (
+                    <div className="spinnersa"><FaSpinner /> Loading...</div>
+                ) : error ? (
+                    <div className="errorTextsa"><FaExclamationTriangle /> {error}</div>
+                ) : attractions.length > 0 ? (
+                    attractions.map((attraction) => (
+                        <div key={attraction.id} className='attractionItemsa'>
+                            <div className='attractionCardsa'>
+                                <div className="frontsa">
+                                    <h4>{attraction.name}</h4>
+                                    <img src={attraction.primaryPhoto ? attraction.primaryPhoto.small : `/images/placeholder.jpg`} alt={attraction.name} />
+                                </div>
+                                <div className="backsa">
+                                    <div className="iconsa"><FaInfoCircle /><p className='shortDessa'>{attraction.shortDescription}</p></div>
+                                    <div className="iconsa"><FaTag /><p className='pricesa'>Price: ${attraction.representativePrice && attraction.representativePrice.chargeAmount ? `${attraction.representativePrice.chargeAmount} ${attraction.representativePrice.currency}` : 'Not Available'}</p></div>
+                                    <button onClick={() => navigateToDetail(attraction.slug)}>Visit</button>
+                                    <button onClick={() => toggleFavorite(attraction)} className='favoriteButton'>
+                                        {favorites.some(fav => fav.id === attraction.id) ? <FaHeart  className='faHeart'/> : <FaRegHeart />}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p>No attractions found.</p>
+                )}
+            </div>
+
+            {isSidePanelVisible && (
+    <div className="modalBackground" onClick={closeSidePanel}>
+        <div className="modalContent" onClick={e => e.stopPropagation()}>
+            <button onClick={closeSidePanel} className="closeButton">
+                <FaTimes />
+            </button>
+            {selectedAttraction && ( 
+                <div className='attractionItemSai'>
+                  <h2 className='attractionNameSai'>{selectedAttraction.name}</h2>
+                  <img 
+                    src={selectedAttraction.primaryPhoto ? selectedAttraction.primaryPhoto.small : `/images/default.jpg`} 
+                    alt={selectedAttraction.name}
+                    className='attractionPrimaryPhotoSai'
+                  />
+
+
+<div className='photosSai'>
+  <h3>Photos</h3>
+  <div className='photosContainerSai'>
+    {selectedAttraction.photos && selectedAttraction.photos.length > 0 ? (
+      selectedAttraction.photos.map((photo, index) => (
+       
+        photo && photo.medium ? (
+          <img key={index} src={photo.medium} alt={`Photo ${index + 1}`} className='attractionPhotoSai' onClick={() => openLightbox(index)}/>
+        ) : null 
+      ))
+    ) : (
+      <p>No photos available.</p>
+    )}
+  </div>
+  {lightboxVisible && selectedAttraction.photos && selectedAttraction.photos.length > currentPhotoIndex && selectedAttraction.photos[currentPhotoIndex] && (
+    <div className={`lightboxModalSai ${lightboxVisible ? 'active' : ''}`} onClick={closeLightbox}>
+      <div className="lightboxContentSai" onClick={e => e.stopPropagation()}>
+        
+        {selectedAttraction.photos[currentPhotoIndex].medium ? (
+          <img src={selectedAttraction.photos[currentPhotoIndex].medium} alt={`Photo ${currentPhotoIndex + 1}`} />
+        ) : (
+          
+          <p>Image not available</p>
+        )}
+        <span className="lightboxArrowSai left" onClick={showPrevPhoto}>&lt;</span>
+        <span className="lightboxArrowSai right" onClick={showNextPhoto}>&gt;</span>
+        <span className="closeButtonSai" onClick={closeLightbox}>X</span>
+      </div>
+    </div>
+  )}
+</div>
+
+
+<div className='descriptionSai'>
+      <h3>  Description</h3>  
+      <p> {selectedAttraction.description}</p>
+    </div>
+
+
+
+
+    <div className='additionalInfoSai'>
+  <div className="infoSectionsSai">
+  
+    {selectedAttraction.accessibility &&selectedAttraction.accessibility.length > 0 ? (
+      <div className="accessibilitySectionSai">
+        <h3><FaWheelchair /> Accessibility</h3>
+        <ul>
+          {selectedAttraction.accessibility.map((item, index) => (
+            <li key={index}><FaCheckCircle /> {item}</li>
+          ))}
+        </ul>
+      </div>
+    ) : (
+      <div className="accessibilitySectionSai">No accessibility information available.</div> 
+    )}
+
+    
+    {selectedAttraction.whatsIncluded && selectedAttraction.whatsIncluded.length > 0 ? (
+      <div className="whatsIncludedSectionSai">
+        <h3><FaTicketAlt /> What's Included</h3>
+        <ul>
+          {selectedAttraction.whatsIncluded.map((item, index) => (
+            <li key={index}><FaCheckCircle /> {item}</li>
+          ))}
+        </ul>
+      </div>
+    ) : (
+      <div className="whatsIncludedSectionSai">No information on what's included available.</div> 
+    )}
+  </div>
+
+ 
+  {selectedAttraction.additionalInfo ? (
+    <>
+      <h3 className='additionalH3Sai'><FaInfoCircle /> Additional Information</h3>
+      <p>{selectedAttraction.additionalInfo}</p>
+    </>
+  ) : (
+    <p>No additional information available.</p> 
+  )}
+</div>
+
+
+<div className='sectionsContainerSai'>
+  <div className='infoSectionSai'>
+    <div className='addressesCardSai'>
+      
+      {selectedAttraction.addresses && selectedAttraction.addresses.arrival && selectedAttraction.addresses.arrival.length > 0 ? (
+        <div className='addressContentSai'>
+          <h3><FaMapMarkerAlt /> Address</h3>
+          {selectedAttraction.addresses.arrival.map((address, index) => (
+            <p key={index}>
+              {address.address}, {address.city}, {address.country}
+            </p>
+          ))}
+        </div>
+      ) : (
+        <p>No address information available.</p>
+      )}
+    </div>
+
+    <div className='cancellationPolicyCardSai'>
+      
+      {selectedAttraction.cancellationPolicy ? (
+        <p className='cancelTextSai'>
+          Cancellation Policy: 
+          {selectedAttraction.cancellationPolicy.hasFreeCancellation ? 
+            ' Free cancellation available.' : 
+            ' Free cancellation not available.'}
+        </p>
+      ) : (
+        <p>No cancellation policy information available.</p>
+      )}
+    </div>
+  </div>
+
+  <div className='attractionFlagsSai'>
+    
+    {selectedAttraction.flags && selectedAttraction.flags.length > 0 ? (
+      <div>
+        <h3><FaStar className='faStarSai'/> Why Choose This Attraction?</h3>
+        <ul>
+          {selectedAttraction.flags
+            .filter(flag => flag.value) 
+            .map((flag, index) => (
+              <li key={index}>
+                {flag.flag.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+              </li>
+            ))}
+        </ul>
+      </div>
+    ) : (
+      <p>No flags information available.</p>
+    )}
+  </div>
+
+  <div className='reviewsStatsSai'>
+  <h3><FaThumbsUp /> Reviews Summary</h3>
+ 
+  <p>Total Reviews: {selectedAttraction.reviewsStats ? selectedAttraction.reviewsStats.allReviewsCount : "Information not available"}</p>
+  <p>Average Rating: {selectedAttraction.reviewsStats && selectedAttraction.reviewsStats.combinedNumericStats ? `${selectedAttraction.reviewsStats.combinedNumericStats.average} / 5` : "Information not available"}</p>
+  <p>Positive Reviews: {selectedAttraction.reviewsStats ? `${selectedAttraction.reviewsStats.percentage} of reviews are positive` : "Information not available"}</p>
+</div>
+</div>
+
+    
+              <p className='priceSai'>
+                <FaTag /> Price: ${
+                  selectedAttraction.representativePrice && selectedAttraction.representativePrice.chargeAmount
+                    ? `${selectedAttraction.representativePrice.chargeAmount} ${selectedAttraction.representativePrice.currency}`
+                    : 'Not Available'
+                }
+              </p>
+
+</div>
+  
+                
+            )}
+        </div>
+    </div>
+)}
+
+<div className='yrFavSai'>
+            <h2>Your Favorites</h2>
+            </div>
+
+
+            <div className='favoritesSectionSai'>
+                
+                {favorites.length > 0 ? (
+                    favorites.map((favorite) => (
+                        <div key={favorite.id} className='attractionItemsa'>
+                            <div className='attractionCardsa'>
+                                <div className="frontsa">
+                                    <h4>{favorite.name}</h4>
+                                    <img src={favorite.primaryPhoto ? favorite.primaryPhoto.small : `/images/placeholder.jpg`} alt={favorite.name} />
+                                </div>
+
+                                <div className="backsa">
+                                    <div className="iconsa">
+                                        <FaInfoCircle />
+                                        <p className='shortDessa'>{favorite.shortDescription}</p>
+                                    </div>
+                                    <div className="iconsa">
+                                        <FaTag />
+                                        <p className='pricesa'>
+                                            Price: ${favorite.representativePrice && favorite.representativePrice.chargeAmount
+                                                ? `${favorite.representativePrice.chargeAmount} ${favorite.representativePrice.currency}`
+                                                : 'Not Available'}
+                                        </p>
+                                    </div>
+                                    <button onClick={() => toggleFavorite(favorite)} className='favoriteButtonSai'>
+                                        <FaHeart className='faHeartSa2' />
+                                    </button>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p>No favorites selected.</p>
+                )}
+            </div>
+
+        </div>
+        </>
+    );
+}
+
+
+.containersa {
+    background-color: #fff;
+    padding: 20px;
+    width: 100%;
+    margin: auto;
+    color: #333;
+}
+
+.headersa, .spinnersa, .errorTextsa {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+
+
+.inputsa {
+    padding: 10px;
+    width: 50%; 
+    margin: 10px;
+    color: #333;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+  }
+
+
+  .inputsa:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 8px rgba(0,123,255,0.5);
+  }
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: #007bff; 
+    color: white; 
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background-color 0.3s ease;
+    visibility: visible; 
+  }
+  
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.attractionListsa {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.attractionItemsa {
+    perspective: 1000px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.attractionCardsa {
+    width: 100%;
+    height: 400px;
+    transition: transform 0.8s; 
+    transform-style: preserve-3d;
+}
+
+
+.attractionCardsa h4 {
+    font-size: 20px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    font-weight: 600;
+    
+    
+}
+
+.attractionCardsa:hover {
+    transform: rotateY(180deg);
+}
+
+ .backsa{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.frontsa {
+    background: #fff;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.backsa {
+    background: #f0f0f0;
+    transform: rotateY(180deg);
+}
+
+img {
+    
+    height: auto;
+    border-radius: 10px 10px 0 0;
+}
+
+.shortDessa, .pricesa {
+    padding: 10px;
+}
+
+.iconsa {
+    display: flex;
+    align-items: center; 
+    gap: 5px;
+    justify-content: center; 
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  max-height: 90%;
+  overflow-y: auto; 
+}
+
+.closeButton {
+  float: right;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  color: #ff0000;
+}
+.sidePanel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 30%; 
+    height: 100%;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
+    z-index: 10; 
+}
+
+
+.isSidePanelVisible .sidePanel {
+    transform: translateX(0);
+}
+
+.sidePanelContent {
+    padding: 20px;
+}
+
+.closeButton {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+}
+
+
+
+.sidePanel.open {
+    transform: translateX(0);
+}
+
+
+.favoritesSectionSai {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    padding: 20px; 
+  }
+  
+  
+.yrFavSai{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    font-size: 30px;
+    font-weight: 600;
+    
+    
+  }
+  
+.faHeartSa2 {
+    color: gold;
+    cursor: pointer;
+  }
+
+
+.attractionItemSai {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  color: #333;
+  padding: 15px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.attractionNameSai {
+  font-size: 40px;
+  margin-bottom: 10px;
+  color: hsl(300, 25%, 46%)
+}
+
+.attractionPrimaryPhotoSai{
+  width: 50%;
+  max-width: 50%; 
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+
+.faStarSai {
+  color: #ffc107; 
+}
+
+.photosSai {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.photosSai h3 {
+  margin-bottom: 15px;
+  font-size: 25px;
+  text-align: center;
+}
+
+.photosContainerSai {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  padding: 10px;
+}
+
+.attractionPhotoSai {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; }
+
+.attractionPhotoSai:hover {
+  transform: scale(1.05); 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+}
+
+.lightboxModalSai {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; 
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.lightboxModalSai.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightboxModalSai.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightboxContentSai {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.lightboxArrowSai {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+.lightboxArrowSai.left { left: 10px; }
+.lightboxArrowSai.right { right: 10px; }
+
+.closeButtonSai {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+
+.descriptionSai {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 16px;
+  color: #333;
+  background-color: #f9f9f9; 
+  padding: 10px;
+  border-radius: 8px;
+  margin: 20px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+}
+
+.descriptionSai h3 {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+
+
+.additionalInfoSai {
+  margin-top: 20px;
+  background-color: #f9f9f9; 
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease-in-out; 
+}
+
+
+.additionalH3Sai {
+  margin-bottom: 20px;
+  margin-top: 20px;
+  font-size: 20px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+.additionalInfoSai:hover {
+  transform: translateY(-5px); 
+}
+
+.infoSectionsSai {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; 
+}
+
+.accessibilitySectionSai, .whatsIncludedSectionSai {
+  flex: 1; 
+  min-width: 250px; 
+  margin-right: 20px; 
+}
+
+
+.accessibilitySectionSai:last-child, .whatsIncludedSectionSai:last-child {
+  margin-right: 0;
+}
+
+
+
+.additionalInfoSai h3 {
+  display: flex;
+  align-items: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 18px; 
+}
+
+.additionalInfoSai h3 svg {
+  margin-right: 10px; 
+}
+
+
+.additionalInfoSai ul {
+  list-style: none; 
+  padding-left: 20px; 
+}
+
+.additionalInfoSai li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 16px; 
+  animation: fadeInUp 0.5s ease-out forwards;
+  opacity: 0; 
+}
+
+.additionalInfoSai li svg {
+  color: #007bff; 
+  margin-right: 5px; 
+}
+
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.additionalInfoSai li {
+  --animation-delay: 0s; 
+}
+
+.additionalInfoSai li:nth-child(1) { --animation-delay: 0.1s; }
+.additionalInfoSai li:nth-child(2) { --animation-delay: 0.2s; }
+.additionalInfoSai li:nth-child(3) { --animation-delay: 0.3s; }
+
+
+.additionalInfoSai p {
+  margin-top: 20px;
+  line-height: 1.6;
+  color: #333; 
+}
+
+
+
+.cancelTextSai{
+  font-size: 16px;
+  color: green;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+
+.addressSai p:before {
+  content: '•'; 
+  position: absolute;
+  left: 10px;
+  color: #007bff; 
+}
+
+.sectionsContainerSai {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; 
+  margin-top: 20px;
+}
+
+
+.sectionsContainerSai > div {
+  flex: 1;
+}
+
+
+@media (max-width: 768px) {
+  .sectionsContainerSai {
+    flex-direction: column;
+  }
+
+  .sectionsContainerSai > div {
+    margin-bottom: 20px; 
+  }
+}
+
+
+
+.infoSectionSai {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 20px;
+}
+
+.addressesCardSai, .cancellationPolicyCardSai {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.addressContentSai h3, .cancellationPolicyCardSai p {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.addressContentSai h3 svg, .cancellationPolicyCardSai p svg {
+  margin-right: 10px;
+  color: #007bff;
+}
+
+
+
+.cancellationPolicyCardSai {
+  background-color: #f8f9fa; 
+}
+
+
+
+
+.attractionFlagsSai {
+  background-color: #f0f4f8; 
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+}
+
+.attractionFlagsSai h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap:10px;
+  color: #2a2a2a; 
+  margin-bottom: 15px;
+}
+
+.attractionFlagsSai ul {
+  list-style: none; 
+  padding: 0;
+}
+
+.attractionFlagsSai li {
+  background-color: #ffffff; 
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
+  transition: transform 0.2s, box-shadow 0.2s; 
+}
+
+.attractionFlagsSai li:hover {
+  transform: translateY(-2px); 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+}
+
+
+
+
+:root {
+  --primary-color: #007bff;
+  --text-dark: #343a40;
+  --background-light: #f8f9fa;
+  --border-color: #dee2e6;
+}
+
+.reviewsStatsSai {
+  background-color: var(--background-light);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  margin-top: 20px;
+ 
+
+}
+
+.reviewsStatsSai h3 {
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.reviewsStatsSai p {
+  color: var(--text-dark);
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.priceSai{
+  margin-top: 40px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 24px;
+}
+
+
+.input:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 8px rgba(0,123,255,0.5);
+}
+
+
+button:hover, button:focus {
+  background-color: #0056b3;
+  outline: none;
+}
+
+
+.additionalInfoSai li, .attractionFlagsSai li {
+  cursor: pointer; 
+}
+.additionalInfoSai li:hover, .attractionFlagsSai li:hover {
+  transform: scale(1.02);
+  background-color: #e9ecef;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.container > div, .container form, .attractionItem > div, .attractionItem h2, .attractionItem p {
+  animation: fadeIn 0.6s ease-out;
+}
+
+
