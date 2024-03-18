@@ -1,0 +1,65 @@
+//V1
+//Random Generator Code
+//ChatGPT was used to generate some fake data and fix some bugs in this code
+//Zainul Malik
+
+
+
+"use client";
+import React, { useState } from 'react';
+import { MdPlace } from 'react-icons/md'; 
+import './styles.css';
+
+
+const destinations = [
+  {
+    country: "Italy",
+    city: "Rome",
+    landmark: "The Colosseum",
+    delicacy: "Pizza Margherita",
+    activity: "Take a Vespa tour of the city",
+    phrase: "Dove il bagno? (Where's the bathroom?)",
+    funFact: "Rome has a sovereign country within it - Vatican City.",
+    travelTip: "Visit in spring or fall for fewer crowds and pleasant weather.",
+  },
+  {
+    country: "Japan",
+    city: "Tokyo",
+    landmark: "Tokyo Tower",
+    delicacy: "Sushi",
+    activity: "Attend a traditional tea ceremony",
+    phrase: "Toire wa doko desu ka? (Where's the bathroom?)",
+    funFact: "There are more Michelin-star restaurants in Tokyo than Paris.",
+    travelTip: "Carry cash, as many places don’t accept credit cards.",
+  },
+  
+];
+
+function RandomTripGenerator() {
+  const [destination, setDestination] = useState(null);
+
+  const generateRandomDestination = () => {
+    const randomIndex = Math.floor(Math.random() * destinations.length);
+    setDestination(destinations[randomIndex]);
+  };
+
+  return (
+    <div>
+      <h1>Random Trip Generator</h1>
+      <button onClick={generateRandomDestination}>Generate My Trip</button>
+      {destination && (
+        <div>
+          <h2>{destination.city}, {destination.country}</h2>
+          <p><strong>Must-visit Landmark:</strong> {destination.landmark}</p>
+          <p><strong>Try this Local Delicacy:</strong> {destination.delicacy}</p>
+          <p><strong>Cultural Activity:</strong> {destination.activity}</p>
+          <p><strong>Phrase of the Day:</strong> {destination.phrase}</p>
+          <p><strong>Fun Fact:</strong> {destination.funFact}</p>
+          <p><strong>Travel Tip:</strong> {destination.travelTip}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default RandomTripGenerator;
