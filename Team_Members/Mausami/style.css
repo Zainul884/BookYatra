@@ -1,0 +1,74 @@
+
+/* style.css */
+.rate-container {
+    background-color:lightcyan;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  
+  
+  .MuiRating-root {
+    font-size: 3rem; /* Adjust as needed */
+    margin-bottom: 2rem; /* Space at the bottom */
+  }
+  
+  .text-area {
+    width: 100%;
+    max-width: 500px;
+    min-width: 300px;
+    margin-bottom: 1rem; /* Space between text area and button */
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  .textarea-container {
+    position: relative;
+    width: 50%;
+    max-width: 500px;
+  }
+  .char-count {
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+    color: #555; /* You can change the color as per your design */
+    background-color: transparent; /* Make sure the background doesn't overlap the text */
+  }
+  
+  .button {
+    width: 50%;
+    max-width: 150px;
+    padding: 10px 0; /* Padding on top and bottom */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius:15px; /* Rounded borders */
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .button:hover {
+    background-color: #0056b3;
+  }
+  
+  .reviews-container {
+    margin-top: 20px;
+  }
+  
+  .review-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .review-delete-icon {
+    cursor: pointer;
+    color: #ff0000;
+  }
+  
