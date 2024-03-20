@@ -767,46 +767,26 @@ input {
   transform: translateY(-5px);
 }
 .terms-content {
-  width: 100%; 
+  display: flex; /* Change to flex to align children elements side by side */
+  flex-direction: column; /* Stack children elements vertically */
+  align-items: center; /* Center align the children */
+  width: 100%;
   max-width: 740px;
-  text-align:left;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color:gray;
-  transition: color 0.3s ease, transform 0.3s ease;
-  animation: fadeInUp 1s ease;
 }
 
 .terms-content h1 {
   text-align: center;
   font:x-large bold;
   color: rgb(16, 16, 16);
-  margin-bottom: 10px;
-
-}
-
-.terms-content h2 {
-  margin-top: 1 rem;
-  font: large bold;
-  margin-bottom: 1.9px;
-  color:#000;
-}
-.terms-content p {
-  font: medium bold;
-}
-.terms-content h2:hover, .terms-content p:hover {
-  color: #226688 ; 
-  transform: scale(1.02);
 }
 .accordion-section {
-  margin: 6px 0;
+  margin: 4px 0;
 }
 
 .accordion-title {
   width: 100%;
   text-align: left;
-  font-size: 1rem; 
+  font-size: small; 
   font-weight: bold;
   padding: 0.5rem;
   background-color: #f3f3f3;
@@ -829,21 +809,44 @@ input {
   color: #000;
   width: 100%;
   text-align:left;
+  font-size: small;
 }
 .accordion-section {
   width: 100%; 
 }
+.terms-search {
+  display: flex; /* Establishes a flex context for child elements */
+  justify-content: space-between; /* Spaces out the children with equal space between them */ /* Vertically centers the flex children */
+  gap: 20px; /* Puts a gap between the flex children */
+  width: auto; /* The container takes the full width of its parent */
+  max-width: 740px; /* Ensures the container doesn't exceed this width */
+  margin-bottom: 20px; /* Adds some space below this container */
+  align-items: center; /* Vertically centers the flex children */
+}
 
-/* Input Styles */
+/* Styles for the search input */
+.terms-search input[type="text"] ,.terms-search .sort-order {
+  flex-grow: 1; /* Allows the input to grow and fill the space */
+
+}
+
 input[type="text"],.sort-order {
   padding: 0.5rem;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
+  margin-top: 6px;
   border-radius: 0.25rem;
   background-color: #f3f3f3;
   border: 1px solid #ddd;
   color: #000;
-  width:100%;
-  max-width: 400px;
+  width:auto;
+  font :Medium bold;
+  
+}
+input[type="text"]{
+  margin-right: 35px;
+}
+.sort-order {
+  margin-left: 35px;
 }
 
 input[type="text"]::placeholder {
@@ -984,6 +987,48 @@ body {
     transform: translate3d(0, 0, 0);
   }
 }
+/* rateandreview page */
+.text-area {
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.button {
+  display: block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.reviews-container {
+  margin-top: 20px;
+}
+
+.review-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.review-delete-icon {
+  cursor: pointer;
+  color: #ff0000;
+}
+
 
 /* Home Page */
 .homepage {

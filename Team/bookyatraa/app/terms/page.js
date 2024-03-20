@@ -125,22 +125,22 @@ function TermsOfUse() {
                 <div className="terms-container ">
                     <div className="terms-content ">
                         <h1 >Terms of Use</h1>
-                        <div clasname='term-search' >
-                            <input
-                                type="text"
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                placeholder="Search terms..."
-                            />
-                        </div>
-                            <select className="sort-order"
-                                value={sortOrder}
-                                onChange={(e) => setSortOrder(e.target.value)}
-                                >
-                                <option value="">Sort By</option>
-                                <option value="ascending">Title Ascending</option>
-                                <option value="descending">Title Descending</option>
-                            </select>
+                            <div clasName="terms-search" >
+                                <input
+                                    type="text"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    placeholder="Search terms..."
+                                />
+                                <select className="sort-order"
+                                    value={sortOrder}
+                                    onChange={(e) => setSortOrder(e.target.value)}
+                                    >
+                                    <option value="">Sort By</option>
+                                    <option value="ascending">Title Ascending</option>
+                                    <option value="descending">Title Descending</option>
+                                </select>
+                            </div>
                     </div>
                    
                         {searchResults.map(({ id, title, content }) => (
@@ -155,9 +155,9 @@ function TermsOfUse() {
                         <button onClick={handlePrint} className="print-button">
                             Print 
                         </button>
-                    </div>
                 </div>
             </div>
+        </div>
     );
 }
 

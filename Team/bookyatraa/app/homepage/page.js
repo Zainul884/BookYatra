@@ -36,7 +36,7 @@ function Home() {
     },
     {
       id: 1,
-      name: 'Zanudi',
+      name: 'Zainul Malik',
       image: './Images Capstone/Zanudi Image.jpg',
       description: '“Customer testimonials are more effective than paid marketing copy as they take the spotlight away from the seller to shine it on the customers.” ',
       rating: '4.0 ⭐⭐⭐⭐',
@@ -258,6 +258,7 @@ function Home() {
             <p className='terms'>Terms of Use</p>
           </div>
         </div>
+
       </main>
     </div>
   );
