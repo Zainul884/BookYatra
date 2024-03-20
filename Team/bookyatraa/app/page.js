@@ -43,8 +43,8 @@ function LandingPage() {
           <button className="explore-button">Explore Now</button>
         </Link>  
       </div>
-    <ChatBot />
 
+    <ChatBot />
     </div>
 
   );

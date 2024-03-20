@@ -1,0 +1,79 @@
+//V3
+//API connected
+//Random Generator Code
+//ChatGPT was used to generate some fake data and fix some bugs in this code
+//Zainul Malik
+"use client";
+import React, { useState, useEffect } from 'react';
+import { MdPlace } from 'react-icons/md'; 
+import './styles.css';
+
+
+const funContentByCountry = {
+    Italy: {
+      landmark: "The Colosseum",
+      delicacy: "Pizza Margherita",
+      funFact: "Italy has a free wine fountain.",
+      activity: "Take a Vespa tour of the city",
+    },
+    Japan: {
+      landmark: "Mount Fuji",
+      delicacy: "Sushi",
+      funFact: "There are more pets than children in Japan.",
+      activity: "Attend a traditional tea ceremony",
+    },
+   
+  };
+
+function RandomTripGenerator() {
+  const [countryInfo, setCountryInfo] = useState(null);
+
+  useEffect(() => {
+    fetchRandomCountry();
+  }, []);
+
+  const fetchRandomCountry = () => {
+    // Fetching all countries first to get the count
+    fetch('https://restcountries.com/v3.1/all')
+      .then(response => response.json())
+      .then(data => {
+        // Once all countries are fetched, select a random country
+        const randomIndex = Math.floor(Math.random() * data.length);
+        const country = data[randomIndex];
+
+        // Simplifying the response to only include needed information
+        const simplifiedCountryInfo = {
+          name: country.name.common,
+          capital: country.capital ? country.capital[0] : 'No Capital',
+          flag: country.flags.png,
+          region: country.region,
+          subregion: country.subregion,
+          languages: Object.values(country.languages).join(', '),
+          population: country.population.toLocaleString(),
+        };
+
+        setCountryInfo(simplifiedCountryInfo);
+      })
+      .catch(error => console.error('Error fetching countries:', error));
+  };
+
+  return (
+    <div>
+      <h1>Random Trip Generator</h1>
+      <button onClick={fetchRandomCountry}>Generate New Country</button>
+      {countryInfo && (
+        <div>
+          <h2>{countryInfo.name}</h2>
+          <img src={countryInfo.flag} alt={Flag of ${countryInfo.name}} style={{ width: "100px" }} />
+          <p><strong>Capital:</strong> {countryInfo.capital}</p>
+          <p><strong>Region:</strong> {countryInfo.region}</p>
+          <p><strong>Subregion:</strong> {countryInfo.subregion}</p>
+          <p><strong>Languages:</strong> {countryInfo.languages}</p>
+          <p><strong>Population:</strong> {countryInfo.population}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default RandomTripGenerator;
