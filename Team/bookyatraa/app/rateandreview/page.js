@@ -1,10 +1,15 @@
+"use client";
 import React, { useState } from "react";
-import { FaStar, FaTrash } from "react-icons/fa";
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
+import { FaTrashAlt } from "react-icons/fa";
 
 const Rate = () => {
     const [rate, setRate] = useState(0);
     const [review, setReview] = useState('');
     const [reviews, setReviews] = useState([]);
+    const maxChars = 150; 
 
     const postReview = () => {
         if (review.trim() !== "") {
@@ -18,47 +23,46 @@ const Rate = () => {
         setReviews(reviews.filter((_, index) => index !== indexToDelete));
     };
 
+    const handleTextChange = (e) => {
+        setReview(e.target.value.slice(0, maxChars));
+    };
+
     return (
-        <div className="container">
-            <div>
-                {[...Array(5)].map((item, index) => {
-                    const givenRating = index + 1;
-                    return (
-                        <label key={index}>
-                            <input
-                                className="radio"
-                                type="radio"
-                                value={givenRating}
-                                onClick={() => {
-                                    setRate(givenRating);
-                                    alert(`Are you sure you want to give ${givenRating} stars?`);
-                                }}
-                            />
-                            <div className="rating">
-                                <FaStar
-                                    color={givenRating <= rate ? "#000" : "rgb(192,192,192)"}
-                                />
-                            </div>
-                        </label>
-                    );
-                })}
-                <textarea
-                    className="text-area"
-                    value={review}
-                    onChange={(e) => setReview(e.target.value)}
-                    placeholder="Write your review here..."
-                />
-                <button className="button" onClick={postReview}>Post Review</button>
+        <Box className="rate-container">
+            
+            <Typography component="legend">Rate this</Typography>
+            <Rating
+                name="half-rating"
+                defaultValue={2.5}
+                precision={0.5}
+                value={rate}
+                onChange={(event, newValue) => {
+                    setRate(newValue);
+                }}
+            />
+            {rate > 0 && <Typography className="rating-text">{`${rate}/5`}</Typography>}
+            <div className="textarea-container">
+            <textarea
+                className="text-area"
+                value={review}
+                onChange={handleTextChange}
+                placeholder="Write your review here..."
+                maxLength={maxChars} 
+            />
+             <Typography className="char-count">
+                {`${review.length}/${maxChars}`}
+             </Typography>
             </div>
-            <div className="reviews-container">
+            <button className="button" onClick={postReview}>Post Review</button>
+            <Box className="reviews-container">
                 {reviews.map((reviewItem, index) => (
-                    <div className="review-item" key={index}>
-                        <p>{`Rating: ${reviewItem.rate} - ${reviewItem.text}`}</p>
-                        <FaTrash className="review-delete-icon" onClick={() => deleteReview(index)} />
-                    </div>
+                    <Box key={index} className="review-item">
+                        <Typography component="p">{`${reviewItem.rate}/5 - ${reviewItem.text}`}</Typography>
+                        <FaTrashAlt className="review-delete-icon" onClick={() => deleteReview(index)} />
+                    </Box>
                 ))}
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 };
 

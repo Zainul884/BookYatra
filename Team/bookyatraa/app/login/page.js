@@ -123,7 +123,6 @@ return (
           {error && <p className="login-error">{error}</p>}
           <div className="social-login">
               <GoogleLoginButton  onClick={handleGoogleSignIn} style={{ fontSize: '13px' }}  />
-              <AppleLoginButton onClick={handleAppleSignIn} style={{ fontSize: '13px' }}/>
           </div>  
         </form>
           

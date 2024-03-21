@@ -65,7 +65,7 @@ const Signup = () => {
                 <br></br>sign up today.</p>
         </div>
         <form onSubmit={handleSubmit}>
-        <input
+                <input
                     type="text"
                     name="first Name"
                     placeholder="First name"
@@ -73,7 +73,6 @@ const Signup = () => {
                     onChange={handleChange}
                     required
                 />
-          <div className="name-fields">
                 <input
                     type="text"
                     name="lastName"
@@ -82,30 +81,29 @@ const Signup = () => {
                     onChange={handleChange}
                     required
                 />
-                </div>
                 <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={user.email}
-                onChange={handleChange}
-                required
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={user.email}
+                  onChange={handleChange}
+                  required
                 />
                 <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={user.password}
-                onChange={handleChange}
-                required
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={user.password}
+                  onChange={handleChange}
+                  required
                 />
                 <input
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm password"
-                value={user.confirmPassword}
-                onChange={handleChange}
-                required
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm password"
+                  value={user.confirmPassword}
+                  onChange={handleChange}
+                  required
                 />
                 <button type="submit">Sign Up</button>
                 <p className="privacy-policy">By signing up, you agree to our Privacy Policy.</p>

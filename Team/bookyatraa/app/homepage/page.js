@@ -1,6 +1,8 @@
 "use client";
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import Rate from '../rateandreview/page';
+
 
 function Home() {
 
@@ -115,6 +117,7 @@ function Home() {
 
   return (
     <div className="homepage">
+       <Link href="/" >
       <header className="header">
         <div className="header-content">
           <img src="./Images Capstone/LOGO without bg.png" alt="logo" className="logo-home" />
@@ -125,16 +128,19 @@ function Home() {
             <Link href="./login" className="link">Login</Link>
             <Link href="./signup" className="link">Sign Up</Link>
           </nav>
+
         </div>
+        
         <hr className="line"></hr>
       </header>
+      </Link>
       <main>
         <div className="flight-hotel">
           <div className="flight">
             <img src="./Images Capstone/homePageflight.jpg.jpg" alt='flight' className='flight-pic'/>
             <div className='flights-content'>
               <h2 className='flightsHome'>Flights</h2>
-              <p className='flightWords'>Search Flights & Places Hire to our most popular destinations</p>
+              <p className='flightWords'>Search Flights & Places Hire to our most popular destinations.</p>
               <div className='flightSearchBox'>
                 <img src="./Images Capstone/Vector.png" alt='vector' className='vector-pic'/>
                 <Link href="./flights" className="flightlink">Show flights</Link>
@@ -148,7 +154,6 @@ function Home() {
               <p className='hotelWords'>Search hotels & Places Hire to our most popular destinations</p>
               <div className='hotelSearchBox'>
                 <img src="./Images Capstone/Vector.png" alt='vector' className='vector-pic'/>
-                <Link href="./hotel" className="hotellink">Show flights</Link>
                 <Link href="./hotel" className="hotellink">Show Hotels</Link>
               </div>
             </div>
@@ -209,9 +214,11 @@ function Home() {
         <div className='users'>
           <p className='testimonalHeading'>What <span className='book'>Book</span>Yatra Users Are Saying</p>
         </div>
+        <Rate/>
         <div className='testimonalBox'>
           {reviews.map((review) => (
             <div key={review.id} className='review'>
+              
               <img src={review.image} alt={review.name} className='review-pic'/>
               <div className='review-content'>
                 <h2 className='review-title'>{review.name}</h2>
@@ -219,6 +226,7 @@ function Home() {
                 <p className='review-words'>{review.description}</p>
                 <p className='review-date'>{review.date}</p>
               </div>
+        
             </div>
           ))}
         </div>
@@ -235,7 +243,7 @@ function Home() {
         </div>
         <hr className="blck"></hr>
         <div className='footer'>
-          <p className='foot-title'>#BookYatra</p>
+          <p className='foot-title'>BookYatra</p>
           <div>
             <p className='foot-head'>Explore</p>
             <nav className="footer-nav">
