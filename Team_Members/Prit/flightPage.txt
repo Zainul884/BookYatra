@@ -1,0 +1,256 @@
+//ChatGPT was used to help solve bugs in this code and provide some design suggestions. 
+//The API code has been taken from the Booking.com API on RapidAPI.
+//Date: 2024-03-24 time 3pm Prit
+//\app\flights\page.js
+
+"use client";
+import React, { useState } from 'react';
+import axios from 'axios';
+import './FlightSearch.css'; // Import the CSS file here
+import image0 from '../../public/Images Capstone/Frame 118.png'; // Background for header
+
+// Define the Header component
+const Header = () => (
+    <header className="appHeader" style={{ backgroundImage: `url(${image0})` }}>
+
+    </header>
+  );
+
+function FlightSearch() {
+  // State hooks for the info form
+  const [isAdditionalInfoVisible, setIsAdditionalInfoVisible] = useState(false);
+  const [adults, setAdults] = useState(1);
+  const [children, setChildren] = useState(0);
+  const [childrenAges, setChildrenAges] = useState([]);
+  const [cabinClass, setCabinClass] = useState('ECONOMY');
+ // Toggle the visibility of the additional info form
+  const toggleAdditionalInfo = () => {
+    setIsAdditionalInfoVisible(!isAdditionalInfoVisible)
+  };
+
+  const [flightResults, setFlightResults] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [fromId, setFromId] = useState('YYC.AIRPORT');
+  const [toId, setToId] = useState('YYZ.AIRPORT');
+  const [departDate, setDepartDate] = useState(() => {
+    // Initialize with today's date formatted as YYYY-MM-DD
+    let today = new Date();
+    return today.toISOString().split('T')[0];
+  });
+
+  const [favoritedFlights, setFavoritedFlights] = useState({});
+  const toggleFavorite = (offer) => {
+    setFavoritedFlights(prevState => ({
+      ...prevState,
+      [offer.id]: !prevState[offer.id] // Toggle favorited state based on offer's id
+    }));
+  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [flightDetails, setFlightDetails] = useState(null);
+
+  const fetchFlights = async () => {
+    setIsLoading(true);
+    setError('');
+  
+    const options = {
+      method: 'GET',
+      url: 'https://booking-com15.p.rapidapi.com/api/v1/flights/searchFlights',
+      params: { fromId, toId, departDate },
+      headers: {
+        'X-RapidAPI-Key': 'd5873eece3msh6c105f37489832ap16623ajsn3ba97a7a3aa6',
+        'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com'
+      },
+    };
+  
+    try {
+      const response = await axios.request(options);
+      setFlightResults(response.data);
+    } catch (error) {
+      console.error("Error fetching flights:", error);
+      setError("An error occurred while fetching flights.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+
+  const fetchFlightDetails = async (token) => {
+    setIsLoading(true);
+    setError('');
+  
+    const options = {
+      method: 'GET',
+      url: 'https://booking-com15.p.rapidapi.com/api/v1/flights/getFlightDetails',
+      params: { token, currency_code: 'USD' }, // Use 'USD' or any other currency code as required
+      headers: {
+        'X-RapidAPI-Key':'d5873eece3msh6c105f37489832ap16623ajsn3ba97a7a3aa6',
+        'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com'
+      },
+    };
+  
+    try {
+      const response = await axios.request(options);
+      setFlightDetails(response.data);
+      setIsModalOpen(true); // Open the modal to show the details
+    } catch (error) {
+      console.error("Error fetching flight details:", error);
+      setError("An error occurred while fetching flight details.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  // Helper function to format price
+  const formatPrice = (units, nanos) => {
+    return (units + nanos / 1e9).toFixed(2);
+  };
+
+  // Modal component moved inside the FlightSearch for scoping purposes
+  const ModernModal = ({ isOpen, onClose, children }) => {
+    if (!isOpen) return null;
+    return (
+      <div className="modalOverlay">
+        <div className="modalContent">
+          <button className="closeButton" onClick={onClose}>&times;</button>
+          {children}
+        </div>
+      </div>
+    );
+  };
+
+  // JSX for the FlightSearch component
+  return (
+      <div className="appContainer">
+        <Header />
+        <div className="searchContainer">
+          <div className="inputGroup">
+            <label className="label">From (Airport ID)</label>
+            <input
+              type="text"
+              className="searchInput"
+              value={fromId}
+              onChange={(e) => setFromId(e.target.value)}
+              placeholder="From Airport ID"
+              required
+            />
+          </div>
+          <div className="inputGroup">
+            <label className="label">To (Airport ID)</label>
+            <input
+              type="text"
+              className="searchInput"
+              value={toId}
+              onChange={(e) => setToId(e.target.value)}
+              placeholder="To Airport ID"
+              required
+            />
+          </div>
+          <div className="inputGroup">
+            <label className="label">Departure Date</label>
+            <input
+              type="date"
+              className="searchInput"
+              value={departDate}
+              onChange={(e) => setDepartDate(e.target.value)}
+              required
+            />
+          </div>
+          <button className="additionalInfoButton" onClick={toggleAdditionalInfo}>
+          {isAdditionalInfoVisible ? 'Less options' : 'More options'}
+        </button>
+        {isAdditionalInfoVisible && (
+          <div className="additionalInfoForm">
+            {/* Dropdown or input fields for adults, children, etc. */}
+            <div className="formField">
+              <label>Adults</label>
+              <input type="number" value={adults} onChange={(e) => setAdults(e.target.value)} />
+            </div>
+            {/* ... similar fields for children and cabinClass ... */}
+            <div className="formField">
+              <label>Cabin Class</label>
+              <select value={cabinClass} onChange={(e) => setCabinClass(e.target.value)}>
+                <option value="ECONOMY">Economy</option>
+                <option value="PREMIUM_ECONOMY">Premium Economy</option>
+                <option value="BUSINESS">Business</option>
+                <option value="FIRST">First</option>
+              </select>
+            </div>
+          </div>
+        )}
+
+        <button className="searchButton" onClick={fetchFlights}>
+          Search Flights
+        </button>
+      </div>
+      
+      {/* Results and error display */}
+      <div className="resultsContainer">
+      {isLoading && <p>Loading flights...</p>}
+      {error && <p className="error">{error}</p>}
+      {flightResults && Array.isArray(flightResults.data.flightOffers) && flightResults.data.flightOffers.map((offer, index) => (
+        <div key={index} className="resultItem">
+          <h3>{Array.isArray(offer.segments) && offer.segments.map(segment => segment.departureAirport.name).join(' to ')}</h3>
+          <p>Departure: {offer.segments[0]?.departureTime}</p>
+          <p>Arrival: {offer.segments[0]?.arrivalTime}</p>
+          <p>Total Price: {offer.priceBreakdown && formatPrice(offer.priceBreakdown.total.units, offer.priceBreakdown.total.nanos)}</p>
+          
+          <div className="buttonContainer">
+        <button 
+          className="standardButton" 
+          onClick={() => fetchFlightDetails(offer.token)}
+        >
+          Get Flight Details
+        </button>
+        <button 
+          className={`favoriteButton ${favoritedFlights[offer.id] ? 'favorited' : ''}`}
+          onClick={() => toggleFavorite(offer)}
+        >
+          ♥ Favorite
+        </button>
+      </div>
+        </div>
+      ))}
+    </div>
+  
+      {/* Modal for flight details */}
+      <ModernModal isOpen={isModalOpen} onClose={handleCloseModal}>
+  {flightDetails && (
+    <div className="flightDetails">
+      <div className="detailHeader">
+        <h2>Flight Details</h2>
+      </div>
+      {Array.isArray(flightDetails.data.segments) && flightDetails.data.segments.map((segment, index) => (
+        <div key={index} className="segmentDetail">
+          <h4>Segment {index + 1}</h4>
+          <p>Departure: {segment.departureAirport.name} ({segment.departureTime})</p>
+          <p>Arrival: {segment.arrivalAirport.name} ({segment.arrivalTime})</p>
+        </div>
+      ))}
+      <h3>Luggage Allowances</h3>
+      {flightDetails.data.segments[0].travellerCheckedLuggage.map((luggage, index) => (
+        <p key={index}>
+          Checked Luggage for Traveller {luggage.travellerReference}: 
+          {luggage.luggageAllowance.maxPiece} piece(s), 
+          {luggage.luggageAllowance.maxWeightPerPiece} {luggage.luggageAllowance.massUnit}
+        </p>
+      ))}
+      <h3>Extra Products</h3>
+      {flightDetails.data.extraProducts.map((product, index) => (
+        <p key={index}>{product.type}</p>
+      ))}
+      {/* Add additional details as required */}
+    </div>
+  )}
+</ModernModal>
+    </div>
+  );
+}
+
+
+export default FlightSearch;

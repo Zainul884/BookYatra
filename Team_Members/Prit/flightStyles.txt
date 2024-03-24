@@ -1,0 +1,457 @@
+//Date: 2024-03-24 time 3pm Prit
+//Styles file for flight
+//\app\flights\FlightSearch.css
+
+/* General styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body, html {
+    width: 100%;
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Application container */
+  .appContainer {
+    padding: 20px;
+    min-height: 100vh;
+  }
+  
+  /* Header */
+ /* Adjust the header to display the background image */
+ .appHeader {
+    background: url('../../public/Images Capstone/Frame 118.png') no-repeat center center;
+    background-size: fill;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: relative;
+  }
+
+
+  
+  
+  /* Search container */
+  /* Search container grid layout */
+.searchContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 1rem; /* space between grid items */
+  justify-items: center; /* center items horizontally */
+  align-items: end; /* align items to the end vertically */
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px; /* Adjust as needed */
+}
+
+/* Responsive grid adjustment */
+@media (max-width: 768px) {
+  .searchContainer {
+    grid-template-columns: 1fr; /* Stack inputs in a single column on smaller screens */
+  }
+}
+
+  
+  /* Search input fields */
+  .inputGroup{
+    flex-basis: calc(33.333% - 20px); /* Adjust the percentage as needed, subtract the gap */
+    display: flex;
+    gap: 0.5rem;
+    padding: 10px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    font-size: 16px;
+    width: 100%;
+    flex-direction: column;
+  }
+  
+  /* Search button */
+  .searchButton {
+    background: url('../../public/Images Capstone/Paper Plane.png') no-repeat center right 10px;
+    background-size: 20px 20px; /* Adjust size as necessary */
+    padding-right: 2px; /* Adjust padding to prevent text overlaying the image */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 178px;
+    transition: background-color 0.3s;
+  }
+
+  .additionalInfoButton {
+    margin: 20px 0;
+    padding: 10px 20px;
+    background: #f0f0f0; /* Example color */
+    border: none;
+    cursor: pointer;
+  }
+
+  .additionalInfoForm {
+    display: flex;
+    flex-direction: row;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position:relative; /* To make it float over other content */
+    z-index: 10; /* Ensure it's above other elements */
+    width:fit-content; /* Adjust as necessary */
+  }
+
+  .formField {
+    margin-bottom: 15px;
+  }
+  
+.buttonIcon {
+    width: 24px; /* Adjust size as needed */
+    height: auto;
+  }
+
+  .searchButton:hover {
+    background-color: #004494;
+  }
+  
+  /* Results container */
+  .resultsContainer {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+  /* Individual result item */
+  .resultItem {
+    background-color: #f8f8f8;
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    padding: 15px;
+  }
+  
+  .error {
+    color: #ff6b6b; /* Red color for error messages */
+  }
+
+  .flightDetails {
+    padding: 20px;
+  }
+  
+  .detailHeader {
+    background-color: #f7f7f7;
+    padding: 15px;
+    border-bottom: 1px solid #eaeaea;
+    margin-bottom: 20px;
+  }
+  
+  .segmentDetail {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .foot-title {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .footer-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footer-nav {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .footer-link {
+    color: #fff;
+    text-decoration: none;
+    margin: 5px 0;
+  }
+  
+  .social-icon {
+    margin: 5px;
+    width: 30px; /* Adjust size as needed */
+  }
+  
+  .foot-head {
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .header {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  
+  .logo-home {
+    height: 50px; /* Adjust based on your logo's size */
+  }
+  
+  .homenavigation {
+    display: flex;
+    align-items: center;
+  }
+  
+  .link {
+    color: #333;
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 500;
+  }
+  
+  .link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+  
+  .line {
+    margin-top: 10px;
+    height: 2px;
+    background-color: #eee;
+    border: none;
+  }
+  
+  .modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.modal-backdrop.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.searchModal {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.searchModalHeader {
+  grid-column: 1 / -1; /* Ensures the header spans all columns */
+  text-align: center;
+}
+
+
+.searchModalFooter {
+  grid-column: 1 / -1; /* Footer will also span all columns */
+  text-align: center;
+}
+
+/* Style for a button inside the modal */
+.searchModal button {
+  width: 100%;
+  padding: 10px 0;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.searchModal button:hover {
+  background-color: #0056b3;
+}
+
+.modal-content {
+  margin-top: 20px;
+}
+
+.segments div, .luggage-allowances p, .extra-products p {
+  transition: transform 0.2s ease-in-out;
+}
+
+.segments div:hover, .luggage-allowances p:hover, .extra-products p:hover {
+  transform: scale(1.05);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+/* Standard button styles */
+.standardButton {
+  padding: 10px 20px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff; /* Example blue background */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.standardButton:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Favorite button styles */
+.favoriteButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffdd57; /* Example yellow background */
+  color: black;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.favoriteButton:hover {
+  background-color: #ffc107; /* Darker yellow on hover */
+}
+
+/* Additional styles for a "favorited" state */
+.favoriteButton.favorited {
+  background-color: #f44336; /* Example red background for active state */
+}
+
+/* Add this if your buttons are inline with content */
+.buttonContainer {
+  display: flex;
+  align-items: center;
+}
+
+/* General modal styling */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .closeButton {
+    float: right;
+    font-size: 1.25rem;
+    font-weight: bold;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  
+  /* Flight Details styling */
+  .flightDetails {
+    text-align: left;
+  }
+  
+  .detailHeader h2 {
+    margin-bottom: 20px;
+  }
+  
+  .segmentDetail {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f2f2f2;
+    border-radius: 8px;
+  }
+  
+  .segmentDetail h4 {
+    margin-top: 0;
+  }
+  
+  h3 {
+    color: #333;
+    margin-top: 20px;
+  }
+  
+  p {
+    margin: 5px 0;
+  }
+  
+  /* Styling for luggage allowances and extra products */
+  .luggageAllowances, .extraProducts {
+    margin-top: 10px;
+  }
+  
+  /* Adjustments for responsive design if needed */
+@media (max-width: 768px) {
+  .inputGroup {
+    flex-basis: 100%; /* Stack inputs on smaller screens */
+  }
+}
