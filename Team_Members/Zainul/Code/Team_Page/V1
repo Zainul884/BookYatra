@@ -1,0 +1,68 @@
+//V1
+//Team Page
+//Basic Design
+//ChatGPT was used to fix some bugs and help in design 
+//Zainul Malik
+
+import React from 'react';
+
+const TeamPage = () => {
+  const teamMembers = [
+    { name: 'Karm Desai', image: 'path/to/karm-desai.jpg' },
+    { name: 'Mousami Desai', image: 'path/to/mousami-desai.jpg' },
+    { name: 'Zainul Malik', image: 'path/to/zainul-malik.jpg' },
+    { name: 'Prit Patel', image: 'path/to/prit-patel.jpg' },
+    { name: 'Sourabh Thakur', image: 'path/to/sourabh-thakur.jpg' },
+  ];
+
+  return (
+    <div style={styles.container}>
+      <h1 style={styles.header}>DevKings Team</h1>
+      <div style={styles.teamContainer}>
+        {teamMembers.map((member, index) => (
+          <div key={index} style={styles.memberCard}>
+            <img src={member.image} alt={member.name} style={styles.image} />
+            <h2 style={styles.name}>{member.name}</h2>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// Styles
+const styles = {
+  container: {
+    textAlign: 'center',
+    fontFamily: 'Arial, sans-serif',
+  },
+  header: {
+    color: '#333',
+    marginBottom: '20px',
+  },
+  teamContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: '20px',
+  },
+  memberCard: {
+    width: '200px',
+    padding: '10px',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+    borderRadius: '10px',
+    backgroundColor: '#fff',
+  },
+  image: {
+    width: '100%',
+    height: '200px',
+    objectFit: 'cover',
+    borderRadius: '5px',
+  },
+  name: {
+    marginTop: '10px',
+    color: '#555',
+  },
+};
+
+export default TeamPage;
