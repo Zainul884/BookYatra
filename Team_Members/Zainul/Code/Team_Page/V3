@@ -1,0 +1,207 @@
+//V3
+//Team Page
+//Enhanced Design with Modal
+//ChatGPT was used to fix some bugs and help in design 
+//Zainul Malik
+
+"use client";
+import React, {useState} from 'react';
+import backgroundImage from './background.jpg';
+const TeamPage = () => {
+    
+  const teamMembers = [
+    { name: 'Karm Desai', role: 'Role A', bgColor: '#64C4ED', image: '/path/to/karm_image.jpg', bio: 'cool' },
+  { name: 'Mousami Desai', role: 'Role B', bgColor: '#FFD166', image: '/path/to/mousami_image.jpg', bio: 'cool' },
+  { name: 'Zainul Malik', role: 'Role C', bgColor: '#FF6B6B', image: 'Images/zainul.png', bio: 'cool' },
+  { name: 'Prit Patel', role: 'Role D', bgColor: '#6BCB77', image: '/path/to/prit_image.jpg', bio: 'cool' },
+  { name: 'Sourabh Thakur', role: 'Role E', bgColor: '#8A94D6', image: '/path/to/sourabh_image.jpg', bio: 'cool' },
+  { name: 'Pranjal Jain', role: 'Role F', bgColor: '#F9C0C0', image: '/path/to/pranjal_image.jpg', bio: 'cool' },
+  ];
+
+  const [hovered, setHovered] = useState(null);
+  const [selectedMember, setSelectedMember] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleMemberClick = (member) => {
+    setSelectedMember(member); 
+    setShowModal(true); 
+  };
+
+
+  const toggleSelectedMember = (index) => {
+    if (selectedMember === index) {
+      setSelectedMember(null); 
+    } else {
+      setSelectedMember(index); 
+    }
+  };
+  
+  const Modal = ({ show, onClose, children }) => {
+    if (!show) {
+      return null;
+    }
+  
+    return (
+      <div style={styles.modalOverlay}>
+        <div style={styles.modalContent}>
+          <button style={styles.modalCloseButton} onClick={onClose}>X</button>
+          {children}
+        </div>
+      </div>
+    );
+  };
+  
+
+  const chunkedTeamMembers = teamMembers.reduce((resultArray, item, index) => { 
+    const chunkIndex = Math.floor(index / 3);
+    if (!resultArray[chunkIndex]) {
+      resultArray[chunkIndex] = []; // Start a new chunk
+    }
+    resultArray[chunkIndex].push(item);
+    return resultArray;
+  }, []);
+
+  
+  return (
+    
+    <div style={styles.pageContainer}>
+      <h1 style={styles.header}>Our Leadership Team</h1>
+      {chunkedTeamMembers.map((memberChunk, idx) => (
+        <div key={idx} style={styles.teamRow}>
+          {memberChunk.map((member, index) => (
+            <div
+              key={index}
+              style={{
+                ...styles.memberCard,
+                backgroundColor: member.bgColor,
+                transform: hovered === `${idx}-${index}` ? 'scale(1.05)' : 'scale(1)',
+              }}
+              
+              onMouseEnter={() => setHovered(`${idx}-${index}`)}
+              onMouseLeave={() => setHovered(null)}
+              onClick={() => handleMemberClick(member)}
+            >
+              <div style={styles.imagePlaceholder}>
+                <img src={member.image} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <h2 style={styles.name}>{member.name}</h2>
+              <p style={styles.role}>{member.role}</p>
+              {selectedMember === `${idx}-${index}` && (
+                <div style={styles.extraInfo}>
+                  {member.bio} {/* Render additional info here */}
+                </div>
+                
+              )}
+            </div>
+          ))}
+        </div>
+      ))}
+       <Modal show={showModal} onClose={() => setShowModal(false)}>
+      <div>
+        
+        <h2>{selectedMember?.name}</h2>
+        <p>{selectedMember?.role}</p>
+        <p>{selectedMember?.bio}</p>
+        {/* Include other details from the selectedMember object here */}
+      </div>
+    </Modal>
+  </div>
+    
+  );
+};
+
+// Styling
+const styles = {
+    modalOverlay: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1000,
+      },
+      modalContent: {
+        backgroundColor: '#fff',
+        padding: '20px',
+        borderRadius: '15px',
+        maxWidth: '500px',
+        width: '80%',
+      },
+      modalCloseButton: {
+        float: 'right',
+        cursor: 'pointer',
+      },
+      pageContainer: {
+        fontFamily: '"Avenir", Helvetica, Arial, sans-serif',
+        backgroundImage: `url(${backgroundImage})`,
+        minHeight: '100vh',
+        padding: '60px 20px',
+        boxSizing: 'border-box',
+        width: '100%',
+        maxWidth: '100%',
+        margin: '0 auto',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      teamRow: {
+        display: 'flex',
+        flexWrap: 'wrap', 
+        justifyContent: 'space-around', 
+        width: '100%',
+      },
+    header: {
+      fontSize: '2.8rem',
+      fontWeight: 'bold',
+      color: '#205375', 
+      marginBottom: '50px',
+      textAlign: 'center',
+      background: 'linear-gradient(45deg, #6dd5ed, #2193b0)', 
+      borderRadius: '15px',
+      padding: '10px',
+      boxShadow: '0 5px 15px rgba(0,0,0,0.2)', 
+    },
+    teamRow: {
+      display: 'flex',
+      justifyContent: 'center',
+      marginBottom: '40px',
+    },
+    memberCard: {
+      width: '500px',
+      height: '500px',
+      borderRadius: '15px',
+      padding: '20px',
+      marginTop: '100px',
+      marginLeft: '300px',
+      marginRight: '300px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+      color: '#fff',
+      transition: 'transform 0.2s', 
+    },
+    imagePlaceholder: {
+      width: '150px',
+      height: '150px',
+      borderRadius: '50%',
+      marginBottom: '20px',
+      overflow: 'hidden',
+    },
+    name: {
+      fontSize: '1.5rem',
+      fontWeight: '600',
+      margin: '10px 0 5px',
+    },
+    role: {
+      fontSize: '1.1rem',
+      fontWeight: '300',
+    },
+};
+
+export default TeamPage;
