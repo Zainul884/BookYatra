@@ -1,0 +1,107 @@
+//V2
+//Team Page
+//Enhanced Design
+//ChatGPT was used to fix some bugs and help in design 
+//Zainul Malik
+
+
+import React from 'react';
+
+const TeamPage = () => {
+  const teamMembers = [
+    { name: 'Karm Desai', role: 'Role A', bgColor: '#64C4ED', image: '/path/to/karm_image.jpg' },
+  { name: 'Mousami Desai', role: 'Role B', bgColor: '#FFD166', image: '/path/to/mousami_image.jpg' },
+  { name: 'Zainul Malik', role: 'Role C', bgColor: '#FF6B6B', image: '/path/to/zainul_image.jpg' },
+  { name: 'Prit Patel', role: 'Role D', bgColor: '#6BCB77', image: '/path/to/prit_image.jpg' },
+  { name: 'Sourabh Thakur', role: 'Role E', bgColor: '#8A94D6', image: '/path/to/sourabh_image.jpg' },
+  { name: 'Pranjal Jain', role: 'Role F', bgColor: '#F9C0C0', image: '/path/to/pranjal_image.jpg' },
+  ];
+
+  const chunkedTeamMembers = teamMembers.reduce((resultArray, item, index) => { 
+    const chunkIndex = Math.floor(index/3);
+
+    if(!resultArray[chunkIndex]) {
+      resultArray[chunkIndex] = []; // start a new chunk
+    }
+
+    resultArray[chunkIndex].push(item);
+
+    return resultArray;
+  }, []);
+
+  return (
+    <div style={styles.pageContainer}>
+      <h1 style={styles.header}>Our Leadership Team</h1>
+      {chunkedTeamMembers.map((memberChunk, idx) => (
+        <div key={idx} style={styles.teamRow}>
+          {memberChunk.map((member, index) => (
+            <div key={index} style={{ ...styles.memberCard, backgroundColor: member.bgColor }}>
+               <div style={styles.imagePlaceholder}>
+    <img src={member.image} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+  </div>
+  <h2 style={styles.name}>{member.name}</h2>
+  <p style={styles.role}>{member.role}</p>
+</div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// Styling
+const styles = {
+  pageContainer: {
+    fontFamily: '"Avenir", Helvetica, Arial, sans-serif',
+    backgroundColor: '#f0f0f0',
+    minHeight: '100vh',
+    padding: '60px 20px',
+    boxSizing: 'border-box',
+  },
+  header: {
+    fontSize: '2.8rem',
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: '50px',
+    textAlign: 'center',
+  },
+  teamRow: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: '40px',
+  },
+  memberCard: {
+    width: '300px',
+    borderRadius: '15px',
+    padding: '20px',
+    margin: '0 10px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+    color: '#fff',
+  },
+  imagePlaceholder: {
+    width: '100%',
+    height: '0',
+    paddingBottom: '100%', // Maintains aspect ratio of 1:1
+    borderRadius: '50%',
+    backgroundColor: '#bbbbbb',
+    marginBottom: '20px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  name: {
+    fontSize: '1.5rem',
+    fontWeight: '600',
+    margin: '10px 0 5px',
+  },
+  role: {
+    fontSize: '1.1rem',
+    fontWeight: '300',
+  },
+};
+
+export default TeamPage;

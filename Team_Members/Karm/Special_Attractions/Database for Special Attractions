@@ -1,0 +1,859 @@
+//Chat Gpt was used to solve some errors and adding some animations 
+//Booking.com for the api
+//Firebase for database
+
+
+"use client";
+import react from 'react';
+import Link from 'react';
+import { useState ,useEffect,useRef} from 'react';
+import { FaSpinner, FaExclamationTriangle,FaInstagram,FaFacebookF,FaTwitter, FaSearch, FaTag, FaInfoCircle, FaTimes,FaStar } from 'react-icons/fa';
+import { FaHeart, FaRegHeart ,FaWheelchair, FaTicketAlt,FaCheckCircle,FaRegTimesCircle, FaMapMarkerAlt, FaThumbsUp,FaCameraRetro } from 'react-icons/fa';
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { getDatabase, onValue, ref, set } from 'firebase/database';
+import './firebaseConfig';
+import { auth,database } from './firebaseConfig'; // Adjust the import path as necessary
+import './styles.css';
+import './styles2.css';
+import styled, { createGlobalStyle, keyframes } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    background: url('./images/LP.jpg') no-repeat ;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+
+  
+  
+`;
+
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
+
+const FormContainer = styled.div`
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  padding: 60px;
+  width: 100%;
+  margin-right: 700px;
+  max-width: 500px;
+  z-index: 2;
+  animation: ${fadeIn} 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+const Title = styled.h2`
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+  margin: 0 0 20px 0;
+`;
+
+const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
+const Label = styled.label`
+  font-size: 16px;
+  color: #666;
+`;
+
+const Input = styled.input`
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s;
+
+  &:focus {
+    border-color: #0056b3;
+    outline: none;
+  }
+`;
+
+const Button = styled.button`
+  padding: 12px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #0056b3;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #004494;
+  }
+`;
+
+
+
+
+
+
+const SwitchModeButton = styled.button`
+  background: none;
+  color: #0056b3;
+  border: none;
+  margin-top: 15px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+`;
+
+
+export default function AttractionSearch() {
+
+    const [attractions, setAttractions] = useState([]);
+    const [attractions2, setAttractions2] = useState([]);
+    const [favorites, setFavorites] = useState([]);
+    const [calendarData, setCalendarData] = useState([]);
+    const [isCalendarLoading, setIsCalendarLoading] = useState(false);
+
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [search, setSearch] = useState('');
+    const [isSidePanelVisible, setIsSidePanelVisible] = useState(false);
+    const [selectedAttraction, setSelectedAttraction] = useState(null);
+
+    const [lightboxVisible, setLightboxVisible] = useState(false);
+    const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+    
+   
+    // database use states 
+    const auth = getAuth(); 
+    const database = getDatabase(); 
+    const [user, setUser] = useState(null);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [isSigningUp, setIsSigningUp] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState('');
+
+
+
+
+    // Sign in functions
+  
+    useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, currentUser => {
+        setUser(currentUser);
+      });
+      return () => unsubscribe();
+    }, []);
+  
+    const handleLogin = async (e) => {
+      e.preventDefault();
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    const handleSignUp = async (e) => {
+      e.preventDefault();
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    const handleSignOut = async () => {
+      try {
+        await signOut(auth);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+
+    const fetchFavorites = (userId) => {
+      const userDataRef = ref(database, `users/${userId}/favorites`);
+      onValue(userDataRef, (snapshot) => {
+          const data = snapshot.val();
+          if (data) {
+              setFavorites(data);
+          } else {
+              setFavorites([]);
+          }
+      }, (error) => {
+          console.error("Error fetching favorites:", error);
+          setError("Failed to fetch favorites.");
+      });
+  };
+   
+
+
+
+   //database 
+   useEffect(() => {
+    const auth = getAuth();
+    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("User logged in:", user.uid); 
+        setUser(user);
+  
+        const database = getDatabase();
+        const userDataRef = ref(database, `users/${user.uid}/favoritesData`);
+        
+        const unsubscribeData = onValue(userDataRef, (snapshot) => {
+          const data = snapshot.val();
+          console.log("Retrieved data:", data); 
+          if (data && data.favorites) {
+            setFavorites(data.favorites);
+          } else {
+            setFavorites([]);
+          }
+        }, (error) => {
+          console.error("Error fetching data:", error);
+        });
+  
+        return () => unsubscribeData();
+      } else {
+        console.log("No user logged in");
+        setUser(null);
+        setFavorites([]);
+      }
+    });
+  
+    return () => unsubscribeAuth();
+  }, [user]); 
+
+
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, currentUser => {
+        setUser(currentUser);
+        if (currentUser) {
+           
+            fetchFavorites(currentUser.uid);
+        } else {
+            setFavorites([]);
+        }
+    });
+    return () => unsubscribe();
+}, []);
+
+  const submitFavorites = () => {
+    if (!user) {
+        setSubmitStatus("You must be logged in to submit favorites.");
+        return;
+    }
+    if (favorites.length === 0) {
+        setSubmitStatus("No favorites to submit.");
+        return;
+    }
+
+    const favoritesRef = ref(database, `users/${user.uid}/favorites`);
+    set(favoritesRef, favorites).then(() => {
+        setSubmitStatus("Favorites successfully submitted!");
+    }).catch((error) => {
+        setSubmitStatus("Failed to submit favorites. Please try again.");
+        console.error("Error submitting favorites:", error);
+    });
+};
+
+
+    
+      //Individual light box pictures modal functions
+    
+      const openLightbox = (index) => {
+        setCurrentPhotoIndex(index);
+        setLightboxVisible(true);
+      };
+    
+      const closeLightbox = () => {
+        setLightboxVisible(false);
+      };
+    
+      const showNextPhoto = () => {
+        setCurrentPhotoIndex((prevIndex) =>
+          prevIndex === selectedAttraction.photos.length - 1 ? 0 : prevIndex + 1
+        );
+      };
+    
+      const showPrevPhoto = () => {
+        setCurrentPhotoIndex((prevIndex) =>
+          prevIndex === 0 ? selectedAttraction.photos.length - 1 : prevIndex - 1
+        );
+      };
+
+
+    const fetchAttractions = async(search) => {
+        if(!search) return;
+        setIsLoading(true);
+        setError('');
+
+        const url=`https://booking-com15.p.rapidapi.com/api/v1/attraction/searchLocation?query=${encodeURIComponent(search)}&languagecode=en-us`;
+        const options={
+            method:'GET',
+            headers:{
+                'X-RapidAPI-Key':'d5873eece3msh6c105f37489832ap16623ajsn3ba97a7a3aa6',
+                'X-RapidAPI-Host':'booking-com15.p.rapidapi.com'
+            }
+        }
+
+        const response = await fetch(url,options);
+        const result=await response.json();
+        
+        try{
+        if(result && result.data &&result.data.destinations){
+            setAttractions(result.data.destinations);
+
+            if(result.data.destinations.length>0){
+                fetchAttractionsDetails(result.data.destinations[0].id);
+                
+            }
+        }
+        else{
+            setAttractions([]);
+        }
+        }
+
+        catch(error){
+            console.log('Error fetching attraction details:',error);
+            setError('An error occurred while fetching attraction details.');
+        }
+
+        finally{
+            setIsLoading(false);
+        }
+    }
+
+    const fetchAttractionsDetails = async(id) => {
+
+        setIsLoading(true);
+        setError('');
+
+        const url = `https://booking-com15.p.rapidapi.com/api/v1/attraction/searchAttractions?id=${encodeURIComponent(id)}&page=1&currency_code=CAD&languagecode=en-us`;
+        const options={
+            method:'GET',
+            headers:{
+                'X-RapidAPI-Key':'d5873eece3msh6c105f37489832ap16623ajsn3ba97a7a3aa6',
+                'X-RapidAPI-Host':'booking-com15.p.rapidapi.com'
+            }
+        }
+
+        try{
+
+        const response=await fetch(url,options);
+        const result= await response.json();
+        
+        
+
+
+        if(result&& result.data && result.data.products){
+            console.log("Setting attractions:", result.data.products);
+            setAttractions(result.data.products);
+            
+        }
+
+
+
+
+
+        }catch(error){
+            console.log('Error fetching attraction details:',error);
+            setError('An error occurred while fetching attraction details.');
+        }
+
+        finally{
+            setIsLoading(false);
+        }
+    }
+
+
+
+
+
+    const fetchAttractionsDetails2 = async(productSlug) => {
+
+        setIsLoading(true);
+        setError('');
+
+        const url = `https://booking-com15.p.rapidapi.com/api/v1/attraction/getAttractionDetails?slug=${encodeURIComponent(productSlug)}&page=1&currency_code=CAD&languagecode=en-us`;
+        
+        const options = {
+          method: 'GET',
+          headers: {
+            'X-RapidAPI-Key': 'd5873eece3msh6c105f37489832ap16623ajsn3ba97a7a3aa6',
+            'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com'
+          }
+        };
+        
+        try {
+            const response = await fetch(url, options);
+            const result = await response.json();
+            console.log('result:', result);
+        
+            if (result && result.data) {
+              
+              setSelectedAttraction(result.data); 
+          }
+          } catch (error) {
+            console.log('Error fetching attraction details:', error);
+            setError('An error occurred while fetching attraction details.');
+          } finally {
+            setIsLoading(false);
+          }
+      };
+
+
+      const fetchAttractionCalendar = async (attractionId) => {
+        setIsCalendarLoading(true);
+        console.log('Fetching calendar for attraction:', attractionId);
+      
+        const url = `https://booking-com15.p.rapidapi.com/api/v1/attraction/getAvailabilityCalendar?id=${encodeURIComponent(attractionId)}&languagecode=fr`;
+        const options = {
+          method: 'GET',
+          headers: {
+            'X-RapidAPI-Key': 'd5873eece3msh6c105f37489832ap16623ajsn3ba97a7a3aa6',
+            'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com'
+          }
+        };
+      
+        try {
+          const response = await fetch(url, options);
+          const result = await response.json(); // Assuming the API returns JSON
+          const today = new Date();
+          const next7Days = result.data.filter(item => {
+            const itemDate = new Date(item.date);
+            return itemDate >= today && itemDate <= new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7);
+        });
+        setCalendarData(next7Days);
+      } catch (error) {
+          console.error("Error fetching calendar:", error);
+          
+      } finally {
+          setIsCalendarLoading(false);
+      }
+      };
+      
+
+   
+
+
+    
+
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        fetchAttractions(search);
+    }   
+
+    const navigateToDetail = (productSlug,id) => {
+      console.log(`Visit button clicked for ProductSlug: ${productSlug}, ID: ${id}`);
+     
+      const selected = attractions.find(attraction => attraction.slug === productSlug);
+
+      console.log("Selected Attraction:", selected); 
+  
+      if (selected) {
+         
+          setSelectedAttraction(selected);
+          fetchAttractionsDetails2(productSlug);
+          setIsSidePanelVisible(true);
+          fetchAttractionCalendar(id);
+      } else {
+          console.error('Selected attraction not found');
+          
+      }
+  };
+  
+    const closeSidePanel = () => {
+        console.log('Closing side panel');
+        setIsSidePanelVisible(false);
+    };
+
+    const toggleFavorite = (attraction) => {
+      let updatedFavorites;
+      if (favorites.some(fav => fav.id === attraction.id)) {
+        updatedFavorites = favorites.filter(fav => fav.id !== attraction.id);
+      } else {
+        updatedFavorites = [...favorites, attraction];
+      }
+      setFavorites(updatedFavorites);
+    };
+
+    
+
+   
+  return (
+        <>
+      <style>
+                {`
+                .modalBackground {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 100;
+                }
+                .modalContent {
+                    background-color: white;
+                    padding: 20px;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    max-width: 2000px;
+                    width: 90%;
+                    position: relative; /* For absolute positioning of the close button */
+                }
+                .closeButton {
+                    cursor: pointer;
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    font-size: 24px;
+                    background: none;
+                    border: none;
+                    color: #333; /* Adjust color as needed */
+                }
+                `}
+            </style>
+            <div>
+      {!user ? (
+        <form onSubmit={isSigningUp ? handleSignUp : handleLogin}>
+          <Input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
+          <Input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" />
+          <Button type="submit">{isSigningUp ? 'Sign Up' : 'Log In'}</Button>
+          <Button onClick={() => setIsSigningUp(!isSigningUp)}>
+            {isSigningUp ? 'Already have an account? Log In' : "Don't have an account? Sign Up"}
+          </Button>
+        </form>
+      ) : (
+        <>
+         
+            <div className='containersa'>
+
+            <div className='headersa'>
+             
+              <nav className='navsa'>
+             <a href=''>Home</a>
+             <a href=''>Hotel</a>
+             <a href=''>Flight</a>
+             <a href=''>Attractions</a>
+             <Button onClick={handleSignOut}>Log Out</Button>
+
+               
+              </nav>
+              </div>
+              <div className="userProfile">
+    <img src="./images/7309681.jpg" alt="User Avatar" className="avatar" />
+    <p className="userName"> Welcome Back ,{user.email.substring(0, 4)} 🙋</p>
+</div>
+            
+            <div className='headersa'>Discover Amazing Places</div>
+            <form onSubmit={handleSearch}>
+                <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search for attractions..." className='inputsa' />
+                <button type="submit" className='searchSaBtn' ><FaSearch /></button>
+            </form>
+            <div className='attractionListsa'>
+                {isLoading ? (
+                    <div className="spinnersa"><FaSpinner /> Loading...</div>
+                ) : error ? (
+                    <div className="errorTextsa"><FaExclamationTriangle /> {error}</div>
+                ) : attractions.length > 0 ? (
+                    attractions.map((attraction) => (
+                        <div key={attraction.id} className='attractionItemsa'>
+                            <div className='attractionCardsa'>
+                                <div className="frontsa">
+                                    <h4>{attraction.name}</h4>
+                                    <img src={attraction.primaryPhoto ? attraction.primaryPhoto.small : `/images/placeholder.jpg`} alt={attraction.name} />
+                                </div>
+                                <div className="backsa">
+                                    <div className="iconsa"><FaInfoCircle /><p className='shortDessa'>{attraction.shortDescription}</p></div>
+                                    <div className="iconsa"><FaTag /><p className='pricesa'>Price: ${attraction.representativePrice && attraction.representativePrice.chargeAmount ? `${attraction.representativePrice.chargeAmount} ${attraction.representativePrice.currency}` : 'Not Available'}</p></div>
+                                    <button onClick={() => navigateToDetail(attraction.slug,attraction.id)} className='attractionsMainVisitBtn'>Visit</button>
+                                    <button onClick={() => toggleFavorite(attraction)} className='favoriteButton'>
+                                        {favorites.some(fav => fav.id === attraction.id) ? <FaHeart  className='faHeart'/> : <FaRegHeart />}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p>No attractions found.</p>
+                )}
+            </div>
+
+            {isSidePanelVisible && (
+    <div className="modalBackground" onClick={closeSidePanel}>
+        <div className="modalContent" onClick={e => e.stopPropagation()}>
+            <button onClick={closeSidePanel} className="closeButton">
+                <FaTimes />
+            </button>
+            {selectedAttraction && ( 
+                <div className='attractionItemSai'>
+                  <h2 className='attractionNameSai'>{selectedAttraction.name}</h2>
+                  <img 
+                    src={selectedAttraction.primaryPhoto ? selectedAttraction.primaryPhoto.small : `/images/default.jpg`} 
+                    alt={selectedAttraction.name}
+                    className='attractionPrimaryPhotoSai'
+                  />
+
+
+<div className='photosSai'>
+  <h3>Photos</h3>
+  <div className='photosContainerSai'>
+    {selectedAttraction.photos && selectedAttraction.photos.length > 0 ? (
+      selectedAttraction.photos.map((photo, index) => (
+       
+        photo && photo.medium ? (
+          <img key={index} src={photo.medium} alt={`Photo ${index + 1}`} className='attractionPhotoSai' onClick={() => openLightbox(index)}/>
+        ) : null 
+      ))
+    ) : (
+      <p>No photos available.</p>
+    )}
+  </div>
+  {lightboxVisible && selectedAttraction.photos && selectedAttraction.photos.length > currentPhotoIndex && selectedAttraction.photos[currentPhotoIndex] && (
+    <div className={`lightboxModalSai ${lightboxVisible ? 'active' : ''}`} onClick={closeLightbox}>
+      <div className="lightboxContentSai" onClick={e => e.stopPropagation()}>
+        
+        {selectedAttraction.photos[currentPhotoIndex].medium ? (
+          <img src={selectedAttraction.photos[currentPhotoIndex].medium} alt={`Photo ${currentPhotoIndex + 1}`} />
+        ) : (
+          
+          <p>Image not available</p>
+        )}
+        <span className="lightboxArrowSai left" onClick={showPrevPhoto}>&lt;</span>
+        <span className="lightboxArrowSai right" onClick={showNextPhoto}>&gt;</span>
+        <span className="closeButtonSai" onClick={closeLightbox}>X</span>
+      </div>
+    </div>
+  )}
+</div>
+
+
+<div className='descriptionSai'>
+      <h3>  Description</h3>  
+      <p> {selectedAttraction.description}</p>
+    </div>
+
+
+
+
+    <div className='additionalInfoSai'>
+  <div className="infoSectionsSai">
+  
+    {selectedAttraction.accessibility &&selectedAttraction.accessibility.length > 0 ? (
+      <div className="accessibilitySectionSai">
+        <h3><FaWheelchair /> Accessibility</h3>
+        <ul>
+          {selectedAttraction.accessibility.map((item, index) => (
+            <li key={index}><FaCheckCircle /> {item}</li>
+          ))}
+        </ul>
+      </div>
+    ) : (
+      <div className="accessibilitySectionSai">No accessibility information available.</div> 
+    )}
+
+    
+    {selectedAttraction.whatsIncluded && selectedAttraction.whatsIncluded.length > 0 ? (
+      <div className="whatsIncludedSectionSai">
+        <h3><FaTicketAlt /> What's Included</h3>
+        <ul>
+          {selectedAttraction.whatsIncluded.map((item, index) => (
+            <li key={index}><FaCheckCircle /> {item}</li>
+          ))}
+        </ul>
+      </div>
+    ) : (
+      <div className="whatsIncludedSectionSai">No information on what's included available.</div> 
+    )}
+  </div>
+
+ 
+  {selectedAttraction.additionalInfo ? (
+    <>
+      <h3 className='additionalH3Sai'><FaInfoCircle /> Additional Information</h3>
+      <p>{selectedAttraction.additionalInfo}</p>
+    </>
+  ) : (
+    <p>No additional information available.</p> 
+  )}
+</div>
+
+
+<div className='sectionsContainerSai'>
+  <div className='infoSectionSai'>
+    <div className='addressesCardSai'>
+      
+      {selectedAttraction.addresses && selectedAttraction.addresses.arrival && selectedAttraction.addresses.arrival.length > 0 ? (
+        <div className='addressContentSai'>
+          <h3><FaMapMarkerAlt /> Address</h3>
+          {selectedAttraction.addresses.arrival.map((address, index) => (
+            <p key={index}>
+              {address.address}, {address.city}, {address.country}
+            </p>
+          ))}
+        </div>
+      ) : (
+        <p>No address information available.</p>
+      )}
+    </div>
+
+    <div className='cancellationPolicyCardSai'>
+      
+      {selectedAttraction.cancellationPolicy ? (
+        <p className='cancelTextSai'>
+          Cancellation Policy: 
+          {selectedAttraction.cancellationPolicy.hasFreeCancellation ? 
+            ' Free cancellation available.' : 
+            ' Free cancellation not available.'}
+        </p>
+      ) : (
+        <p>No cancellation policy information available.</p>
+      )}
+    </div>
+  </div>
+
+  <div className='attractionFlagsSai'>
+    
+    {selectedAttraction.flags && selectedAttraction.flags.length > 0 ? (
+      <div>
+        <h3><FaStar className='faStarSai'/> Why Choose This Attraction?</h3>
+        <ul>
+          {selectedAttraction.flags
+            .filter(flag => flag.value) 
+            .map((flag, index) => (
+              <li key={index}>
+                {flag.flag.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+              </li>
+            ))}
+        </ul>
+      </div>
+    ) : (
+      <p>No flags information available.</p>
+    )}
+  </div>
+
+  <div className='reviewsStatsSai'>
+  <h3><FaThumbsUp /> Reviews Summary</h3>
+ 
+  <p>Total Reviews: {selectedAttraction.reviewsStats ? selectedAttraction.reviewsStats.allReviewsCount : "Information not available"}</p>
+  <p>Average Rating: {selectedAttraction.reviewsStats && selectedAttraction.reviewsStats.combinedNumericStats ? `${selectedAttraction.reviewsStats.combinedNumericStats.average} / 5` : "Information not available"}</p>
+  <p>Positive Reviews: {selectedAttraction.reviewsStats ? `${selectedAttraction.reviewsStats.percentage} of reviews are positive` : "Information not available"}</p>
+</div>
+</div>
+
+    
+              <p className='priceSai'>
+                <FaTag /> Price: ${
+                  selectedAttraction.representativePrice && selectedAttraction.representativePrice.chargeAmount
+                    ? `${selectedAttraction.representativePrice.chargeAmount} ${selectedAttraction.representativePrice.currency}`
+                    : 'Not Available'
+                }
+              </p>
+
+              <h3 className='availabilityCalendarh3'>Availability Calendar</h3>
+
+              <div className="availabilityCalendar">
+                  
+                  {isCalendarLoading ? (
+                  <p>Loading calendar...</p>
+                    ) : calendarData.length > 0 ? (
+                  <div className="calendar">
+                  {calendarData.map((item, index) => (
+                     <div key={index} className={`calendarItem ${item.available ? 'available' : 'unavailable'}`}>
+                        <span>{item.date.split('-').pop()}</span> 
+                        <span>{item.available ? '✓' : '✗'}</span>
+               </div>
+            ))}
+        </div>
+    ) : (
+        <p>No calendar data available.</p>
+    )}
+</div>
+
+</div>
+  
+                
+            )}
+        </div>
+    </div>
+)}
+
+<div className='yrFavSai'>
+            <h2>Your Favorites</h2>
+            </div>
+
+
+            <div className='favoritesSectionSai'>
+                
+                {favorites.length > 0 ? (
+                    favorites.map((favorite) => (
+                        <div key={favorite.id} className='attractionItemsa'>
+                            <div className='attractionCardsa'>
+                                <div className="frontsa">
+                                    <h4>{favorite.name}</h4>
+                                    <img src={favorite.primaryPhoto ? favorite.primaryPhoto.small : `/images/placeholder.jpg`} alt={favorite.name} />
+                                </div>
+
+                                <div className="backsa">
+                                    <div className="iconsa">
+                                        <FaInfoCircle />
+                                        <p className='shortDessa'>{favorite.shortDescription}</p>
+                                    </div>
+                                    <div className="iconsa">
+                                        <FaTag />
+                                        <p className='pricesa'>
+                                            Price: ${favorite.representativePrice && favorite.representativePrice.chargeAmount
+                                                ? `${favorite.representativePrice.chargeAmount} ${favorite.representativePrice.currency}`
+                                                : 'Not Available'}
+                                        </p>
+                                    </div>
+
+                                    
+                                    <button onClick={() => toggleFavorite(favorite)} className='favoriteButtonSai'>
+                                        <FaHeart className='faHeartSa2' />
+                                    </button>
+                                    
+                                    
+      
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p>No favorites selected.</p>
+                )}
+<div className='attractionsSubmitDiv'>
+<button onClick={submitFavorites} className='attractionsSubmitBtn'>Submit Favorites</button>
+      {submitStatus && <p>{submitStatus}</p>}</div>
+            </div>
+            
+
+        </div>
+        </>
+      )}
+    </div>
+        </>
+    );
+}
