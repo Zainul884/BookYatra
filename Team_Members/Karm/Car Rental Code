@@ -1,0 +1,402 @@
+//This page displays cars in the city as per the dates and time entered by the user 
+//Thier are some filters to help the user to find the car
+//Chat Gpt was used to help with errors in filters
+
+
+"use client";
+import React, { useState } from 'react';
+import { FaSearch, FaStar, FaCar, FaUser,FaSlidersH,FaSuitcase } from 'react-icons/fa';
+import './styles.css';
+
+export default function CarRental() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [search, setSearch] = useState('');
+  const [carRentals, setCarRentals] = useState([]);
+  const [pickupDate, setPickupDate] = useState('');
+  const [dropOffDate, setDropOffDate] = useState('');
+  const [pickupTime, setPickupTime] = useState('');
+  const [dropOffTime, setDropOffTime] = useState('');
+  
+  const [groupFilter, setGroupFilter] = useState('All');
+  const [companyFilter, setCompanyFilter] = useState('All');
+  const [maxPrice, setMaxPrice] = useState(1000); 
+  
+  const [seatsFilter, setSeatsFilter] = useState('All');
+  const [showFilters, setShowFilters] = useState(false);
+
+  
+  const toggleFilters = () => setShowFilters(!showFilters);
+  
+
+
+
+
+  const debounce = (func, wait) => {
+    let timeout;
+    return function executedFunction(...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        func(...args);
+      }, wait);
+    };
+  };
+
+  const fetchLocation = async (search) => {
+    if (!search) return;
+    setIsLoading(true);
+    setError('');
+    const url = `https://booking-com15.p.rapidapi.com/api/v1/cars/searchDestination?query=${encodeURIComponent(search)}`;
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': 'd5873eece3msh6c105f37489832ap16623ajsn3ba97a7a3aa6', 
+        'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com',
+      },
+    };
+
+    try {
+      const response = await fetch(url, options);
+      if (!response.ok) throw new Error('Failed to fetch data.');
+      const result = await response.json();
+      console.log(result);
+      if (result && result.data && result.data.length > 0) {
+        
+        fetchCarRentals(result.data[0].coordinates.latitude, result.data[0].coordinates.longitude);
+      } else {
+        setError('No locations found.');
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setError('An error occurred while fetching location details.');
+      setIsLoading(false);
+    }
+  };
+
+
+
+  
+  const fetchCarRentals = async (latitude, longitude) => {
+    
+    const url = `https://booking-com15.p.rapidapi.com/api/v1/cars/searchCarRentals?pick_up_latitude=${latitude}&pick_up_longitude=${longitude}&drop_off_latitude=${latitude}&drop_off_longitude=${longitude}&pick_up_date=${pickupDate}&drop_off_date=${dropOffDate}&pick_up_time=${encodeURIComponent(pickupTime)}&drop_off_time=${encodeURIComponent(dropOffTime)}&driver_age=30&currency_code=USD`;
+    console.log(url);
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': 'd5873eece3msh6c105f37489832ap16623ajsn3ba97a7a3aa6', 
+        'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com',
+      },
+    };
+
+    try {
+      const response = await fetch(url, options);
+
+      if (!response.ok) throw new Error('Failed to fetch car rental information.');
+      const result = await response.json();
+      console.log(result);
+      setCarRentals(result.data.search_results); 
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error:', error);
+      setError('An error occurred while fetching car rental information.');
+      setIsLoading(false);
+    }
+  };
+
+  const debouncedFetchLocation = debounce(fetchLocation, 500);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    debouncedFetchLocation(search);
+  };
+
+  const filteredCarRentals = carRentals.filter(car => {
+    const withinPriceRange = car.pricing_info.drive_away_price <= maxPrice;
+    
+    const matchesGroup = groupFilter === 'All' || car.vehicle_info.group === groupFilter;
+    const matchesCompany = companyFilter === 'All' || car.supplier_info.name === companyFilter;
+    const matchesSeats = seatsFilter === 'All' || car.vehicle_info.seats === seatsFilter;
+    return  matchesGroup && matchesCompany && withinPriceRange && matchesSeats;
+  });
+
+  return (
+    <div className="car-rental-container">
+    <h1 className="title">Car Rental Finder</h1>
+    <div className="toolbar">
+        <form onSubmit={handleSearch} className="search-form">
+      
+          <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search for locations..." className='search-input' />
+          <input type="date" value={pickupDate} onChange={(e) => setPickupDate(e.target.value)} placeholder="Pick-up Date" className='date-input' />
+          <input type="time" value={pickupTime} onChange={(e) => setPickupTime(e.target.value)} placeholder="Pick-up Time" className='time-input' />
+          <input type="date" value={dropOffDate} onChange={(e) => setDropOffDate(e.target.value)} placeholder="Drop-off Date" className='date-input' />
+          <input type="time" value={dropOffTime} onChange={(e) => setDropOffTime(e.target.value)} placeholder="Drop-off Time" className='time-input' />
+          <button type="submit" className='search-button'><FaSearch /></button>
+        </form>
+       <button onClick={toggleFilters} className="filter-toggle-button">
+          <FaSlidersH /> Filters
+        </button>
+    </div>
+    {showFilters && (
+    <div className="filters">
+      <div className="filter">
+        <div className='priceSlider'>
+            <input type="range" min="0" max="1000" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
+            <span>Max Price: ${maxPrice}</span>
+        </div>
+      
+      <select value={groupFilter} onChange={(e) => setGroupFilter(e.target.value)} className='groupFilters'>
+        <option value="All">All Groups</option>
+        <option value="Economy">Economy</option>
+        <option value="Compact">Compact</option>
+        
+        <option value="SUV">SUV</option>
+      </select>
+      <select value={seatsFilter} onChange={(e) => setSeatsFilter(e.target.value)} className='seatsFilters'>
+          <option value="All">Any number of seats</option>
+          <option value="2">2 seats</option>
+          <option value="4">4 seats</option>
+          <option value="5">5 seats</option>
+          <option value="7">7 seats</option>
+          <option value="8+">8 or more seats</option>
+        </select>
+        </div>
+
+    </div>
+         )}
+         
+    {isLoading && <div className="loading">Loading...</div>}
+    {error && <div className="error">{error}</div>}
+    <div className="car-rentals">
+      {filteredCarRentals.map((car, index) => (
+        <div key={index} className="car-rental">
+          <div className="car-image">
+            <img src={car.vehicle_info.image_url} alt="Vehicle" />
+          </div>
+          <div className="car-details">
+            <h3>{car.vehicle_info.label} {car.vehicle_info.group}</h3>
+            <div className="supplier-logo">
+              <img src={car.supplier_info.logo_url} alt="Supplier Logo" />
+            </div>
+            <div className="vehicleName">
+               Vehicle Name: {car.vehicle_info.v_name}
+            </div>
+            <div className="ratings">
+              <FaStar className="star-icon" /> {car.rating_info.average} ({car.rating_info.no_of_ratings} ratings)
+            </div>
+            
+            <div className="additional-info">
+                 <FaUser />{car.vehicle_info.seats} seats - <FaCar className='faCar'/> {car.vehicle_info.doors} doors
+            </div>
+            <div className="location">
+              <span className='pickupLocation'>Location: </span> {car.supplier_info.address}
+            </div>
+           
+      <div className="suitcases">
+        Suitcases<FaSuitcase/> - Big: {car.vehicle_info.suitcases.big}, Small: {car.vehicle_info.suitcases.small}
+      </div>
+
+      <div className="vehiclePrice">Price: ${car.pricing_info.drive_away_price}</div>
+      <div className='cancellationPolicy'>{car.content.badges[0].text}</div>
+            
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+  );
+}
+
+
+
+
+
+css:
+.car-rental-container {
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 20px 0 0 20px;
+  outline: none;
+  width: 300px;
+}
+
+.search-button {
+  padding: 10px;
+  font-size: 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 0 20px 20px 0;
+}
+
+.car-rentals {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  gap: 20px;
+}
+
+.car-rental {
+  background-color: #fff; 
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); 
+  overflow: hidden; 
+  margin-bottom: 20px; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  gap:100px;
+  margin-bottom: 20px; 
+  border-radius: 4px;}
+
+.car-rental:hover {
+  transform: translateY(-10px) translateX(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.car-image img, .supplier-logo img {
+  width: 500px;
+  height: auto;
+}
+
+.supplier-logo img {
+  width: 100px;
+  height: auto;
+}
+
+.car-details {
+  padding: 20px;
+}
+
+.ratings, .price, .additional-info, .location {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  font-size: large;
+  gap: 5px;
+}
+
+.star-icon {
+  color: #ffd700;
+  margin-right: 5px;
+}
+
+.more-info, .suitcases, .vehicle-id {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.car-rental-container {
+  padding: 20px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-form {
+  flex-grow: 1;
+}
+
+.filter-toggle-button {
+  margin-left: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+.filters {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  gap: 10px;
+  margin-left: auto;
+  margin-bottom: 20px;
+  width: 600px;
+  padding: 20px;
+  background-color: whitesmoke;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.filter {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.priceSlider{
+  width: 100%;
+  margin-top: 5px;
+  font-size: medium;
+
+}
+
+.groupFilters ,.seatsFilters{
+  padding: 10px;
+  
+}
+
+.vehicleName{
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.vehiclePrice{
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
+  font-size: larger;
+  width: 200px;
+ 
+  border-radius: 10px;
+  color: green;
+}
+
+.faCar{
+ 
+  font-size: larger;
+}
+
+.pickupLocation{
+  font-weight: 600;
+}
+
+.suitcases{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.cancellationPolicy{
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(16, 193, 16);
+  margin-top: 10px;
+}
