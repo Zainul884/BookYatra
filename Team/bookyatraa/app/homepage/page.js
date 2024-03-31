@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Rate from '../rateandreview/page';
 
 
+
 function Home() {
 
   const posters = [
@@ -128,9 +129,7 @@ function Home() {
             <Link href="./login" className="link">Login</Link>
             <Link href="./signup" className="link">Sign Up</Link>
           </nav>
-
         </div>
-        
         <hr className="line"></hr>
       </header>
       </Link>
@@ -249,7 +248,8 @@ function Home() {
             <nav className="footer-nav">
               <Link href="./flights" className="footer-link">Flights</Link>
               <Link href="./hotel" className="footer-link">Hotels</Link>
-              <Link href="./About" className="footer-link">About Us</Link>
+              <Link href="./about" className="footer-link">About Us</Link>
+              <Link href="./contact" className="footer-link">Contact Us</Link>
               <Link href="./FAQ" className="footer-link">FAQs</Link>
             </nav>
           </div>
@@ -263,7 +263,7 @@ function Home() {
           </div>
           <div>
             <p className='foot-head'>Legal</p>
-            <p className='terms'>Terms of Use</p>
+            <Link href="./terms" className="footer-link">Terms of Use</Link>
           </div>
         </div>
 
