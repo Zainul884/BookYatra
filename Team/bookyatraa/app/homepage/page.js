@@ -2,10 +2,30 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import Rate from '../rateandreview/page';
-
-
+import { ref, onValue } from "firebase/database";
+import { database } from '../firebaseConfig'; // Ensure this path is correct
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 function Home() {
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    const reviewsRef = ref(database, 'reviews/');
+    onValue(reviewsRef, (snapshot) => {
+      const data = snapshot.val();
+      const loadedReviews = [];
+      for (const key in data) {
+        loadedReviews.push({
+          id: key,
+          rate: data[key].rate,
+          text: data[key].text
+        });
+      }
+      setReviews(loadedReviews);
+    });
+  }, []);
+  
 
   const posters = [
     {
@@ -28,25 +48,6 @@ function Home() {
     }
   ];
   
-  const reviews = [
-    {
-      id: 1,
-      name: 'Prit Patel',
-      image: './Images Capstone/Prit Image.jpg',
-      description: '“Customer testimonials are more effective than paid marketing copy as they take the spotlight away from the seller to shine it on the customers.” ',
-      rating: '4.0 ⭐⭐⭐⭐',
-      date:'14 Feb,2023'
-    },
-    {
-      id: 1,
-      name: 'Zainul Malik',
-      image: './Images Capstone/Zanudi Image.jpg',
-      description: '“Customer testimonials are more effective than paid marketing copy as they take the spotlight away from the seller to shine it on the customers.” ',
-      rating: '4.0 ⭐⭐⭐⭐',
-      date:'20 Dec,2023'
-    },
-  ];
-
   const flights = [
     {
       id: 1,
@@ -209,26 +210,14 @@ function Home() {
             </div>
           </div>
         </div>
-        <h1 className='testimonal'>Testimonal</h1>
-        <div className='users'>
-          <p className='testimonalHeading'>What <span className='book'>Book</span>Yatra Users Are Saying</p>
-        </div>
+        <h1 className='testimonal'>Testimonals</h1>
+        <Box >
+        <Typography className='testimonial-heading'>
+          What Our <span className='book'>Book</span>Yatra Users Say
+        </Typography>
         <Rate/>
-        <div className='testimonalBox'>
-          {reviews.map((review) => (
-            <div key={review.id} className='review'>
-              
-              <img src={review.image} alt={review.name} className='review-pic'/>
-              <div className='review-content'>
-                <h2 className='review-title'>{review.name}</h2>
-                <p className='review-rating'>{review.rating}</p>
-                <p className='review-words'>{review.description}</p>
-                <p className='review-date'>{review.date}</p>
-              </div>
         
-            </div>
-          ))}
-        </div>
+      </Box>  
         <div className='poster'>
           {posters.map((poster) => (
           <div key={poster.id} className='p-poster' >

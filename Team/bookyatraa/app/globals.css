@@ -284,7 +284,7 @@ html, body {
   border: none;
   cursor: pointer;
   margin-top: -3px;
-  margin-left: 0px;
+  margin-left: 10px;
 }
 .send-button:hover {
   opacity: 0.8;
@@ -903,6 +903,13 @@ input{
   min-height: 10vh;
   border-radius: 5px solid gray;
   margin-top:10px;
+  box-shadow:0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  margin: auto;
+
+}
+.book{
+  color: #1b10df;
 }
 .MuiRating-root {
   font-size: 3rem; 
@@ -930,6 +937,15 @@ input{
   color: #555; 
   background-color: transparent; 
 }
+.testimonial-heading {
+  margin-bottom: 16px; /* equivalent to 2 Material-UI spacing units */
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font:xx-large bold;
+  margin-bottom: 40px;
+}
+
 .button {
   width: 50%;
   max-width: 130px;
@@ -941,63 +957,53 @@ input{
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s;
+  margin-bottom: 20px;
 }
-.button:hover {
-  background-color: #0056b3;
-}
-.reviews-container {
-  margin-top: 20px;
-}
-.review-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
+
+.testimonial-box {
+  background-color: #f7f7f7;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 70%;
 }
 .review-delete-icon {
   cursor: pointer;
   color: #ff0000;
 }
-/*User Profile*/
-.userProfile {
+
+.testimonial-text {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.testimonial-author {
+  font-style: italic;
+  text-align: right;
+  font-size: 0.875rem;
+  color: #666;
+
+}
+
+/* Rating display in testimonials */
+.testimonial-rating {
   display: flex;
   align-items: center;
-  padding: 20px;
-  background-color: #f4f4f4;
-  border-radius: 8px;
+  justify-content: flex-start;
+  font-size: 1.25rem;
+  color: #ffa500; /* Gold color for the stars, if needed */
 }
 
-.avatar img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  margin-right: 20px;
-}
-
-.userInfo h2,
-.userInfo p {
-  margin: 0;
-  color: #007bff;
-}
-button {
-  display: block;
-  margin-top: 20px;
-  margin-left: 30px;
-  padding: 10px 15px;
-  color: #fff;
-  background-color: #007bff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-input {
-  background-color: azure;
-  color: #050505;
+/* Responsive styles */
+@media (max-width: 768px) {
+  .textarea-container, .button {
+    width: 100%;
+  }
+  .text-area {
+    max-width: none;
+  }
 }
 /*Contact us page*/
 .contact-page{
