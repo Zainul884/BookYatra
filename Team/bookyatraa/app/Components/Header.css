@@ -40,6 +40,7 @@ justify-content: space-between;
 
 .ticket-flight {
     border-radius: 25px;
+    width: 45% !important;
     border: 0.836px solid #000;
     box-shadow: 0px 3.342px 3.342px 0px rgba(0, 0, 0, 0.25);
     background-color: #fff;
@@ -57,7 +58,7 @@ justify-content: space-between;
   }
   @media (max-width: 991px) {
     .div-2 {
-      /* flex-direction: column; */
+      flex-direction: column;
       align-items: stretch;
       gap: 0px;
     }
@@ -94,7 +95,8 @@ justify-content: space-between;
   }
   .img {
     aspect-ratio: 1.79;
-    object-fit: auto;
+    object-fit: contain;
+    margin-top: 10px;
     object-position: center;
     width: 122px;
     max-width: 100%;
@@ -142,6 +144,9 @@ justify-content: space-between;
       max-width: 100%;
       margin-top: 40px;
     }
+    .div-12 {
+      margin-bottom: 10px;
+    }
   }
   .div-9 {
     display: flex;
@@ -159,7 +164,8 @@ justify-content: space-between;
   }
   .img-2 {
     aspect-ratio: 1.16;
-    object-fit: auto;
+    object-fit: contain;
+    margin-left: 20px;
     object-position: center;
     width: 50px;
     fill: var(--Blackish-Green, #121);
@@ -220,15 +226,17 @@ justify-content: space-between;
 
     margin: auto 0;
     color: white;
+    background-color: transparent !important;
   }
   .img-3 {
     aspect-ratio: 1;
-    object-fit: auto;
+    object-fit: contain;
     object-position: center;
     width: 14px;
     stroke-width: 1.403px;
     stroke: #fff;
   }
+
 
 
 

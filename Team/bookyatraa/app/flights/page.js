@@ -1,3 +1,4 @@
+"use client";
 import Header from '../Components/Header';
 import Flight from '../Components/Flight';
 import TravelCard from '../Components/TravelCard';
@@ -6,7 +7,8 @@ import Footer from '../Components/Footer';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../index.css'
 import Link from 'next/link';
-
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 
 function FlightPage() {
@@ -26,8 +28,8 @@ function FlightPage() {
           </nav>
         </div>
     <Header/>
-    <h1 className='heading container'>Flights</h1>
-    <Flight/>
+
+
     <h1 className='heading container'>Popular Destinations</h1>
     <TravelCard/>
     <h1 className='heading container'>
