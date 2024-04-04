@@ -8,7 +8,7 @@ export default function Footer() {
 
     <footer style={{marginBottom:"50px"}}>
       <div className="footer-outer d-flex gap-5 align-items-start pb-5 flex-wrap" style={{ marginLeft: "150px",marginBottom:"70px"}}>
-        <div className='logo' style={{ fontSize: "50px", fontStyle: "italic" }}>#BookYata</div>
+        <div className='logo' style={{ fontSize: "50px", fontStyle: "italic" }}>#BookYatra</div>
         <div className='explore'><h3 className='pt-4' style={{ fontWeight: "400", fontStyle: "italic" }}>Explore</h3><div className="d-flex flex-column justify-content-start">
         <Link href="./flights" className="footer-link">Flights</Link>
               <Link href="./hotel" className="footer-link">Hotels</Link>
