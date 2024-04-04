@@ -34,7 +34,7 @@ export default function Header() {
         url: 'https://booking-com15.p.rapidapi.com/api/v1/flights/searchDestination',
         params: {query: location},
         headers: {
-          'X-RapidAPI-Key': 'fdddf610c3msh03b7dcb71bf0185p123880jsn252e6220ad29',
+          'X-RapidAPI-Key': '56441d8fedmsh3939c522f3bc44ap126811jsnf885e170e83e',
           'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com'
         }
       };
@@ -122,7 +122,7 @@ export default function Header() {
             <img src={img.src} alt="" style={{ width: "100%" }} />
             <div className="out d-flex justify-content-center flex-column container align-items-end px-5 gap-3 py-5">
                 <h4 style={{ textAlign: "left", width: "100%" }}>Where are you flying ?</h4>
-                <div className="container flight-reserve d-flex align-items-center gap-1 flex-wrap" style={{ justifyContent: "space-between" }}>
+                <div className="container flight-reserve d-flex align-items-center flex-wrap" style={{ justifyContent: "space-between" }}>
                     <div className='flight-reserve-text px-3 py-2'><span className='top-head'>From</span>
                         <input type="text" className="top-main d-flex align-items-center" value={from} onChange={(e) => setFrom(e.target.value)} placeholder='Enter city' />
                     </div>

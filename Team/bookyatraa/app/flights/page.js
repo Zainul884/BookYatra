@@ -8,36 +8,51 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../index.css'
 import Link from 'next/link';
 import axios from 'axios';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 
 function FlightPage() {
 
-
-
+  const toggleNav = () => {
+    setIsNavExpanded(!isNavExpanded);}
+  
+    const [isNavExpanded, setIsNavExpanded] = useState(false);
   return (
     <div className="App">
-<div className="header-content">
-          <img src="./Images Capstone/LOGO without bg.png" alt="logo" className="logo-home" />
-          <nav className="homenavigation" style={{color:"black"}}>
-            <Link href="./homepage"className="link">Home</Link>
-            <Link href="./hotel" className="link">Hotel</Link>
-            <Link href="./flights"className="link">Flights</Link>
-            <Link href="./login" className="link">Login</Link>
-            <Link href="./signup" className="link">SignUp</Link>
-          </nav>
-        </div>
-    <Header/>
+    <header className="landingpage-header">
+        <Link href="/">
+          <div className="logo">
+            <Image
+              src="/Images Capstone/Logo For Landing Page.png"
+              alt="BookYatra Logo"
+              width={250}
+              height={80}
+            
+            /> 
+          </div>
+        </Link>
+        <button className="hamburger" onClick={toggleNav} aria-label="Toggle navigation">
+          {isNavExpanded ? '✖' : '☰'}
+        </button>
+        <nav className={`nav-links ${isNavExpanded ? 'nav-expanded' : ''}`} >
+          <Link href="/homepage" onClick={toggleNav} style={{color:"black"}}>Home</Link>
+          <Link href="/hotels" onClick={toggleNav} style={{color:"black"}}>Hotels</Link>
+          <Link href="/flights" onClick={toggleNav} style={{color:"black"}}>Flights</Link>
+          <Link href="/login"onClick={toggleNav} style={{color:"black"}}>Login</Link>
+          <Link href="/signup" onClick={toggleNav} style={{color:"black"}}>SignUp</Link>
+        </nav>
+      </header>
+      <Header />
 
 
-    <h1 className='heading container'>Popular Destinations</h1>
-    <TravelCard/>
-    <h1 className='heading container'>
-  Tips for Booking a Flight with BookYatra
-</h1>
-   <TravelTips/>
-   <hr/>
-   <Footer/>
+
+      <h1 className='heading container'>
+        Tips for Booking a Flight with BookYatra
+      </h1>
+      <TravelTips />
+      <hr />
+      <Footer />
     </div>
   );
 }
