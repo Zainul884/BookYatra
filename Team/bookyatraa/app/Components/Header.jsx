@@ -34,7 +34,7 @@ export default function Header() {
         url: 'https://booking-com15.p.rapidapi.com/api/v1/flights/searchDestination',
         params: {query: location},
         headers: {
-          'X-RapidAPI-Key': '56441d8fedmsh3939c522f3bc44ap126811jsnf885e170e83e',
+          'X-RapidAPI-Key': 'd5873eece3msh6c105f37489832ap16623ajsn3ba97a7a3aa6',
           'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com'
         }
       };
@@ -91,7 +91,7 @@ export default function Header() {
           toId: ToID,
           page:'1',
           adult:adult,
-          departDate: '2024-04-20',
+          departDate: '2024-04-30',
           currency_code: 'CAD',
           cabinClass:cabin
         },

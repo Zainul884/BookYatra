@@ -18,7 +18,7 @@ export default function Footer() {
 </div></div>
         <div className='social'><h3 className='pt-4' style={{ fontWeight: "400", fontStyle: "italic" }}>Follow Us</h3><div className='d-flex gap-3 mt-4'>
           <img src={im3.src} alt="" /><img src={im2.src} alt="" /><img src={im1.src} alt="" /></div></div>
-        <div className='leagal'><h3 className='pt-4' style={{ fontWeight: "400", fontStyle: "italic" }}> Legal</h3><p>Terms of use</p></div>
+        <div className='legal'><h3 className='pt-4' style={{ fontWeight: "400", fontStyle: "italic" }}> Legal</h3><p>Terms of use</p></div>
       </div>
     </footer>
   )
