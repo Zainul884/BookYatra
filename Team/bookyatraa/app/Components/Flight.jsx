@@ -1,5 +1,5 @@
 import React from 'react';
-import VectorPlane from '../../public/Images Capstone/paper Plane.png'
+import VectorPlane from '../../public/Images Capstone/airPlane.png'
 import rightArrow from '../../public/Images Capstone/Icon.png'
 export default function Flight({ flights,from,to,returnType }) {
 
