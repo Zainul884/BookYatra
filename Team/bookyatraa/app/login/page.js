@@ -4,7 +4,7 @@ import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, OAuthP
 import { auth } from '../firebaseConfig';
 import Link from 'next/link';
 import Image from 'next/image';
-import { GoogleLoginButton, AppleLoginButton } from 'react-social-login-buttons';
+import { GoogleLoginButton} from 'react-social-login-buttons';
 
 function LogInPage(){
   const toggleNav = () => {

@@ -4,8 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ChatBot from './api/chatbot';
 
-
-
 function LandingPage() {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
 

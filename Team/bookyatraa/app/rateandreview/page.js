@@ -1,67 +1,107 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import { FaTrashAlt } from "react-icons/fa";
+import { database } from '../firebaseConfig'; // Ensure this path is correct
+import { ref, push, onValue, remove } from "firebase/database";
 
 const Rate = () => {
-    const [rate, setRate] = useState(0);
+    const [rate, setRate] = useState(null);
     const [review, setReview] = useState('');
     const [reviews, setReviews] = useState([]);
-    const maxChars = 150; 
+    const maxChars = 150;
 
+    // Fetch reviews when component mounts
+    useEffect(() => {
+        const reviewsRef = ref(database, 'reviews/');
+        onValue(reviewsRef, (snapshot) => {
+            const data = snapshot.val();
+            const loadedReviews = [];
+            for (const key in data) {
+                loadedReviews.push({
+                    id: key,
+                    rate: data[key].rate,
+                    text: data[key].text
+                });
+            }
+            setReviews(loadedReviews);
+        });
+    }, []);
+
+    // Post a new review to the database
     const postReview = () => {
-        if (review.trim() !== "") {
-            setReviews([...reviews, { rate, text: review }]);
-            setReview(''); // Clear the review text field
-            alert('Review posted!');
+        if (review.trim() !== "" && rate) {
+            const reviewsRef = ref(database, 'reviews/');
+            push(reviewsRef, { rate, text: review })
+            .then(() => {
+                setReview('');
+                setRate(null); // Reset the rate after posting
+                alert('Review posted!');
+            })
+            .catch((error) => {
+                console.error("Error posting review: ", error);
+                alert('Failed to post review!');
+            });
+        } else {
+            alert('Please fill in the review and select a rating before posting.');
         }
     };
 
-    const deleteReview = (indexToDelete) => {
-        setReviews(reviews.filter((_, index) => index !== indexToDelete));
+    // Delete a review from the database
+    const deleteReview = (reviewId) => {
+        const reviewRef = ref(database, `reviews/${reviewId}`);
+        remove(reviewRef)
+        .catch((error) => {
+            console.error("Error deleting review: ", error);
+            alert('Failed to delete review!');
+        });
     };
 
+    // Handle text change and enforce max character limit
     const handleTextChange = (e) => {
         setReview(e.target.value.slice(0, maxChars));
     };
 
     return (
         <Box className="rate-container">
-            
             <Typography component="legend">Rate this</Typography>
             <Rating
                 name="half-rating"
-                defaultValue={2.5}
                 precision={0.5}
                 value={rate}
                 onChange={(event, newValue) => {
                     setRate(newValue);
                 }}
             />
-            {rate > 0 && <Typography className="rating-text">{`${rate}/5`}</Typography>}
+            {rate && <Typography className="rating-text">{`${rate}/5`}</Typography>}
             <div className="textarea-container">
-            <textarea
-                className="text-area"
-                value={review}
-                onChange={handleTextChange}
-                placeholder="Write your review here..."
-                maxLength={maxChars} 
-            />
-             <Typography className="char-count">
-                {`${review.length}/${maxChars}`}
-             </Typography>
+                <textarea
+                    className="text-area"
+                    value={review}
+                    onChange={handleTextChange}
+                    placeholder="Write your review here..."
+                    maxLength={maxChars}
+                />
+                <Typography className="char-count">
+                    {`${review.length}/${maxChars}`}
+                </Typography>
             </div>
             <button className="button" onClick={postReview}>Post Review</button>
-            <Box className="reviews-container">
-                {reviews.map((reviewItem, index) => (
-                    <Box key={index} className="review-item">
-                        <Typography component="p">{`${reviewItem.rate}/5 - ${reviewItem.text}`}</Typography>
-                        <FaTrashAlt className="review-delete-icon" onClick={() => deleteReview(index)} />
-                    </Box>
-                ))}
-            </Box>
+            {reviews.map((reviewItem, index) => ( // Make sure to use 'reviewItem', not 'review'
+          <Box key={index} className="testimonial-box">
+            <Typography component="p" className="testimonial-text">
+              "{reviewItem.text}"
+            </Typography>
+
+            <Typography component="p" className="testimonial-author">
+              -Rated {reviewItem.rate}/5
+            </Typography>
+            <FaTrashAlt className="review-delete-icon" onClick={() => deleteReview(reviewItem.id)} />
+          </Box>
+        ))}
+        
         </Box>
     );
 };
