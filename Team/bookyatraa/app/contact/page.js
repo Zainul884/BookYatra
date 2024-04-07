@@ -38,7 +38,7 @@ export default function Contact() {
         <button className="hamburger" onClick={toggleNav} aria-label="Toggle navigation">
           {isNavExpanded ? '✖' : '☰'}
         </button>
-        <nav className={`nav-links1 ${isNavExpanded ? 'nav-expanded' : ''}`}>
+        <nav className={`nav-links ${isNavExpanded ? 'nav-expanded' : ''}`}>
           <Link href="/homepage" onClick={toggleNav}>Home</Link>
           <Link href="/hotels" onClick={toggleNav}>Hotels</Link>
           <Link href="/flights" onClick={toggleNav}>Flights</Link>

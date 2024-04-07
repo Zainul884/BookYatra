@@ -1,0 +1,873 @@
+.container1 {
+
+  margin: 0 auto;
+  padding: 20px; /* Added padding for internal spacing */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+}
+
+
+
+.searchContainer {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/gb.jpg') no-repeat center / cover;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally in the container */
+  padding: 40px 20px; /* More padding for internal spacing */
+  color: #FFFFFF; /* Ensures text is white for contrast */
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #F5F5F5; /* Slightly off-white for a softer look */
+  font-family: 'Roboto', sans-serif; /* Modern, readable font */
+  color: #333; /* Dark gray for better readability */
+}
+
+
+
+.fxVS {
+  background-color: #007bff; /* Updated to a more modern shade of blue */
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  gap: 10px; /* Increased gap for better spacing */
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px; /* Adjusted gap for consistency */
+  padding: 20px 0; /* Changed from margin to padding for consistency */
+}
+
+.signOut {
+  position: fixed;
+  top: 20px; /* 20px from the top */
+  right: 30px; /* 20px from the right */
+  display: flex;
+  justify-content: flex-end;
+   /* Adjusted for consistency */
+}
+
+.searchLine {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 50px; /* Changed to padding for consistency */
+}
+
+.p2 {
+  color: white;
+  font-size: 36px; /* Adjusted for better readability */
+  font-weight: bold;
+  max-width: 100%; /* Changed for responsiveness */
+  padding: 0 20px; /* Added padding for text spacing */
+}
+
+.formContainer {
+  background-color: white;
+  padding: 20px; /* Increased padding for better spacing */
+  border-radius: 12px;
+  display: flex;
+  margin: 30px auto; /* Centered and added vertical spacing */
+  width: 80%; /* Adjusted for responsiveness */
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Added shadow for depth */
+}
+
+.label {
+  margin-bottom: 10px; /* Adjusted spacing */
+  font-weight: bold;
+  color: #333; /* Darker for better readability */
+}
+
+input {
+  width: calc(100% - 20px); /* Adjusted for padding */
+  padding: 10px;
+  border: 1px solid #ccc; /* Lightened border */
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #f0f0f0;
+  color: #333; /* Darker for better readability */
+  outline: none; /* Removes focus border */
+}
+
+input:focus {
+  border-color: #007bff; /* Highlight input on focus */
+}
+
+.button {
+  padding: 12px 24px; /* More balanced padding */
+  margin-top: 20px; /* Adjusted margin */
+  border: none; /* Removing border */
+  border-radius: 8px;
+  margin-inline-start: 20px;
+  background-color: #0056b3; /* Slightly darker for better contrast */
+  color: white;
+  font-size: 16px; /* Adjusted for better usability */
+  cursor: pointer;
+  display: inline-flex; /* Changed for better alignment */
+  justify-content: center;
+  align-items: center;
+}
+
+.favoriteButton1 {
+  background-color: #0056b3;  /* Changed to a success color */
+  color: white;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  margin: 5px;
+}
+
+.favoriteButton1:hover {
+  background-color: #218838; /* Darker shade on hover */
+}
+
+.header2 {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.linesHotel{
+  font-size: 24px;
+  color: #333;
+  max-width: 900px;
+  font-weight: bold;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.header2{
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+}
+.line{
+  font-size: 50px;
+  color: black;
+  
+  max-width: 750px;
+  font-weight: bold;
+  
+  
+}
+.line2{
+  font-size: 20px;
+  color: grey;
+  
+  max-width: 700px;
+  align-items: center;
+  
+}
+
+.resultsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+  gap: 20px;
+  padding: 20px;
+  margin: auto; 
+}
+
+.resultItem2 {
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border: 1px solid #e7e7e7;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Clean and professional font */
+  color: #333; 
+}
+
+.resultItem2 h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px; /* Adds space below the hotel name */
+}
+
+.resultItem2 p {
+  margin: 5px 0; /* Adds vertical spacing between paragraphs */
+  font-size: 16px; /* Ideal for readability */
+  
+}
+
+.resultItem2 .currency, .resultItem2 .price {
+  font-weight: 600; /* Slightly bolder for emphasis */
+  color: #0056b3; /* Theme color for key info */
+}
+
+
+.hotelName1 {
+  font-size: 24px; /* Adjusted for balance */
+  font-weight: bold;
+  color: #0056b3; /* Theme color for consistency */
+  margin-bottom: 10px; /* Added spacing */
+}
+
+.hotelInfo1 {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px; /* Added spacing */
+}
+
+.favoritesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.favcontainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.resultItem3 {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/gb.jpg') no-repeat center center;
+  background-size: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  color: white;
+}
+
+.resultItem3:hover {
+  transform: scale(1.05);
+}
+
+.favCard {
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.favHotelName, .favHotelPrice {
+  margin: 0;
+}
+.deleteButton {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  cursor: pointer;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
+}
+
+.showfavcon1 {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.toggleFavoritesButton1 {
+  align-self: center;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggleFavoritesButton1:hover {
+  background-color: #0069d9;
+}
+
+.status {
+  text-align: center;
+  color: #28a745;
+}
+
+.f1 {
+  font-size: 36px; /* Adjusted for better legibility */
+  font-weight: 600;
+  color: #333; /* Darker for improved readability */
+}
+
+.f1line {
+  font-size: 16px; /* Increased size for readability */
+  margin-top: 4px; /* Adjusted spacing */
+}
+
+.fav {
+  margin-left: 20px;
+}
+
+.resultItem3 {
+  padding: 20px;
+  height: 300px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.12); /* Adjusted shadow for subtlety */
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/gb.jpg') no-repeat center center;
+  background-size: cover; /* Ensured background covers the area */
+}
+
+.showfavcon {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  color: #333; /* Consistent text color for better readability */
+}
+
+.toggleFavoritesButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #17a2b8; /* Changed for a fresh look */
+  color: white;
+  border-radius: 5px;
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.favCard {
+  width: max-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.favHotelName {
+  font-size: 28px; /* Adjusted for balance */
+  color: white;
+  font-weight: 600;
+  margin: 0; /* Ensure there's no default margin */
+}
+
+.favHotelPrice {
+  font-size: 20px;
+  color: white;
+  margin: 0; /* Ensure there's no default margin */
+}
+
+.price {
+  font-size: 24px; /* Adjusted for consistency */
+  color: #444; /* Ensured readability */
+}
+
+
+
+.status{
+  color: #444;
+  margin-left: 10px;
+}
+
+
+.favcontainer{
+  
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap:10px;
+  justify-content: center;
+  padding: 10px;
+}
+
+
+
+.deleteButton {
+  background-color: #ff0000;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  gap:10px;
+}
+
+
+
+.blck{
+  height: 1px;
+  background-color: black; 
+  border: none;
+  margin-top: 100px;
+  
+}
+
+.footer{
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 0px 60px 20px;
+  margin-top: 10px;
+  max-width: 800px;
+  color: black;
+}
+
+.foot-title{
+  font-size: 47px;
+  font-weight: 400;
+  font-style: italic;
+  font-family: 'Judson', serif;
+  margin-top: -22px;
+}
+
+.footer-nav{
+  display: flex;
+  flex-direction: column;
+  font-size: 17px;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.follow-links, .terms{
+  display: flex;
+  justify-content: space-between;
+  width : 110px;
+  align-items: center;
+}
+
+.foot-head{
+  font-size: 28.5px;
+  font-weight: 400;
+  font-style: italic;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.ModalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75); /* Dark backdrop for contrast */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050; /* Ensure it's above other content */
+}
+
+.ModalContent {
+  background-color: #fff;
+  color: #333;
+  width: 100vw; /* Full viewport width */
+  height: 100vh; /* Full viewport height */
+  border-radius: 0; /* Optional: Remove border-radius for full-screen */
+  padding: 2rem;
+  box-shadow: none; /* Optional: Remove box-shadow for full-screen */
+  overflow-y: auto; /* Scroll inside modal if content overflows */
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-close-button, .bookButton {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-close-button:hover {
+  background-color: #0056b3;
+}
+
+.modal-body {
+  margin-top: 20px; /* Adjust as needed */
+}
+
+.bookButton {
+ 
+    background-color: #0056b3;  /* Changed to a success color */
+    color: white;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    margin: 5px;
+
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75); /* Dark backdrop for contrast */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050; /* Ensure it's above other content */
+}
+
+.cartModal {
+  background-color: #fff;
+  color: #333;
+  width: 100vw; /* Full viewport width */
+  height: 100vh; /* Full viewport height */
+  border-radius: 0; /* Optional: Remove border-radius for full-screen */
+  padding: 2rem;
+  box-shadow: none; /* Optional: Remove box-shadow for full-screen */
+  overflow-y: auto; /* Scroll inside modal if content overflows */
+}
+
+
+.ModalBackdrop {
+  
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ModalContent {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+}
+
+.modal-header, .modal-body {
+  margin-bottom: 20px;
+}
+
+.modal-header button, .modal-body button, .bookButton, .favoriteButton1 {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modal-header button {
+  background-color: #ddd;
+  color: #333;
+}
+
+.favoriteButton1, .bookButton {
+  background-color: #007bff;
+  color: white;
+}
+
+.favoriteButton1:hover, .bookButton:hover {
+  background-color: #0056b3;
+}
+
+.modal-body button {
+  margin-right: 10px;
+}
+
+.modal-body button:last-child {
+  margin-right: 0;
+}
+
+.addPerson {
+  background-color: #28a745;
+  color: white;
+}
+
+.addPerson:hover {
+  background-color: #218838;
+}
+
+.minusPerson {
+  background-color: #dc3545;
+  color: white;
+}
+
+.minusPerson:hover {
+  background-color: #c82333;
+}
+
+h2, h3 {
+  margin-bottom: 15px;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+
+.hotelDetailsMod {
+  font-size: 40px;
+  justify-content: center;
+  align-content: center;
+ 
+}
+
+.hotelInfoMod {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 500px;
+}
+
+.hotelInfoMod:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  
+  background-color: rgba(0, 0, 0, 0.699);
+}
+
+.hotelName {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  transition: color 0.3s ease;
+}
+
+.hotelDetail {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+.hotelInfoMod:hover .hotelName,
+.hotelInfoMod:hover .hotelDetail {color: white;
+
+ 
+}
+
+.maindiv1 {
+  display: flex;
+  justify-content: space-between; /* Ensures that children elements are spaced out */
+  align-items: flex-start; /* Aligns items at the start of the container */
+  flex-wrap: wrap; /* Allows items to wrap in smaller screens */
+  gap: 20px; /* Adds space between the two child divs */
+  padding: 20px; /* Padding around the entire layout */
+}
+
+.amenitiesMod, .hotelInfoMod1 {
+  flex: 1; /* Allows both divs to grow and take up equal space */
+  max-width: calc(50% - 10px); /* Adjusts max-width to account for gap */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f8f9fa;
+}
+
+.amenitiesMod h3, .hotelInfoMod1 h1 {
+  color: #495057;
+  margin-bottom: 16px;
+}
+
+.amenitiesMod ul, .hotelInfoMod1 div {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.amenitiesMod ul li, .hotelInfoMod1 .hotelInfoItem1 {
+  background-color: #ffffff;
+  color: #212529;
+  padding: 10px 15px;
+  margin-bottom: 8px;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.amenitiesMod ul li:hover, .hotelInfoMod1 .hotelInfoItem1:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Specific hover effect for amenities */
+.amenitiesMod ul li:hover {
+  background-color: #0066cc;
+  color: white;
+}
+
+.hotelInfoItem1::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .maindiv1 {
+    flex-direction: column;
+    align-items: center;
+  }
+  .amenitiesMod, .hotelInfoMod1 {
+    max-width: 100%;
+  }
+}
+
+
+
+.additionalHotelMod {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 300px; 
+  margin: 20px ;
+}
+
+.additionalHotelMod h3 {
+  color: #333;
+  margin-bottom: 16px;
+  font-size: 24px;
+}
+
+.hotelInfoItem2 {
+  background-color: #ffffff;
+  color: #212529;
+  padding: 10px ;
+  margin-bottom: 8px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.hotelInfoItem2:last-child {
+  margin-bottom: 0;
+}
+
+.hotelInfoItem2:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+strong {
+  font-weight: bold;
+}
+
+span {
+  font-weight: normal;
+  color: #495057;
+}
+
+
+.usersInfoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f8f9fa;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.usersInfoMod .infoItem {
+  margin-bottom: 10px;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.usersInfoMod .infoItem strong {
+  font-weight: bold;
+}
+
+.usersInfoMod .infoItem span {
+  float: right;
+  color: #495057;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.actionButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.addPerson {
+  background-color: #4CAF50; 
+  color: white;
+}
+
+.minusPerson {
+  background-color: #f44336; 
+  color: white;
+}
+
+.actionButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.alert {
+  text-align: center;
+  color: #d9534f; 
+  margin-top: 15px;
+}
+
+.infoItem::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@media (max-width: 768px) {
+  .actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+
+
+
+
+
+
+
+
+@media (min-width: 768px) {
+  .ModalContent {
+    width: 80%;
+    max-width: 800px;
+  }
+}

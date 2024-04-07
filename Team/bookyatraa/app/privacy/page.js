@@ -11,11 +11,11 @@ function PrivacyPolicy() {
     };
     return (
         
-        <div className="landing-page">
+        <div className="privacy-policy-page">
         <header className="landingpage-header">
             <Link href="/">
                 <div className="logo">
-                    <Image src="/Images Capstone/Logo For Landing Page.png" alt="BookYatra Logo" width={250} height={80} />
+                    <Image  src="/Images Capstone/LOGO without bg.png"alt="BookYatra Logo" width={250} height={80} />
                 </div>
             </Link>
             <button onClick={toggleNav} className="hamburger" aria-label="Toggle navigation">
@@ -29,7 +29,7 @@ function PrivacyPolicy() {
                 <Link href="/signup"><span onClick={toggleNav}>SignUp</span></Link>
             </nav>
         </header>
-        <div className="privacy-policy-page">
+       
             <div className="privacy-container">
                 <h1 className="privacy-title">Privacy Policy</h1>
                 <div className="privacy-content">
@@ -52,7 +52,6 @@ function PrivacyPolicy() {
                     <p>If you have any questions about this Privacy Policy, you can contact us at: info@bookyatra.com</p>
                 </div>
             </div>
-        </div>
         </div>
     );
 }

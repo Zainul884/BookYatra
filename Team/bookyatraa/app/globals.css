@@ -57,15 +57,11 @@ html, body {
   margin-left: auto;
 }
 .nav-links a {
-  color: rgb(247, 247, 249);
+  color: #1e5a78;
   text-decoration: none;
   margin: 0 1rem;
   transition: color 0.3s;
   font: large bold;
-}
-.nav-links a:hover {
-  color: #1e5a78; 
-  text-decoration: underline ;
 }
 .main-content {
   position: absolute;
@@ -160,7 +156,7 @@ html, body {
     cursor: pointer;
     padding: 0;
     z-index: 1001;
-    color:#fff;
+    color: #1e5a78;
   }
   .bar {
     width: 100%;
@@ -693,9 +689,9 @@ input{
   width: 700px;
   margin: auto;
   padding: 20px;
-  background-color:lightcyan;
+  background-color: white;
   border-radius: 8px;
-  box-shadow: 8px 8px 8px rgba(171, 236, 233, 0.1);
+  box-shadow: 0 4px 4px 4px lightsteelblue;
 }
 .terms-heading {
   text-align: center;
@@ -755,6 +751,7 @@ input{
   transition: color 0.3s;
   margin-bottom: 5px;
   color: #0a6377;
+  margin-top: 20px;
 }
 
 .term-title:hover {
@@ -792,7 +789,7 @@ input{
   cursor: pointer;
   margin-top: 5px;
   font:medium bold;
-  margin-left: 300px;
+  margin-left: 30px;
   margin-bottom: -15px;
 }
 .term-item .term-content {
@@ -822,13 +819,13 @@ input{
 }
 .privacy-container {
   padding: 20px;
-  background-color: lightcyan;
+  background-color: white;
   border: 1px solid #ddd;
   border-radius: 5px;
   max-width: 800px;
   width: calc(100% - 40px); 
   box-sizing: border-box;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 4px 4px lightsteelblue;
   overflow-y: auto; 
   position: absolute;
   top: 100px; 
@@ -1011,7 +1008,7 @@ input{
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: lightcyan;
+  background-color: white;
 }
 .contact-container {
   display: flex;
@@ -1019,7 +1016,7 @@ input{
   align-items: center;
   background-color:lightcyan; 
   margin-top: 80px;
-  box-shadow:  8px 8px 8px 8px lightblue;
+  box-shadow:  0 4px 4px 4px lightsteelblue;
 }
 .form-container {
   width: 100%;
@@ -1080,7 +1077,7 @@ textarea {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-right: 30px;
+ 
   margin-top: 10px;
 }
 
@@ -1090,7 +1087,7 @@ textarea {
 /*about us page*/
 .about-page {
   margin: 0 auto; 
-  background-color: lightcyan;
+  background-color:white;
   padding-top: 80px;
   padding-bottom: 10px ;
 }
@@ -1099,7 +1096,7 @@ textarea {
   padding: 30px;
   border-radius: 8px;
   margin: 20px auto; 
-  box-shadow: 8px 8px 8px 8px lightblue;
+  box-shadow: 0 4px 4px 4px lightsteelblue;
   max-width: 1200px;
   display: flex;
   flex-direction: column;
@@ -1153,7 +1150,7 @@ textarea {
   padding: 30px;
   border-radius: 8px;
   margin: 20px auto; 
-  box-shadow: 8px 8px 8px 8px lightblue;
+  box-shadow: 0 4px 4px 4px lightsteelblue;
   max-width: 1200px; 
 }
 .team-section h2 {
@@ -1173,7 +1170,7 @@ textarea {
   border-radius: 12px;
   padding: 30px;
   width: calc(33.333% - 40px);
-  box-shadow: 8px 8px 8px 8px lightsteelblue; 
+  box-shadow: 0 4px  4px 4px lightsteelblue; 
   margin-bottom: 20px; 
   text-align: center;
   transition: transform 0.3s ease;
@@ -1204,20 +1201,8 @@ textarea {
   font:medium bold;
   color: #666666;
 }
-.nav-links1{
-  margin-left: auto;
-}
-.nav-links1 a {
-  color: black;
-  text-decoration: none;
-  margin: 0 1rem;
-  transition: color 0.3s;
-  font: large bold;
-}
-.nav-links1 a:hover {
-  color: #1e5a78; 
-  text-decoration: underline ;
-}
+@media screen and (max-width: 600px) {}
+
 
 /* Home Page */
 .homepage {
@@ -1244,10 +1229,7 @@ textarea {
 .link{
   margin-right: 30px;
   font :large bold;
-}
-.link:hover{
-  color: #1e5a78;
-  text-decoration: underline;
+  color :#0a5d8e;
 }
 
 .line{
@@ -1473,51 +1455,6 @@ textarea {
   color: #4200FF;
 }
 
-.testimonalBox {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  margin: 0 auto;
-  justify-content: center;
-  align-items: center;
-  width: 70%;
-  max-width: 800px;
-  gap: 90px;  
-  margin-top: 40px;
-}
-
-.review {
-  border:  0.1px solid rgb(199, 196, 196);
-  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  padding: 10px;
-  padding-top: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.review-pic {
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-}
-
-.review-title, .review-rating{
-  font:large bold;
-  padding-top: 10px;
-}
-
-.review-words{
-  padding-block: 20px;
-  font:large bold;
-}
-
-.review-date{
-  color: gray;
-  padding-bottom: 20px;
-}
-
 .poster{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1541,7 +1478,7 @@ textarea {
 .poster-title{
   font:x-large bold;
   color:#0a5d8e;
-  text-shadow: #60d2ec 1px 1px 1px;
+  
 }
 
 .poster-words{
@@ -1568,7 +1505,7 @@ textarea {
   font:xx-large bold;
   color: #0a5d8e;
   margin-top: -11px;
-  text-shadow: #60d2ec 1px 1px 1px;
+ 
 }
 
 .footer-nav{
@@ -1591,5 +1528,5 @@ textarea {
   font:x-large bold;
   margin-bottom: 6px;
   color:#0a5d8e;
-  text-shadow: #60d2ec 1px 1px 1px;
+ 
 }
