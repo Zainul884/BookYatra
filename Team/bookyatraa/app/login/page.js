@@ -10,13 +10,11 @@ function LogInPage(){
   const toggleNav = () => {
     setIsNavExpanded(!isNavExpanded);}
   
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isNavExpanded, setIsNavExpanded] = useState(false);
 
-    // Handler for form submission for email/password login
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!email || !password) {
@@ -27,20 +25,19 @@ function LogInPage(){
         try {
             await signInWithEmailAndPassword(auth, email, password);
             console.log('Logged in successfully');
-            // Redirect to another page/component upon success
+      
             window.location.href = './hero';
         } catch (error) {
             console.error('Error logging in:', error);
             setError(error.message);
         }
     };
-    // Function to handle Google sign-in
     const handleGoogleSignIn = async () => {
       const provider = new GoogleAuthProvider();
       try {
           await signInWithPopup(auth, provider);
           console.log('Logged in with Google');
-          // Redirect to another page/component upon success
+  
           window.location.href = './hero';
       } catch (error) {
           console.error('Error logging in with Google:', error);
@@ -48,19 +45,6 @@ function LogInPage(){
       }
   };
 
-  // Function to handle Apple sign-in
-  const handleAppleSignIn = async () => {
-      const provider = new OAuthProvider('apple.com');
-      try {
-          await signInWithPopup(auth, provider);
-          console.log('Logged in with Apple');
-          // Redirect to another page/component upon success
-          window.location.href = '../homepage';
-      } catch (error) {
-          console.error('Error logging in with Apple:', error);
-          setError(error.message);
-      }
-  };
 return (
     <div className="landing-page">
       <header className="landingpage-header">

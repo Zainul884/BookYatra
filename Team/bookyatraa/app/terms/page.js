@@ -81,11 +81,11 @@ function TermsOfUse() {
     const toggleNav = () => setIsNavExpanded(!isNavExpanded);
 
     return (
-        <div className="landing-page">
+        <div className="terms-of-use-page">
             <header className="landingpage-header">
                 <Link href="/">
                         <div className="logo">
-                            <Image src="/Images Capstone/Logo For Landing Page.png" alt="BookYatra Logo" width={250} height={80} />
+                            <Image  src="/Images Capstone/LOGO without bg.png" alt="BookYatra Logo" width={250} height={80} />
                         </div>
                 </Link>
                 <button onClick={toggleNav} className="hamburger" aria-label="Toggle navigation">
@@ -99,47 +99,47 @@ function TermsOfUse() {
                     <Link href="/signup"onClick={toggleNav}>SignUp</Link>
                 </nav>
             </header>
-            <div className="terms-of-use-page">
-            <div className="terms-container">
-            <h1 className="terms-heading">Terms of Use</h1>
-            <div className="terms-controls">
-                <input
-                    type="text"
-                    placeholder="Search terms..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="terms-search-input"
-                />
-                <select
-                    value={sortOrder}
-                    onChange={(e) => setSortOrder(e.target.value)}
-                    className="terms-sort-select"
-                >
-                    <option value="">Sort By</option>
-                    <option value="ascending">Title Ascending</option>
-                    <option value="descending">Title Descending</option>
-                </select>
-            </div>
-            <div className="terms-list">
-                {filteredTerms.map((term) => (
-                    <div key={term.id} className="term-item">
-                        <button className="term-title" onClick={() => toggleTerm(term.id)}>
-                            {term.title}
+            
+                <div className="terms-container">
+                    <h1 className="terms-heading">Terms of Use</h1>
+                        <div className="terms-controls">
+                            <input
+                                type="text"
+                                placeholder="Search terms..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="terms-search-input"
+                            />
+                            <select
+                                value={sortOrder}
+                                onChange={(e) => setSortOrder(e.target.value)}
+                                className="terms-sort-select"
+                            >
+                                <option value="">Sort By</option>
+                                <option value="ascending">Title Ascending</option>
+                                <option value="descending">Title Descending</option>
+                            </select>
+                        </div>
+                        <div className="terms-list">
+                            {filteredTerms.map((term) => (
+                                <div key={term.id} className="term-item">
+                                    <button className="term-title" onClick={() => toggleTerm(term.id)}>
+                                        {term.title}
+                                    </button>
+                                    {openTermId === term.id && (
+                                        <div className="term-content">
+                                            <p>{term.content}</p>
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                        <button onClick={handlePrint} className="terms-print-button">
+                            Print
                         </button>
-                        {openTermId === term.id && (
-                            <div className="term-content">
-                                <p>{term.content}</p>
-                            </div>
-                        )}
                     </div>
-                ))}
-            </div>
-            <button onClick={handlePrint} className="terms-print-button">
-                Print
-            </button>
-        </div>
-        </div>
-        </div>
+                </div>
+            
     );
 };
 

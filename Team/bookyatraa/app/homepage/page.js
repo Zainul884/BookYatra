@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import Rate from '../rateandreview/page';
 import { ref, onValue } from "firebase/database";
-import { database } from '../firebaseConfig'; // Ensure this path is correct
+import { database } from '../firebaseConfig'; 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
@@ -125,7 +125,7 @@ function Home() {
           <img src="./Images Capstone/LOGO without bg.png" alt="logo" className="logo-home" />
           <nav className="homenavigation">
             <Link href="./homepage"className="link">Home</Link>
-            <Link href="./hotel" className="link">Hotel</Link>
+            <Link href="./hotels" className="link">Hotels</Link>
             <Link href="./flights"className="link">Flights</Link>
             <Link href="./login" className="link">Login</Link>
             <Link href="./signup" className="link">Sign Up</Link>
@@ -154,7 +154,7 @@ function Home() {
               <p className='hotelWords'>Search hotels & Places Hire to our most popular destinations</p>
               <div className='hotelSearchBox'>
                 <img src="./Images Capstone/Vector.png" alt='vector' className='vector-pic'/>
-                <Link href="./hotel" className="hotellink">Show Hotels</Link>
+                <Link href="./hotels`" className="hotellink">Show Hotels</Link>
               </div>
             </div>
           </div>
@@ -206,7 +206,7 @@ function Home() {
           <div className='container'>
             <div className='flightExploreBox'>
               <img src="./Images Capstone/VectorWhite.png" alt='vector' className='vectorWhite-pic'/>
-              <Link href="./hotel" className="flightExpoLink">Explore Now</Link>
+              <Link href="./hotels" className="flightExpoLink">Explore Now</Link>
             </div>
           </div>
         </div>

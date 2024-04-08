@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-
-
 const teamMembers = [
   { name: 'Mosmee Desai', role: 'Lead Developer', imageUrl: '/Images Capstone/mos2.JPG', bio: 'Mosmee is a UI/UX guru, crafting intuitive interfaces.' },
   { name: 'Karm Desai', role: 'Lead Developer', imageUrl: '/Images Capstone/Karm.jpg', bio: 'Karm is a passionate coder with a love for agile methodologies.' },
@@ -15,7 +13,6 @@ const teamMembers = [
   
 ];
 
-
 export default function About() {
     const [isNavExpanded, setIsNavExpanded] = useState(false);
 
@@ -23,7 +20,6 @@ export default function About() {
 
     return (
         <div className="about-page">
-           
             <header className="landingpage-header">
             <Link href="/">
                 <div className="logo">
@@ -37,14 +33,14 @@ export default function About() {
                 </Link>
                 <button className="hamburger" onClick={toggleNav} aria-label="Toggle navigation">
                     {isNavExpanded ? '✖' : '☰'}
-                </button>
-                <nav className={`nav-links1 ${isNavExpanded ? 'nav-expanded' : ''}`}>
+                    </button>
+                    <nav className={`nav-links ${isNavExpanded ? 'nav-expanded' : ''}`}>
                     <Link href="/homepage" onClick={toggleNav}>Home</Link>
                     <Link href="/hotels" onClick={toggleNav}>Hotels</Link>
-                    <Link href="/flights" onClick={toggleNav}>Flights</Link>
-                    <Link href="/login" onClick={toggleNav}>Login</Link>
+                    <Link href="/Components" onClick={toggleNav}>Flights</Link>
+                    <Link href="/login"onClick={toggleNav}>Login</Link>
                     <Link href="/signup" onClick={toggleNav}>SignUp</Link>
-                </nav>
+                    </nav>
             </header>
             <div className="about-mission-values-container">
                 <h1>About Us</h1>
