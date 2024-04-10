@@ -1,7 +1,7 @@
 import React from 'react';
 import VectorPlane from '../../public/Images Capstone/airPlane.png'
 import rightArrow from '../../public/Images Capstone/Icon.png'
-export default function Flight({ flights,from,to,returnType }) {
+export default function Flight({ flights,from,to,returnType,returnDate,departureDate }) {
 
     return (
         <div className='d-flex container ticket-container flex-wrap gap-4 justify-content-center mt-5'>
@@ -12,7 +12,9 @@ export default function Flight({ flights,from,to,returnType }) {
                             <div className="div-3">
                                 <img loading="lazy" src={flight.logoUrl} className="img" alt="Flight Image" />
                                 <div className="div-4">{from}</div>
-                                <div className="div-5">One-Way Trip</div>
+                                <div className="div-5">Round Trip</div>
+                                <div className="div-6">Date:</div>
+                                <div className="">{departureDate+"  "+returnDate}</div>
                             </div>
                         </div>
                         <div className="column-2">

@@ -19,12 +19,23 @@ export default function Header() {
     const [start,setStart] = useState("");
     const [end,setEnd] = useState("");
     const [cabin,setCabin]=useState("ECONOMY");
-    
+    const [returndate,setReturndate] = useState('');
+    const [departDate,setDepartDate] = useState('')
 
     let flag=true;
     let FromId="";
     let ToID="";
 
+    function formatDate(date, format) {
+      const map = {
+          mm: String(date.getMonth() + 1).padStart(2, '0'),
+          dd: String(date.getDate()).padStart(2, '0'),
+          yy: date.getFullYear().toString().slice(-2),
+          yyyy: date.getFullYear()
+      };
+  
+      return "20"+format.replace(/mm|dd|yy|yyyy/gi, matched => map[matched]);
+  }
 
 
  function loactionSearch(location){
@@ -79,7 +90,8 @@ export default function Header() {
     
      async function handleShowFlights(){
 
-
+      setReturndate(formatDate(value[1],'yy-mm-dd'));
+      setDepartDate(formatDate(value[0],'yy-mm-dd'));
 
         const fetchData = async () => {
             
@@ -91,7 +103,8 @@ export default function Header() {
           toId: ToID,
           page:'1',
           adult:adult,
-          departDate: '2024-04-30',
+          departDate: formatDate(value[0],'yy-mm-dd'),
+          returnDate:formatDate(value[1],'yy-mm-dd'),
           currency_code: 'CAD',
           cabinClass:cabin
         },
@@ -140,7 +153,7 @@ export default function Header() {
             </div>
         </div>
         <h1 className='heading container'>Flights</h1>
-       {isLoading?<h1 className='mt-5' style={{textAlign:'center'}}>Loading ...</h1> : data.length!==0 && <Flight flights={data} from={start} to={end} returnType={returnType} />}
+       {isLoading?<h1 className='mt-5' style={{textAlign:'center'}}>Loading ...</h1> : data.length!==0 && <Flight flights={data} from={start} to={end} returnType={returnType} returnDate={returndate} departureDate={departDate}/>}
         </>
     );
 }
