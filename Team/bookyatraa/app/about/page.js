@@ -9,7 +9,7 @@ const teamMembers = [
   { name: 'Zainul Malik', role: 'Lead Developer', imageUrl: '/Images Capstone/Zain.jpg', bio: 'Zainul is an expert in cloud solutions and scalable architectures.' },
   { name: 'Sourabh Thakur', role: 'Lead Developer', imageUrl: '/Images Capstone/Sourabh.jpg', bio: 'Sourabh is our security expert, keeping our data safe and sound.' },
   { name: 'Prit Patel', role: 'Lead Developer', imageUrl:'/Images Capstone/prit.jpg', bio: 'Prit brings innovative ideas to the team, focusing on user experience.' },
-  { name: 'Pranjal Jain', role: 'Lead Developer', imageUrl: '/images/profile3.png', bio: 'Prit brings innovative ideas to the team, focusing on user experience.' },
+  { name: 'Pranjal Jain', role: 'Lead Developer', imageUrl: '/Images Capstone/Pranjal.jpg', bio: 'Prit brings innovative ideas to the team, focusing on user experience.' },
   
 ];
 

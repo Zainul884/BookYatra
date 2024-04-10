@@ -409,11 +409,9 @@ input {
   .login-container {
     left: auto; 
     top:auto;
-    width: calc(100% - 40px); 
-    margin-top: 380px;
-    position: static; 
+    width: calc(100% - 40px);  
     max-width: 540px;
-    margin: 0;
+    margin-top: 550px;
     padding :20px;
   
   }
@@ -796,14 +794,58 @@ input{
   display: block;
   width: 100%;
 }
-@media print {
-  .terms-container, .term-content {
-    box-shadow: none;
+
+@media screen and (max-width: 600px) {
+  .terms-of-use-page {
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-direction: column;
+    justify-content: flex-start;
   }
-  .terms-controls, .terms-print-button {
-    display: none;
+  .terms-container {
+    width: 100%; 
+    margin-top:10px;
+    padding: 10px; 
+  }
+  .terms-heading {
+    font-size: large; 
+  }
+  .terms-controls {
+    flex-direction: row; 
+    gap: 10px;
+  }
+  .terms-search-input,
+  .terms-sort-select {
+    width: 100%; 
+    margin-top: 5px; 
+    height: 35px;
+  }
+  .terms-sort-select {
+    margin-bottom: 2px; 
+  }
+  select.terms-sort-select option {
+    font-size: 12px; 
+  }
+  .term-title,
+  .terms-print-button {
+    font-size: medium; 
+  }
+  .terms-print-button{
+    padding: 4px 6px;
+    margin-bottom: 10px;
+    margin-right:30px
+  }
+  .term-content p {
+    font-size: small; 
+  }
+
+
+  
+  .nav-links a, .hamburger {
+    font-size: larger; 
   }
 }
+
 /* Privacy Policy Page Styles */
 .privacy-policy-page {
   display: flex;
@@ -983,17 +1025,14 @@ input{
   color: #666;
 
 }
-
-/* Rating display in testimonials */
 .testimonial-rating {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   font-size: 1.25rem;
-  color: #ffa500; /* Gold color for the stars, if needed */
+  color: #ffa500; 
 }
 
-/* Responsive styles */
 @media (max-width: 768px) {
   .textarea-container, .button {
     width: 100%;
@@ -1084,6 +1123,44 @@ textarea {
 .submit-button:hover {
   background-color:#0a6377;
 }
+@media screen and (max-width: 600px) {
+  .contact-page {
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .contact-container {
+    margin-top: 70px;
+    width: 100%; /* Ensures the container uses full width */
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-container {
+    max-width: 100%; /* Allows the form to expand to the full width of its container */
+    padding: 20px;
+  }
+
+  .form-title, .form-subtitle {
+    font-size: large; /* Adjusts font size for better readability on smaller screens */
+  }
+
+  .input-group label {
+    font-size: medium; /* Adjusts label font size for better visibility */
+  }
+
+  .input-group input, .input-group textarea {
+    font-size: medium; /* Increases the font size in input fields and textareas for easier reading and typing */
+  }
+
+  /* Adjusts the navigation and hamburger menu for better usability */
+  .nav-links a, .hamburger {
+    font-size: larger; /* Makes links and hamburger menu larger for easier interaction */
+    padding: 10px; /* Adds more padding for a larger clickable area */
+  }
+}
+
 /*about us page*/
 .about-page {
   margin: 0 auto; 
@@ -1201,56 +1278,62 @@ textarea {
   font:medium bold;
   color: #666666;
 }
-@media screen and (max-width: 600px) {}
-
-
+  @media screen and (max-width: 600px) {
+    .about-mission-values-container,
+    .team-section {
+      padding: 15px;
+      margin: 20px 0;
+      max-width: 92%;
+      margin-left: 15px
+    }
+    .mission-values {
+      flex-direction: column;
+    }
+    .mission-section,
+    .values-section {
+      margin: 20px 0;
+    }
+    .team-members {
+      gap: 10px;
+    }
+    .team-member-card {
+      width: calc(50% - 5px);
+    }
+    .team-member-card img {
+      width: 120px; 
+      height: 100px;
+    }
+  
+    .about-mission-values-container h1,
+    .about-mission-values-container h2,
+    .team-section h2 {
+      font-size: medium; 
+    }
+    .about-mission-values-container p,
+    .about-mission-values-container ul,
+    .team-member-card h3,
+    .role,
+    .bio {
+      font-size:small;
+    }
+    .nav-links {
+      display:none;
+    }
+  }
 /* Home Page */
 .homepage {
   background-color: white;
 }
-
-.logo-home{
-  width: 250px;
-  height: 250px;
-  margin-top: -70px;
-  margin-left: -30px;
-  margin-bottom: -90px;
-}
-.header-content{
-  display: flex;
-  justify-content: space-between;
-}
-.homenavigation{
-  color: black;
-  font-size: 20px;
-  margin-top: 30px;
-  margin-right: 8px;
-}
-.link{
-  margin-right: 30px;
-  font :large bold;
-  color :#0a5d8e;
-}
-
-.line{
-  border: 1px solid rgb(255, 255, 255);
-  box-shadow: 3px 3px 3px gray;
-}
-
 .flight-hotel{
   display: grid;
   grid-template-columns: 3fr 3fr;
   grid-gap: 30px;
   margin-inline: 100px;
-
 }
-
 .flight, .hotel{
   position: relative;
   overflow: hidden;
 }
-
-
 .flight-pic, .hotel-pic{
   object-fit: cover;
  height: 450px;
@@ -1258,7 +1341,6 @@ textarea {
  border-radius: 20px; ;
  margin-top: 90px;
 }
-
 .flights-content, .hotels-content{
   position: absolute;
   flex-direction: column;
@@ -1272,12 +1354,10 @@ textarea {
   padding: 1em; 
   box-sizing: border-box;
 }
-
 .flightsHome, .hotelsHome{
   font:xx-large bold;
   color: white;
 }
-
 .flightWords, .hotelWords{
   font: large bold;
   color: white;
@@ -1285,12 +1365,10 @@ textarea {
   margin-inline: 50px;
   text-align: center;
 }
-
 .flightlink, .hotellink { 
   text-decoration: black;
   font: small bold;
 }
-
 .flightSearchBox , .hotelSearchBox{
   border: 1px solid white;
   border-radius: 4px;
@@ -1301,14 +1379,12 @@ textarea {
   display: flex;
   justify-content: space-between;
 }
-
 .vector-pic{
   width: 13px;
   height: 13px;
   margin-right: 4px;
   margin-top: 3px;
 }
-
 .popularFlights, .popularHotels, .testimonal {
   font:xx-large bold;
   text-align: left;
@@ -1316,20 +1392,17 @@ textarea {
   color:#0a5d8e;
   text-shadow: lightcyan;
 }
-
 .testimonal{
   margin: 10px 0 10px 80px;
 }
-
 .popularflights {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Creates three columns */
+  grid-template-columns: repeat(3, 1fr); 
   gap: 60px;
   margin: 0 auto;
   width: 100%;
-  max-width: 1320px; /* This controls the max width of the grid */
+  max-width: 1320px; 
 }
-
 .flightcard {
   position: relative;
   display: flex;
@@ -1338,20 +1411,17 @@ textarea {
   text-align: left;
   font:large bold;
 }
-
 .flightp-pic {
-  width: 100%; /* Make the image responsive within the card */
-  max-width: 400px; /* Control the max width to maintain aspect ratio */
-  height: 500px; /* Adjust height automatically */
+  width: 100%; 
+  max-width: 400px; 
+  height: 500px; 
   border-radius: 20px;
 }
-
 .flight-content, .hotel-content {
   padding-top: 120px;
   background-color: #000;
   opacity: 0.7;
 }
-
  .flightp-content, .flight-content, .hotel-content, .hotelp-content {
   position: absolute;
   bottom: 0;
@@ -1359,59 +1429,38 @@ textarea {
   width: 100%;
   height: auto;
   padding-bottom: 10px;
-  border-radius: 0 0 20px 20px; /* Adjusted to fit the bottom of the image */
+  border-radius: 0 0 20px 20px; 
 }
-
 .flightp-title, .flightp-words, .price , .hotelp-title, .hotelp-words, .priceh , .pricep{
   color: white;
   margin-inline: 40px;
-;
 }
-
 .hotelp-words{
   font:large bold;
 }
-
 .per{
   font-size: 10px;
   font-weight: 10px;
   margin-bottom: 2px;
 }
-
 .flightp-title, .hotelp-title {
   font-size: 23px;
   font-weight: bold;
 }
-
 .hotelp-title {
   padding-bottom: 25px;
 }
-
 .flightp-words{
   font-size: 10px;
   font-weight: 10px;
   max-width: 180px;
 }
-
 .price, .pricep {
   display: flex;
   justify-content: space-between;
   font-size: 15px;
   font-weight: bold;
 }
-
-@media (max-width: 768px) {
-  .popularflights {
-    grid-template-columns: repeat(2, 1fr); /* Two columns for smaller screens */
-  }
-}
-
-@media (max-width: 480px) {
-  .popularflights {
-    grid-template-columns: 1fr; /* One column for very small screens */
-  }
-}
-
 .container{
   display: flex;
   justify-content: center;
@@ -1420,7 +1469,6 @@ textarea {
   max-width: 1600px;
   margin-inline: auto;
 }
-
 .flightExploreBox {
   display: flex;
   justify-content: center;
@@ -1434,14 +1482,12 @@ textarea {
   font:large bold;
   letter-spacing: 0.9px;
 }
-
 .vectorWhite-pic{
   width: 18px;
   height: 18px;
   margin-right: 10px;
   margin-bottom: 3px;
 }
-
 .users{
   display: flex;
   justify-content: center;
@@ -1450,11 +1496,9 @@ textarea {
   font: x-large bold;
   font-weight: normal;
 }
-
 .book{
   color: #4200FF;
 }
-
 .poster{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1464,23 +1508,18 @@ textarea {
   gap: 200px;  
   margin-top: 80px;
 }
-
 .poster-pic{
   width: 305px;
   height: 219px;
 }
-
 .poster-content{
   text-align: center;
   padding-top: 10px;
 }
-
 .poster-title{
   font:x-large bold;
-  color:#0a5d8e;
-  
+  color:#0a5d8e; 
 }
-
 .poster-words{
   color: #080808;
  font:large bold;
@@ -1488,13 +1527,11 @@ textarea {
  margin-top: 10px;
  text-align: center;
 }
-
 .blck{
   height: 1px;
   background-color: rgb(202, 200, 200); 
   margin-top: 50px;
 }
-
 .footer{
   display: flex;
   justify-content: space-between;
@@ -1505,16 +1542,14 @@ textarea {
   font:xx-large bold;
   color: #0a5d8e;
   margin-top: -11px;
- 
-}
 
+}
 .footer-nav{
   display: flex;
   flex-direction:row;
   gap:15px;
   font:large bold;
 }
-
 .follow-links, .terms{
   display: flex;
   justify-content: space-between;
@@ -1522,11 +1557,21 @@ textarea {
   align-items: center;
   cursor: pointer;
 }
-
 .foot-head{
   margin-top: -10px;
   font:x-large bold;
   margin-bottom: 6px;
   color:#0a5d8e;
- 
 }
+@media (max-width: 768px) {
+  .popularflights {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .popularflights {
+    grid-template-columns: 1fr; /* One column for very small screens */
+  }
+}
+

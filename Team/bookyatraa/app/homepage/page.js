@@ -1,5 +1,6 @@
 "use client";
 import Link from 'next/link';
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import Rate from '../rateandreview/page';
 import { ref, onValue } from "firebase/database";
@@ -116,22 +117,34 @@ function Home() {
 
     fetchHotelDetails();
   }, []);
+  const [isNavExpanded, setIsNavExpanded] = useState(false);
+
+  const toggleNav = () => {setIsNavExpanded(!isNavExpanded);}
+
 
   return (
     <div className="homepage">
        <Link href="/" >
-      <header className="header">
-        <div className="header-content">
-          <img src="./Images Capstone/LOGO without bg.png" alt="logo" className="logo-home" />
-          <nav className="homenavigation">
-            <Link href="./homepage"className="link">Home</Link>
-            <Link href="./hotels" className="link">Hotels</Link>
-            <Link href="./flights"className="link">Flights</Link>
-            <Link href="./login" className="link">Login</Link>
-            <Link href="./signup" className="link">Sign Up</Link>
-          </nav>
+       <header className="landingpage-header">
+        <div className="logo">
+          <Image
+            src="/Images Capstone/LOGO without bg.png"
+            alt="BookYatra Logo"
+            width={250}
+            height={80}
+           
+          />
         </div>
-        <hr className="line"></hr>
+        <button className="hamburger" onClick={toggleNav} aria-label="Toggle navigation">
+          {isNavExpanded ? '✖' : '☰'}
+        </button>
+        <nav className={`nav-links ${isNavExpanded ? 'nav-expanded' : ''}`}>
+          <Link href="/homepage" onClick={toggleNav}>Home</Link>
+          <Link href="/hotels" onClick={toggleNav}>Hotels</Link>
+          <Link href="/Components" onClick={toggleNav}>Flights</Link>
+          <Link href="/login"onClick={toggleNav}>Login</Link>
+          <Link href="/signup" onClick={toggleNav}>SignUp</Link>
+        </nav>
       </header>
       </Link>
       <main>
@@ -236,7 +249,7 @@ function Home() {
             <p className='foot-head'>Explore</p>
             <nav className="footer-nav">
               <Link href="./flights" className="footer-link">Flights</Link>
-              <Link href="./hotel" className="footer-link">Hotels</Link>
+              <Link href="./hotels" className="footer-link">Hotels</Link>
               <Link href="./about" className="footer-link">About Us</Link>
               <Link href="./contact" className="footer-link">Contact Us</Link>
               <Link href="./FAQ" className="footer-link">FAQs</Link>
