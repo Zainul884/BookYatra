@@ -1400,7 +1400,7 @@ textarea {
   grid-template-columns: repeat(3, 1fr); 
   gap: 60px;
   margin: 0 auto;
-  width: 100%;
+  width: 90%;
   max-width: 1320px; 
 }
 .flightcard {
@@ -1563,11 +1563,92 @@ textarea {
   margin-bottom: 6px;
   color:#0a5d8e;
 }
-@media (max-width: 768px) {
-  .popularflights {
-    grid-template-columns: repeat(2, 1fr); /* Two columns for smaller screens */
+@media (max-width: 600px) {
+  .popularflights, .popularHotels {
+    grid-template-columns: 1fr;
+    margin: 10px; /* Two columns for smaller screens */
+    width: fit-content;
+  }
+
+  .flight-hotel{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 30px;
+    margin-inline: 40px;
+    justify-content: center;
+  }
+
+  .hotel{
+    position: relative;
+    margin-top: -70px;
+  }
+
+  .flight-pic, .hotel-pic{
+    width: 300px;
+    height: 300px;
+
+  }
+
+  .poster{
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 1100px;
+    gap: 50px;  
+    margin-top: 80px;
+  }
+
+  .footer{
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 0 auto;
+    width: 80%;
+    gap: 1px;  
+    margin-top: 10px;
+  }
+
+  .foot-title{
+    margin-left: -100px;
+  }
+
+  .footer-nav{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    margin-bottom: 30px;
+  }
+
+  .foot-head{
+    margin-left: -95px;
+    margin-top: -20px;
+  }
+
+  .follow-links, .terms, .footer-link{
+    margin-left: -80px;
+  }
+
+  .follow-links{
+    margin-bottom: 30px;
+  }
+
+  .flightp-pic{ 
+    height: 350px; 
+    width: 300px;
+  }
+
+  .flightcard{
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+
+  .popularHotels{
+    margin-left: 40px;
+    margin-bottom: 30px;
+    margin-top: 30px;
   }
 }
+
 
 @media (max-width: 480px) {
   .popularflights {

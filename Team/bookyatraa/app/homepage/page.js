@@ -78,7 +78,7 @@ function Home() {
   const cityName = 'mumbai'; // Example city name
   const url = `https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination?query=${cityName}`;
 
-  const Hotelurl = `https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels?dest_id=20088325&search_type=CITY&arrival_date=2024-04-10&departure_date=2024-04-18&adults=1&children_age=0%2C17&room_qty=1&page_number=1&languagecode=en-us&currency_code=AED`;
+  const Hotelurl = `https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels?dest_id=20088325&search_type=CITY&arrival_date=2024-05-15&departure_date=2024-05-18&adults=1&children_age=0%2C17&room_qty=1&page_number=1&languagecode=en-us&currency_code=AED`;
   const options = {
 	  method: 'GET',
 	  headers: {
@@ -109,7 +109,7 @@ function Home() {
     try {
     	const response = await fetch(Hotelurl, options);
     	const result = await response.json();
-      setHotelsDetails(result.data.hotels.slice(0,3).map((hotel) => hotel.property));
+      setHotelsDetails(result.data.hotels.slice(1,4).map((hotel) => hotel.property));
     } catch (error) {
         console.error('Fetch error:', error);
       }
@@ -124,9 +124,10 @@ function Home() {
 
   return (
     <div className="homepage">
-       <Link href="/" >
-       <header className="landingpage-header">
+       
+      <header className="landingpage-header">
         <div className="logo">
+        <Link href="/" >
           <Image
             src="/Images Capstone/LOGO without bg.png"
             alt="BookYatra Logo"
@@ -134,6 +135,7 @@ function Home() {
             height={80}
            
           />
+          </Link>
         </div>
         <button className="hamburger" onClick={toggleNav} aria-label="Toggle navigation">
           {isNavExpanded ? '✖' : '☰'}
@@ -146,7 +148,7 @@ function Home() {
           <Link href="/signup" onClick={toggleNav}>SignUp</Link>
         </nav>
       </header>
-      </Link>
+      
       <main>
         <div className="flight-hotel">
           <div className="flight">
@@ -245,6 +247,7 @@ function Home() {
         <hr className="blck"></hr>
         <div className='footer'>
           <p className='foot-title'>BookYatra</p>
+          <br></br>
           <div>
             <p className='foot-head'>Explore</p>
             <nav className="footer-nav">
