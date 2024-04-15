@@ -8,6 +8,14 @@
   border: 1px solid rgb(58, 58, 58);
 }
 
+@media (max-width: 600px) {
+  .out {
+    border: 1px solid white;
+  }
+
+
+}
+
 .ticket-container{
   width: 90%;
     
@@ -46,7 +54,7 @@ justify-content: space-between;
     background-color: #fff;
     padding: 6px 29px 14px;
   }
-  @media (max-width: 991px) {
+  @media (max-width: 600px) {
  .ticket-flight {
       max-width: 100%;
       padding: 0 20px;
@@ -60,7 +68,7 @@ justify-content: space-between;
     gap: 20px;
     display: flex;
   }
-  @media (max-width: 991px) {
+  @media (max-width: 600px) {
     .div-2 {
       flex-direction: column;
       align-items: stretch;
@@ -74,7 +82,7 @@ justify-content: space-between;
     width: 24%;
     margin-left: 0px;
   }
-  @media (max-width: 991px) {
+  @media (max-width: 600px) {
     .column {
       width: 100%;
     }
@@ -86,7 +94,7 @@ justify-content: space-between;
     color: #000;
     font-weight: 400;
   }
-  @media (max-width: 991px) {
+  @media (max-width: 600px) {
     .div-3 {
       margin-top: 38px;
     }
@@ -132,7 +140,7 @@ justify-content: space-between;
     width: 76%;
     margin-left: 20px;
   }
-  @media (max-width: 991px) {
+  @media (max-width: 600px) {
     .column-2 {
       width: 100%;
     }
@@ -143,7 +151,7 @@ justify-content: space-between;
     flex-grow: 1;
     flex-direction: column;
   }
-  @media (max-width: 991px) {
+  @media (max-width: 600px) {
     .div-8 {
       max-width: 100%;
       margin-top: 40px;
@@ -159,7 +167,7 @@ justify-content: space-between;
     font-weight: 400;
     white-space: nowrap;
   }
-  @media (max-width: 991px) {
+  @media (max-width: 600px) {
     .div-9 {
       max-width: 100%;
       flex-wrap: wrap;
@@ -208,7 +216,7 @@ justify-content: space-between;
     white-space: nowrap;
     font: 15px Inter, sans-serif;
   }
-  @media (max-width: 991px) {
+  @media (max-width: 600px) {
     .div-15 {
       white-space: initial;
     }

@@ -47,7 +47,7 @@ function FlightPage() {
 
 
 
-      <h1 className='heading container'>
+      <h1 className='heading-container'>
         Tips for Booking a Flight with BookYatra
       </h1>
       <TravelTips />

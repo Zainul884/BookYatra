@@ -1647,8 +1647,16 @@ textarea {
     margin-bottom: 30px;
     margin-top: 30px;
   }
+
+  .heading-container{
+    text-align: center;
+    margin: 4px;
+  }
 }
 
+.heading-container{
+  text-align: center;
+}
 
 @media (max-width: 480px) {
   .popularflights {

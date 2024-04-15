@@ -143,7 +143,7 @@ function Home() {
         <nav className={`nav-links ${isNavExpanded ? 'nav-expanded' : ''}`}>
           <Link href="/homepage" onClick={toggleNav}>Home</Link>
           <Link href="/hotels" onClick={toggleNav}>Hotels</Link>
-          <Link href="/Components" onClick={toggleNav}>Flights</Link>
+          <Link href="/flights" onClick={toggleNav}>Flights</Link>
           <Link href="/login"onClick={toggleNav}>Login</Link>
           <Link href="/signup" onClick={toggleNav}>SignUp</Link>
         </nav>
