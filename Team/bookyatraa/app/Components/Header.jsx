@@ -4,8 +4,8 @@ import img from '../../public/Images Capstone/Frame 118.png';
 import img1 from '../../public/Images Capstone/Paper Plane.png';
 import './Header.css';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
-import axios from 'axios'; // Import Axios library
-import Flight from './Flight'; // Import Flight component
+import axios from 'axios';
+import Flight from './Flight';
 import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css';
 import 'react-calendar/dist/Calendar.css';
 
